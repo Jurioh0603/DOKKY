@@ -1,4 +1,3 @@
-src readme.md
 
 # DOKKY
 >수강생들을 위한 커뮤니티 홈페이지!
