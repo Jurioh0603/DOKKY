@@ -1,0 +1,92 @@
+
+/* 폰트 설정 */
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .login-box .card-body {
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 배치합니다. */
+  	align-items: center; /* 요소들을 수직 중앙으로 정렬합니다. */
+  }
+  
+  .login-button {
+    flex-shrink: 0; /* 로그인 버튼이 가로로 확장되지 않도록 설정합니다. */
+  }
+  .card-body{
+  	overflow: hidden;
+  }
+}
+
+
+/* 배너, 로그인 스타일링 */
+.banner {
+  flex-grow: 2; /* 배너의 너비를 부모 요소의 2배로 설정합니다. */
+}
+
+.login-box {
+  flex-grow: 1; /* 로그인 창의 너비를 부모 요소의 1배로 설정합니다. */
+  text-align: center;
+}
+
+.carousel-item img {
+  width: 100%; /* 부모 요소의 너비에 맞게 이미지 크기를 조절합니다. */
+}
+
+.login-box .card-body {
+  padding: 21px 20px 18px 20px; /* 상, 우, 하, 좌 패딩 설정 */
+}
+
+/* 로그인 버튼에 대한 스타일 */
+.login-button {
+  color: white; /* 로그인 버튼의 텍스트 색상을 흰색으로 설정합니다. */
+  width: 300px;
+  margin-top: 13px;
+  margin-bottom: 16px;
+}
+
+/* 나머지 링크에 대한 스타일 */
+.card-text a {
+  color: black; /* 나머지 링크의 텍스트 색상을 검정색으로 설정합니다. */
+  text-decoration: none; /* 링크의 밑줄을 제거합니다. */
+}
+
+/* 마지막 링크의 마진을 제거하여 간격을 조절합니다. */
+.card-text a:last-child {
+  margin-right: 0;
+}
+
+/* 클릭 시 밑줄 생성 */
+.card-text a:hover {
+  text-decoration: underline;
+}
+
+/* 배너와 로그인 스타일링 */
+.banner-login-container {
+  display: flex;
+  justify-content: space-between; /* 배너와 로그인 창을 양쪽 끝으로 정렬합니다. */
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+/* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .banner, .login-box {
+    width: 100%;
+  }
+
+  .banner-login-container {
+    margin-top: 18px;
+  }
+  
+
+}

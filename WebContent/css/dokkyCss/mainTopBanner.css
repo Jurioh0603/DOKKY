@@ -1,0 +1,51 @@
+@charset "UTF-8";
+/* 추가된 스타일 */
+.container {
+  width: 65%;
+  margin: 0 auto;
+}
+
+* {
+  margin: 0;
+}
+
+.main-square-box {
+  position: relative;
+  width: 100%; /* 스퀘어 박스를 부모 요소의 너비에 맞춥니다. */
+  height: 64px;
+  margin-bottom: 10px;
+  background-image: url('../../imgs/topBanner.jpg');
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  /*padding: 0 32px;  좌우 패딩 32px씩 추가 */
+  text-decoration: none; /* 텍스트에 밑줄을 제거합니다. */
+}
+
+/* 이미지를 오른쪽으로 밀어줍니다. */
+.r-icon {
+  position: absolute; /* 이미지를 위치하기 위해 절대 위치 지정 */
+  padding-right: 35px;
+  right: 0; /* 오른쪽에 위치 */
+  top: -4px;
+}
+
+.main-text span {
+  text-decoration: none;
+  color: black; 
+}
+
+/* 스퀘어박스에 마우스를 가져다 대면 텍스트의 색상 -> 파란색 */
+.main-square-box:hover .main-text span {
+  color: #0090f9; /* 텍스트의 색상을 파란색으로 변경 */
+}
+
+.main-text {
+  font-size: 18px;
+  font-weight: 550;
+  padding-top: 19px; /* 텍스트 상단 여백을 조정하여 텍스트가 정확히 상하 중앙에 위치하도록 합니다. */
+  padding-bottom: 19px; /* 텍스트 하단 여백을 조정하여 텍스트가 정확히 상하 중앙에 위치하도록 합니다. */
+  padding-left: 35px;
+  line-height: 1;
+  color: black;
+}
