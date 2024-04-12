@@ -6,15 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-   <link rel="stylesheet" href="../css/dokkyCss/select.css"> <!-- 스타일 시트 링크 -->
+   <link rel="stylesheet" href="../../../css/dokkyCss/select.css"> <!-- 스타일 시트 링크 -->
   	  	<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-  	  	<link href="../imgs/DokkyLogo.ico" rel="shortcut icon" type="image/x-icon">
+  	  	<link href="../../../imgs/DokkyLogo.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - All That Developer</title>
 </head>
 <body>
-  <%@ include file="../headerFooter/header.jsp" %>
+  <%@ include file="../../headerFooter/header.jsp" %>
   <br>
   	<br>
   	<br>
@@ -22,7 +22,7 @@
   <div class="square-box">
            <p class="main-text">Study</p>
            <p class="sub-text">좋은 질문과 답변으로 동료의 시간을 아껴주세요.</p>
-             <img src="../imgs/QA.svg" alt="SVG Icon" class="r-icon" >
+             <img src="../../../imgs/QA.svg" alt="SVG Icon" class="r-icon" >
       </div>
       
       <div class="button-container">
@@ -107,7 +107,7 @@
       <br>
       <br>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<%@ include file="../headerFooter/footer.jsp" %>
+<%@ include file="../../headerFooter/footer.jsp" %>
 
 </body>
 </html>
