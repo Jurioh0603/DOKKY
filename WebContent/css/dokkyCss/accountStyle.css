@@ -1,0 +1,95 @@
+@charset "UTF-8";
+html,
+body {
+  height: 100%;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #ffffff;
+}
+
+p {
+	font-size: 14px; 
+	margin-bottom: 15px;
+    color: #4B5563;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-container .form-floating:focus-within {
+  z-index: 2;
+}
+
+input {
+  margin-bottom: 20px;
+  border-radius: 10;
+}
+
+.wrap {
+   display: flex;
+   align-items: center;
+   margin-bottom: 20px;
+}
+
+.bar{
+	flex: auto;
+    border: none;
+}
+
+.txt {
+	padding: 0 10px;
+	color: gray;
+	font-size: small;
+}
+
+.login-button {
+	margin-bottom: 10px;
+}
+
+.form-button {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	flex-grow: 1; 
+	max-width: 50%;
+}
+
+.button-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.custom-button {
+    flex: 1;
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.link-container a {
+    color: gray; 
+    text-decoration: none;
+    display: inline-block;
+    /* flex: 1; */
+}
+
+.link-container a:last-child {
+    margin-right: 0;
+}
+
+.link-container a:hover {
+	color: #0090F9;
+}
