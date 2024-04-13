@@ -4,7 +4,7 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link rel="stylesheet" href="../../../css/dokkyCss/lunchBoardStyle.css">
+<link rel="stylesheet" href="../../../css/dokkyCss/lunchSelectStyle.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
 }
 </style>
 <!-- 파비콘(주소창 아이콘 표시) -->
-<link href="<%=request.getContextPath() %>/imgs/dokkyLogo.ico" rel="shortcut icon" type="image/x-icon">
+<link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 점심메뉴추천</title>
 
 </head>
