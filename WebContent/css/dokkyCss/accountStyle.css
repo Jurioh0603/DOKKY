@@ -77,6 +77,7 @@ input {
     align-items: center;
     justify-content: space-around;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .link-container a {
@@ -92,4 +93,9 @@ input {
 
 .link-container a:hover {
 	color: #0090F9;
+}
+
+.errors-msg {
+	font-size: 16px;
+	color: #EF4444;
 }

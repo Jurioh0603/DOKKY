@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,21 +70,37 @@
 	      </div>
 	      <div class="col-md-4">
 	        <!-- 로그인 영역 -->
-	        <div class="login-box">
-	          <div class="card text-center">
-	            <div class="card-body">
-	              <h6 class="card-title">DOKKY에 오신 것을 환영합니다!</h6>
-	              <a href="#" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
-	              <div>
-		              <p class="card-text">
-		                <a href="#">아이디찾기</a> |
-		                <a href="#">비밀번호찾기</a> |
-		                <a href="#">회원가입</a>
-		              </p>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
+	       	<c:if test="${ empty authUser }">
+		        <div class="login-box">
+		          <div class="card text-center">
+		            <div class="card-body">
+		              <h6 class="card-title">DOKKY에 오신 것을 환영합니다!</h6>
+		              <a href="login.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
+		              <div>
+			              <p class="card-text">
+			                <a href="#">아이디찾기</a> |
+			                <a href="#">비밀번호찾기</a> |
+			                <a href="#">회원가입</a>
+			              </p>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+	        </c:if>
+	        
+	        <!-- 로그인성공 후 영역 -->
+	        <c:if test="${ ! empty authUser }">
+	           <div class="login-box">
+	             <div class="card text-center">
+	               <div class="card-body">
+	               <h6 class="card-title"><a href="#">${authUser.name}</a>님, 어서오세요!</h6>
+	                 <a href="logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
+	                 <div>
+	                 </div>
+	               </div>
+	             </div>
+	           </div>
+	        </c:if>
 	        
 	      </div>
 	    </div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 <body class="text-center">
 
 	<main class="form-container">
-  		<form>
+  		<form action="findPwd.do" method="post">
     		<a href="#"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
     		<h1 class="h3 mb-4 fw-bold">비밀번호 찾기</h1>
     
@@ -33,17 +34,17 @@
    			</div>
 
 		    <div class="form-floating custom-form">
-		      	<input type="text" class="form-control" id="floatingName" placeholder="이름">
+		      	<input type="text" class="form-control" id="floatingName" name="name" value="${param.name}" placeholder="이름">
 		      	<label for="floatingName">이름</label>
 		    </div>
 		    
 		    <div class="form-floating custom-form">
-		      	<input type="text" class="form-control" id="floatingId" placeholder="아이디">
+		      	<input type="text" class="form-control" id="floatingId" name="id" value="${param.id}" placeholder="아이디">
 		      	<label for="floatingId">아이디</label>
 		    </div>
     
 		    <div class="form-floating custom-form">
-		      	<input type="email" class="form-control" id="floatingEmail" placeholder="이메일">
+		      	<input type="email" class="form-control" id="floatingEmail" name="email" value="${param.email}" placeholder="이메일">
 		      	<label for="floatingEmail">이메일</label>
 		    </div>
 
@@ -51,8 +52,31 @@
 			  	<button class="btn btn-lg btn-primary custom-button form-button me-2" type="button" style="background-color: #ffffff; color: #0090F9; border-color: #0090F9;">취소</button>
 			  	<button class="btn btn-lg btn-primary custom-button form-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 찾기</button>  
 			</div>
-
   		</form>
+		 	
+		<c:choose>
+			<c:when test="${errors.name}">
+				<p class="errors-msg">이름을 입력해주세요.</p>
+			</c:when>
+			<c:when test="${errors.id}">
+				<p class="errors-msg">아이디를 입력해주세요.</p>
+			</c:when>
+			<c:when test="${errors.email}">
+				<p class="errors-msg">이메일 주소를 입력해주세요.</p>
+			</c:when>
+			<c:when test="${errors.cantFind}">
+				<p class="errors-msg">일치하는 가입 정보가 없습니다.</p>
+			</c:when>
+			<c:when test="${isExist}">
+				<p class="errors-msg">&nbsp;</p>
+				<script>
+					location.href='changePwd.do';
+				</script>
+			</c:when>
+			<c:otherwise>
+				<p class="errors-msg">&nbsp;</p>
+			</c:otherwise>
+		</c:choose>
 	</main>
 
 </body>
