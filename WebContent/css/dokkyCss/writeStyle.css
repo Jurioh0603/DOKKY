@@ -1,0 +1,116 @@
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+
+.container {
+  width: 65%;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user {
+  font-size: 15px;
+}
+
+.title {
+  font-size: 25px;
+}
+
+
+label {
+    display:block; 
+    margin-bottom: 30px; 
+}
+
+.form-group.row label {
+  width: 100%;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 8px;
+        border: 1px solid #ccc;
+    box-sizing: border-box; 
+}
+
+.comment-form {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px; 
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd; 
+    border-radius: 8px;
+}
+
+.form-group {
+	margin-bottom: 1px;
+    
+}
+.post-content {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.form-text1 {
+  width: 100%; 
+  height: 200px; 
+  display: flex;
+  justify-content: center;
+}
+.form-text {
+	width: 100%;
+	display: flex;
+  justify-content: center;
+}
+.form-group.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-sm-2 {
+  padding-top: 5px; 
+  width: 100%;
+}
+
+.col-sm-10 {
+  padding-bottom: 7px;
+  width: 100%;
+}
+
+.button-container {
+  position: relative; 
+  width: 100%;
+  margin-top : auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.custom-button {
+  display: flex;
+  padding: 8px 13px;
+  margin-bottom: -59px;
+  border: 1px solid;
+  border-radius: 8px;
+  background-color: #0090F9;
+  font-size: 13px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button-container .custom-button:not(:last-child) {
+  border-bottom: none; 
+}
+
+.button-container .custom-button:hover {
+  background-color: #0174DF;
+}
