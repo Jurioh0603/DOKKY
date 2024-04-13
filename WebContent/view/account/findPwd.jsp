@@ -67,12 +67,6 @@
 			<c:when test="${errors.cantFind}">
 				<p class="errors-msg">일치하는 가입 정보가 없습니다.</p>
 			</c:when>
-			<c:when test="${isExist}">
-				<p class="errors-msg">&nbsp;</p>
-				<script>
-					location.href='changePwd.do';
-				</script>
-			</c:when>
 			<c:otherwise>
 				<p class="errors-msg">&nbsp;</p>
 			</c:otherwise>

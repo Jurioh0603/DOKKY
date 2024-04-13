@@ -3,11 +3,13 @@ package auth.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import auth.service.FindIdFailException;
 import auth.service.FindIdService;
+import auth.service.FindPwdFailException;
 import auth.service.FindPwdService;
 import mvc.command.CommandHandler;
 
@@ -18,7 +20,10 @@ public class FindPwdController implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if(req.getMethod().equalsIgnoreCase("GET")) {
+		Object loginCheck = req.getSession().getAttribute("authUser");
+		if(loginCheck != null) {
+			return "/view/errorPage/invalidAccessPage.jsp";
+		} else if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req, res);
 		} else if(req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);
@@ -52,10 +57,12 @@ public class FindPwdController implements CommandHandler {
 		}
 		
 		try {
-			findPwdService.findMember(name, id, email);
-			req.setAttribute("isExist", Boolean.TRUE);
-			return FORM_VIEW;
-		} catch(FindIdFailException e) {
+			String memid = findPwdService.findMember(name, id, email);
+			req.setAttribute("memid", memid);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("changePwd.do");
+			dispatcher.forward(req, res);
+			return null;
+		} catch(FindPwdFailException e) {
 			errors.put("cantFind", Boolean.TRUE);
 			return FORM_VIEW;
 		}

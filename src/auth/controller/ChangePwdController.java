@@ -6,22 +6,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import auth.service.ChangePwdFailException;
+import auth.service.ChangePwdService;
 import auth.service.FindIdFailException;
 import auth.service.FindIdService;
 import mvc.command.CommandHandler;
 
-public class FindIdController implements CommandHandler {
+public class ChangePwdController implements CommandHandler {
 	
-	private static final String FORM_VIEW = "/view/account/findId.jsp";
-	private FindIdService findIdService = new FindIdService();
+	private static final String FORM_VIEW = "/view/account/changePwd.jsp";
+	private ChangePwdService changePwdService = new ChangePwdService();
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Object loginCheck = req.getSession().getAttribute("authUser");
-		if(loginCheck != null) {
+		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return "/view/errorPage/invalidAccessPage.jsp";
-		} else if(req.getMethod().equalsIgnoreCase("GET")) {
-			return processForm(req, res);
 		} else if(req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);
 		} else {
@@ -35,27 +34,33 @@ public class FindIdController implements CommandHandler {
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String name = trim(req.getParameter("name"));
-		String email = trim(req.getParameter("email"));
+		String memid = (String)req.getAttribute("memid");
+		if(memid != null) {
+			changePwdService.setMemid(memid);
+			req.setAttribute("save", Boolean.TRUE);
+		}
+		
+		String password1 = trim(req.getParameter("password1"));
+		String password2 = trim(req.getParameter("password2"));
 		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
-		if(name == null || name.isEmpty())
-			errors.put("name", Boolean.TRUE);
-		if(email == null || email.isEmpty())
-			errors.put("email", Boolean.TRUE);
+		if(password1 == null || password1.isEmpty())
+			errors.put("password1", Boolean.TRUE);
+		if(password2 == null || password2.isEmpty())
+			errors.put("password2", Boolean.TRUE);
 		
 		if(!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
 		
 		try {
-			String memid = findIdService.findId(name, email);
-			req.setAttribute("memid", memid);
+			changePwdService.changePwd(password1, password2);
+			req.setAttribute("update", Boolean.TRUE);
 			return FORM_VIEW;
-		} catch(FindIdFailException e) {
-			errors.put("cantFind", Boolean.TRUE);
+		} catch(ChangePwdFailException e) {
+			errors.put("cantChange", Boolean.TRUE);
 			return FORM_VIEW;
 		}
 	}

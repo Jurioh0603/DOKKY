@@ -52,7 +52,7 @@ public class MemberDao {
 		}
 	}
 	
-	public boolean findMember(Connection conn, String name, String id, String email) throws SQLException {
+	public Member findMember(Connection conn, String name, String id, String email) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -62,12 +62,30 @@ public class MemberDao {
 			pstmt.setString(2, id);
 			pstmt.setString(3, email);
 			rs = pstmt.executeQuery();
+			Member member = null;
 			if(rs.next()) {
-				return true;
+				member = new Member(rs.getString(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5));
 			}
-			return false;
+			return member;
 		} finally {
 			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public void updatePwd(Connection conn, String mempw, String memid) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "update member set mempw=? where memid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mempw);
+			pstmt.setString(2, memid);
+			pstmt.executeUpdate();
+		} finally {
 			JdbcUtil.close(pstmt);
 		}
 	}
