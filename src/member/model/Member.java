@@ -56,7 +56,4 @@ public class Member {
 		this.grade = grade;
 	}
 	
-	public boolean matchPassword(String pwd) {
-		return mempw.equals(pwd);
-	}
 }

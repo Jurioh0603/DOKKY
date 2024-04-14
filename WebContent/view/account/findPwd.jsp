@@ -19,6 +19,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function goBackToPreviousPage() {
+            var previousPageUrl = document.referrer;
+
+            if (previousPageUrl.includes("login.do")) {
+                window.location.href = "login.do";
+            } else {
+                window.location.href = "/view/board/main/mainPage.jsp";
+            }
+        }
+
+        document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
+    });
+</script>
 </head>
 <body class="text-center">
 
@@ -49,20 +65,20 @@
 		    </div>
 
 			<div class="button-wrapper d-flex justify-content-between">
-			  	<button class="btn btn-lg btn-primary custom-button form-button me-2" type="button" style="background-color: #ffffff; color: #0090F9; border-color: #0090F9;">취소</button>
+			  	<button class="btn btn-lg btn-primary custom-button form-button me-2 back" type="button" style="background-color: #ffffff; color: #0090F9; border-color: #0090F9;">취소</button>
 			  	<button class="btn btn-lg btn-primary custom-button form-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 찾기</button>  
 			</div>
   		</form>
 		 	
 		<c:choose>
 			<c:when test="${errors.name}">
-				<p class="errors-msg">이름을 입력해주세요.</p>
+				<p class="errors-msg"><b>이름</b>을 입력해주세요.</p>
 			</c:when>
 			<c:when test="${errors.id}">
-				<p class="errors-msg">아이디를 입력해주세요.</p>
+				<p class="errors-msg"><b>아이디</b>를 입력해주세요.</p>
 			</c:when>
 			<c:when test="${errors.email}">
-				<p class="errors-msg">이메일 주소를 입력해주세요.</p>
+				<p class="errors-msg"><b>이메일 주소</b>를 입력해주세요.</p>
 			</c:when>
 			<c:when test="${errors.cantFind}">
 				<p class="errors-msg">일치하는 가입 정보가 없습니다.</p>

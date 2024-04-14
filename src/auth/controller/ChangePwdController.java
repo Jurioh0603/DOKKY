@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import auth.service.ChangePwdFailException;
 import auth.service.ChangePwdService;
-import auth.service.FindIdFailException;
-import auth.service.FindIdService;
 import mvc.command.CommandHandler;
 
 public class ChangePwdController implements CommandHandler {
@@ -28,11 +26,7 @@ public class ChangePwdController implements CommandHandler {
 			return null;
 		}
 	}
-	
-	private String processForm(HttpServletRequest req, HttpServletResponse res) {
-		return FORM_VIEW;
-	}
-	
+		
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String memid = (String)req.getAttribute("memid");
 		if(memid != null) {
@@ -40,8 +34,8 @@ public class ChangePwdController implements CommandHandler {
 			req.setAttribute("save", Boolean.TRUE);
 		}
 		
-		String password1 = trim(req.getParameter("password1"));
-		String password2 = trim(req.getParameter("password2"));
+		String password1 = req.getParameter("password1");
+		String password2 = req.getParameter("password2");
 		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
@@ -50,6 +44,8 @@ public class ChangePwdController implements CommandHandler {
 			errors.put("password1", Boolean.TRUE);
 		if(password2 == null || password2.isEmpty())
 			errors.put("password2", Boolean.TRUE);
+		if(password1 != null && password1.contains(" "))
+			errors.put("blank", Boolean.TRUE);
 		
 		if(!errors.isEmpty()) {
 			return FORM_VIEW;
@@ -63,9 +59,5 @@ public class ChangePwdController implements CommandHandler {
 			errors.put("cantChange", Boolean.TRUE);
 			return FORM_VIEW;
 		}
-	}
-	
-	private String trim(String str) {
-		return str == null ? null : str.trim();
 	}
 }

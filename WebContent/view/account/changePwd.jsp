@@ -20,6 +20,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function goBackToPreviousPage() {
+            var previousPageUrl = document.referrer;
+            
+        	window.location.href = "findPwd.do";
+        }
+
+        document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
+    });
+</script>
 </head>
 <body class="text-center">
 
@@ -35,17 +47,17 @@
    			</div>
 
     		<div class="form-floating custom-form">
-      			<input type="password" class="form-control" id="floatingPassword1" name="password1" placeholder="변경할 비밀번호">
+      			<input type="password" class="form-control" id="floatingPassword1" name="password1" maxlength='15' placeholder="변경할 비밀번호">
       			<label for="floatingPassword1">변경할 비밀번호</label>
     		</div>
     
     		<div class="form-floating custom-form">
-      			<input type="password" class="form-control" id="floatingPassword2" name="password2" placeholder="비밀번호 확인">
+      			<input type="password" class="form-control" id="floatingPassword2" name="password2" maxlength='15' placeholder="비밀번호 확인">
       			<label for="floatingPassword2">비밀번호 확인</label>
     		</div>
 
 			<div class="button-wrapper d-flex justify-content-between">
-			    <button class="btn btn-lg btn-primary custom-button form-button me-2" type="button" style="background-color: #ffffff; color: #0090F9; border-color: #0090F9;">취소</button>
+			    <button class="btn btn-lg btn-primary custom-button form-button me-2 back" type="button" style="background-color: #ffffff; color: #0090F9; border-color: #0090F9;">취소</button>
 			    <button class="btn btn-lg btn-primary custom-button form-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 변경</button>  
 			</div>
 
@@ -55,11 +67,14 @@
 			<c:when test="${save}">
 				<p class="errors-msg">&nbsp;</p>
 			</c:when>
+			<c:when test="${errors.blank}">
+				<p class="errors-msg">비밀번호는 공백 문자 포함이 불가능합니다.</p>
+			</c:when>
 			<c:when test="${errors.password1}">
-				<p class="errors-msg">변경할 비밀번호를 입력해주세요.</p>
+				<p class="errors-msg"><b>변경할 비밀번호</b>를 입력해주세요.</p>
 			</c:when>
 			<c:when test="${errors.password2}">
-				<p class="errors-msg">비밀번호 확인을 입력해주세요.</p>
+				<p class="errors-msg"><b>비밀번호 확인</b>을 입력해주세요.</p>
 			</c:when>
 			<c:when test="${errors.cantChange}">
 				<p class="errors-msg">비밀번호가 일치하지 않습니다.</p>
@@ -82,10 +97,10 @@
   		<div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title">비밀번호 변경</h5>
+		        <h5 class="modal-title">비밀번호 변경 완료</h5>
 		      </div>
 		      <div class="modal-body">
-		        <p style="font-size: 20px;">비밀번호 변경 성공!</p>
+		        <p style="font-size: 16px; margin-bottom: 0px">비밀번호 변경이 완료되었습니다.<br/>새로운 비밀번호로 로그인해주세요.</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-primary" onclick="location.href='login.do'" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>

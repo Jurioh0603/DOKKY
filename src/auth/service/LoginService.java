@@ -17,10 +17,10 @@ public class LoginService {
 			if(member == null) {
 				throw new LoginFailException();
 			}
-			if(!member.matchPassword(password)) {
+			if(!member.getMempw().equals(password)) {
 				throw new LoginFailException();
 			}
-			return new User(member.getMemid(), member.getName());
+			return new User(member.getMemid(), member.getName(), member.getGrade());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

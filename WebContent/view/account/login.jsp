@@ -54,13 +54,13 @@
   		</form>
   		<c:choose>
   			<c:when test="${errors.id}">
-  				<p class="errors-msg">아이디를 입력해주세요.</p>
+  				<p class="errors-msg"><b>아이디</b>를 입력해 주세요.</p>
   			</c:when>
   			<c:when test="${errors.password}">
-  				<p class="errors-msg">비밀번호를 입력해주세요.</p>
+  				<p class="errors-msg"><b>비밀번호</b>를 입력해 주세요.</p>
   			</c:when>
   			<c:when test="${errors.idOrPwNotMatch}">
-  				<p class="errors-msg">아이디 또는 비밀번호가 틀렸습니다.</p>
+  				<p class="errors-msg">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
   			</c:when>
   			<c:otherwise>
   				<p class="errors-msg">&nbsp;</p>

@@ -7,8 +7,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import auth.service.FindIdFailException;
-import auth.service.FindIdService;
 import auth.service.FindPwdFailException;
 import auth.service.FindPwdService;
 import mvc.command.CommandHandler;
@@ -20,10 +18,7 @@ public class FindPwdController implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Object loginCheck = req.getSession().getAttribute("authUser");
-		if(loginCheck != null) {
-			return "/view/errorPage/invalidAccessPage.jsp";
-		} else if(req.getMethod().equalsIgnoreCase("GET")) {
+		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req, res);
 		} else if(req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);

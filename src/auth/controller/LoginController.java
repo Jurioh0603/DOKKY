@@ -18,10 +18,7 @@ public class LoginController implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Object loginCheck = req.getSession().getAttribute("authUser");
-		if(loginCheck != null) {
-			return "/view/errorPage/invalidAccessPage.jsp";
-		} else if(req.getMethod().equalsIgnoreCase("GET")) {
+		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req, res);
 		} else if(req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);
@@ -37,7 +34,7 @@ public class LoginController implements CommandHandler {
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String id = trim(req.getParameter("id"));
-		String password = trim(req.getParameter("password"));
+		String password = req.getParameter("password");
 		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
