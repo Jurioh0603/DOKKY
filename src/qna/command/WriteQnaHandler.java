@@ -56,6 +56,6 @@ public class WriteQnaHandler implements CommandHandler {
 	
 	private WriteRequest createWriteRequest(User user, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
 		return new WriteRequest(
-				new Member(user.getId(), null, user.getName(), null, user.getGrade()), req.getParameter("title"), req.getParameter("content"));
+				new Member(user.getId(), null, user.getName(), null, user.getGrade(), user.getRegDate()), req.getParameter("title"), req.getParameter("content"));
 	}
 }

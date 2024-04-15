@@ -27,7 +27,7 @@ public class MemberDao {
 						rs.getString(3),
 						rs.getString(4),
 						rs.getInt(5),
-						rs.getDate(6).toString());
+						rs.getDate(6));
 			}
 			return member;
 		} finally {
@@ -73,7 +73,7 @@ public class MemberDao {
 						rs.getString(3),
 						rs.getString(4),
 						rs.getInt(5),
-						rs.getDate(6).toString());
+						rs.getDate(6));
 			}
 			return member;
 		} finally {
@@ -139,7 +139,7 @@ public class MemberDao {
 				rs.getString(3), 
 				rs.getString(4),
 				rs.getInt(5),
-				rs.getDate(6).toString());
+				rs.getDate(6));
 	}
 	
 	public void updateGrade(Connection conn, String id, int grade) throws SQLException {

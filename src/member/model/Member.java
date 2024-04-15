@@ -1,5 +1,7 @@
 package member.model;
 
+import java.util.Date;
+
 public class Member {
 
 	private String memid;
@@ -7,9 +9,9 @@ public class Member {
 	private String name;
 	private String email;
 	private int grade;
-	private String regdate;
+	private Date regdate;
 	
-	public Member(String memid, String mempw, String name, String email, int grade, String regdate) {
+	public Member(String memid, String mempw, String name, String email, int grade, Date regdate) {
 		this.memid = memid;
 		this.mempw = mempw;
 		this.name = name;
@@ -58,11 +60,11 @@ public class Member {
 		this.grade = grade;
 	}
 
-	public String getRegdate() {
+	public Date getRegdate() {
 		return regdate;
 	}
 
-	public void setRegdate(String regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 	
