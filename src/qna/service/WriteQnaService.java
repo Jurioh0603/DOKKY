@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 
+import member.model.Member;
+import member.model.MemberDao;
 import qna.dao.QcontentDao;
 import qna.dao.QnaDao;
 import qna.model.Qna;

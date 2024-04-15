@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import auth.service.User;
 import qna.model.Qna;
 import qna.service.WriteQnaService;
 import qna.service.WriteRequest;
-import auth.service.User;
+import member.model.Member;
 import mvc.command.CommandHandler;
 
 
@@ -53,8 +54,8 @@ public class WriteQnaHandler implements CommandHandler {
 		return "/view/board/main/mainPage.jsp";
 	}
 	
-	private WriteRequest createWriteRequest(String memId, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
+	private WriteRequest createWriteRequest(User user, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
 		return new WriteRequest(
-				memId, req.getParameter("title"), req.getParameter("content"));
+				new Member(user.getId(), null, user.getName(), null, user.getGrade()), req.getParameter("title"), req.getParameter("content"));
 	}
 }

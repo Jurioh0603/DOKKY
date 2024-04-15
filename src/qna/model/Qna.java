@@ -1,6 +1,6 @@
 package qna.model;
 import java.util.Date;
-import member.Member;
+import member.model.Member;
 
 public class Qna {
 	
@@ -11,9 +11,9 @@ public class Qna {
 	private int hit;
 	
 	//Qna객체 생성 시 각각의 자리에 들어가는 매개변수들(생성자)
-	public Qna(int bno, Member memId, String title, Date regDate, int hit) {
+	public Qna(int bno, Member memid, String title, Date regDate, int hit) {
 		this.bno = bno;
-		this.memId = memId;
+		this.memId = memid;
 		this.title = title;
 		this.regDate = regDate;
 		this.hit = hit;

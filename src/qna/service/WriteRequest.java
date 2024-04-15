@@ -2,22 +2,22 @@ package qna.service;
 
 import java.util.Map;
 
-import member.Member;
+import member.model.Member;
 
 public class WriteRequest {
 	
-	private String memId;
+	private Member memid;
 	private String title;
 	private String content;
 	
-	public WriteRequest(String memId, String title, String content) {
-		this.memId = memId;
+	public WriteRequest(Member memid, String title, String content) {
+		this.memid = memid;
 		this.title = title;
 		this.content = content;
 	}
 
-	public String getMemId() {
-		return memId;
+	public Member getMemId() {
+		return memid;
 	}
 
 	public String getTitle() {

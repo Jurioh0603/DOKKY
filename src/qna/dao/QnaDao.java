@@ -9,7 +9,7 @@ import java.sql.Types;
 import java.util.Date;
 
 import qna.model.Qna;
-import member.Member;
+import member.model.Member;
 import jdbc.JdbcUtil;
 import oracle.sql.DATE;
 
@@ -25,7 +25,7 @@ public class QnaDao {
             
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, qna.getMemId().getMemId());
+            pstmt.setString(1, qna.getMemId().getMemid());
             pstmt.setString(2, qna.getTitle());
             pstmt.setDate(3, new java.sql.Date(qna.getRegDate().getTime()));
 
