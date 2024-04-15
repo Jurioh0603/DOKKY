@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import auth.service.User;
 import qna.model.Qna;
 import qna.service.WriteQnaService;
 import qna.service.WriteRequest;
-import member.Member;
+import member.model.Member;
 import mvc.command.CommandHandler;
 
 
@@ -40,8 +41,8 @@ public class WriteQnaHandler implements CommandHandler {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
-		Member member = (Member)req.getSession(false).getAttribute("authUser");
-		WriteRequest writeReq = createWriteRequest(member, req);
+		User user = (User)req.getSession(false).getAttribute("authUser");
+		WriteRequest writeReq = createWriteRequest(user, req);
 		writeReq.validate(errors);
 		
 		if(!errors.isEmpty()) {
@@ -53,8 +54,8 @@ public class WriteQnaHandler implements CommandHandler {
 		return "/view/board/main/mainPage.jsp";
 	}
 	
-	private WriteRequest createWriteRequest(Member memId, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
-		return new WriteRequest( 
-				memId, req.getParameter("title"), req.getParameter("content"));
+	private WriteRequest createWriteRequest(User user, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
+		return new WriteRequest(
+				new Member(user.getId(), null, user.getName(), null, user.getGrade()), req.getParameter("title"), req.getParameter("content"));
 	}
 }
