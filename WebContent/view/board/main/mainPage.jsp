@@ -75,11 +75,11 @@
 		          <div class="card text-center">
 		            <div class="card-body">
 		              <h6 class="card-title">DOKKY에 오신 것을 환영합니다!</h6>
-		              <a href="login.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
+		              <a href="http://localhost:8081/login.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
 		              <div>
 			              <p class="card-text">
-			                <a href="findId.do">아이디찾기</a> |
-			                <a href="findPwd.do">비밀번호찾기</a> |
+			                <a href="http://localhost:8081/findId.do">아이디찾기</a> |
+			                <a href="http://localhost:8081/findPwd.do">비밀번호찾기</a> |
 			                <a href="#">회원가입</a>
 			              </p>
 		              </div>
