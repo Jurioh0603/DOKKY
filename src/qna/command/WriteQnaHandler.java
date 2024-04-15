@@ -12,7 +12,7 @@ import java.util.Map;
 import qna.model.Qna;
 import qna.service.WriteQnaService;
 import qna.service.WriteRequest;
-import auth.service.User;
+import member.Member;
 import mvc.command.CommandHandler;
 
 
@@ -40,8 +40,8 @@ public class WriteQnaHandler implements CommandHandler {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
-		User user = (User)req.getSession(false).getAttribute("authUser");
-		WriteRequest writeReq = createWriteRequest(user, req);
+		Member member = (Member)req.getSession(false).getAttribute("authUser");
+		WriteRequest writeReq = createWriteRequest(member, req);
 		writeReq.validate(errors);
 		
 		if(!errors.isEmpty()) {
@@ -53,8 +53,8 @@ public class WriteQnaHandler implements CommandHandler {
 		return "/view/board/main/mainPage.jsp";
 	}
 	
-	private WriteRequest createWriteRequest(String memId, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
-		return new WriteRequest(
+	private WriteRequest createWriteRequest(Member memId, HttpServletRequest req) { //String memberId로 두던지, User를 사용해서 가져오던지 수정.
+		return new WriteRequest( 
 				memId, req.getParameter("title"), req.getParameter("content"));
 	}
 }

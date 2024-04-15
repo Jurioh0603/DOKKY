@@ -6,17 +6,17 @@ import member.Member;
 
 public class WriteRequest {
 	
-	private String memId;
+	private Member memId;
 	private String title;
 	private String content;
 	
-	public WriteRequest(String memId, String title, String content) {
+	public WriteRequest(Member memId, String title, String content) {
 		this.memId = memId;
 		this.title = title;
 		this.content = content;
 	}
 
-	public String getMemId() {
+	public Member getMemId() {
 		return memId;
 	}
 
