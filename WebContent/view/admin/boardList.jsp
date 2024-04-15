@@ -19,6 +19,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="../../css/dokkyCss/adminStyle.css"/>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	  const board = "${board}";
+	  
+	  if (board === "qna") {
+		document.getElementById("qna-link").classList.add("active");
+	  } else if (board === "community") {
+		document.getElementById("community-link").classList.add("active");
+	  } else if (board === "study") {
+		document.getElementById("study-link").classList.add("active");
+	  } else if (board === "lunch") {
+		document.getElementById("lunch-link").classList.add("active");
+	  }
+	});
+</script>
 </head>
 <body>
 <%@ include file="../headerFooter/header.jsp" %>
@@ -27,17 +43,17 @@
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a href="#" class="nav-link link-dark">회원 관리</a>
+      			<a href="memberList.do" class="nav-link link-dark">회원 관리</a>
     		</li>
     		<li class="l1">
 	  			<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
 	  			게시글 관리
 	  			</a>
 	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				    <li><a class="dropdown-item active" href="#">Q&A</a></li>
-				    <li><a class="dropdown-item" href="#">자유게시판</a></li>
-				    <li><a class="dropdown-item" href="#">스터디모집</a></li>
-				    <li><a class="dropdown-item" href="#">점메추</a></li>
+				    <li><a class="dropdown-item" id="qna-link" href="boardList.do?board=qna" >Q&A</a></li>
+				    <li><a class="dropdown-item" id="community-link" href="boardList.do?board=community">자유게시판</a></li>
+				    <li><a class="dropdown-item" id="study-link" href="boardList.do?board=study">스터디모집</a></li>
+				    <li><a class="dropdown-item" id="lunch-link" href="boardList.do?board=lunch">점메추</a></li>
 	  			</ul>
 	  		</li>
 	  	</ul>
@@ -46,7 +62,14 @@
 	<hr/>
 
 	<div class="m-5 flex-grow-1">
-		<h2>Q&A 게시판</h2>
+		<h2>
+			<c:choose>
+				<c:when test="${board eq 'qna'}">Q&A</c:when>
+				<c:when test="${board eq 'community'}">자유게시판</c:when>
+				<c:when test="${board eq 'study'}">스터디모집</c:when>
+				<c:when test="${board eq 'lunch'}">점메추</c:when>
+			</c:choose>
+		</h2>
 		<h6 style="color: gray;">제목 클릭 시 글 링크로 이동합니다.</h6>
 		<div class="container mt-4">
 			<form action="#" method="post">
@@ -56,35 +79,47 @@
 							<th scope="col">글번호</th>
 							<th scope="col">제목</th>
 							<th scope="col">작성자</th>
-							<th scope="col">상태</th>
+							<th scope="col">작성일</th>
 							<th scope="col">선택</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="i" begin="1" end="10">
+						<c:if test="${boardPage.hasNoContents()}">
 							<tr>
-								<td style="width: 100px">1</td>
-								<td><a href="#">안녕하세요</a></td>
-								<td>홍길동</td>
-								<td>활성화</td>
+								<td colspan="5">게시글이 존재하지 않습니다.</td>
+						</c:if>
+						<c:forEach var="board" items="${boardPage.boardList}">
+							<tr>
+								<td>${board.bno }</td>
+								<td>${board.title }</td>
+								<td>${board.memid }</td>
+								<td>${board.regdate }</td>
 								<td><input type="checkbox"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				<button type="submit" class="btn btn-danger">삭제</button>
-      			<div class="pagination-container">
-          			<div class="pagination">
-			            <a href="#">&laquo;</a>
-			            <a href="#">1</a>
-			            <a href="#" class="active">2</a>
-			            <a href="#">3</a>
-			            <a href="#">4</a>
-			            <a href="#">5</a>
-			            <a href="#">6</a>
-			            <a href="#">&raquo;</a>
-         			</div>
-      			</div>
+      			<c:if test="${boardPage.hasContents()}">
+	      			<div class="pagination-container">
+	          			<div class="pagination">
+	          				<c:if test="${boardPage.startPage > 5}">
+	             				<a href="boardList.do?board=${board}&pageNo=${boardPage.startPage - 5}">&laquo;</a>
+	             			</c:if>
+	             			<c:forEach var="pNo" begin="${boardPage.startPage}" end="${boardPage.endPage}">
+	             				<c:if test="${pNo eq boardPage.getCurrentPage()}">
+	             					<a href="boardList.do?board=${board}&pageNo=${pNo}" class="active">${pNo}</a>
+	              				</c:if>
+	             				<c:if test="${pNo ne boardPage.getCurrentPage()}">
+	             					<a href="boardList.do?board=${board}&pageNo=${pNo}">${pNo}</a>
+	              				</c:if>
+				            </c:forEach>
+				            <c:if test="${boardPage.endPage < boardPage.totalPages}">
+				            	<a href="boardList.do?board=${board}&pageNo=${boardPage.startPage + 5}">&raquo;</a>
+				            </c:if>
+	         			</div>
+	      			</div>
+	     		</c:if>
 			</form>
 		</div>
 	</div>

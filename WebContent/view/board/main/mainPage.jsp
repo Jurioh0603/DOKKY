@@ -94,6 +94,9 @@
 	             <div class="card text-center">
 	               <div class="card-body">
 	               <h6 class="card-title"><a href="#">${authUser.name}</a>님, 어서오세요!</h6>
+	                 <c:if test="${authUser.grade eq 9999}">
+	                 	<a href="admin/memberList.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9; margin-bottom: 0px">홈페이지 관리</a>
+	                 </c:if>
 	                 <a href="logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	                 <div>
 	                 </div>
