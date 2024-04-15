@@ -52,7 +52,6 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-				            <th scope="col">회원번호</th>
 				            <th scope="col">아이디</th>
 				            <th scope="col">이름</th>
 				            <th scope="col">이메일</th>
@@ -60,36 +59,56 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="i" begin="1" end="10">
+						<c:if test="${memberPage.hasNoMembers()}">
 							<tr>
-								<td style="width: 100px">1</td>
-								<td>hongId</td>
-								<td>홍길동</td>
-								<td>hong123@gmail.com</td>
-								<td style="width: 120px">
-									<select class="form-select form-select-sm">
-						                <option value="준회원">준회원</option>
-						                <option value="정회원">정회원</option>
-						                <option value="관리자">관리자</option>
-						            </select>
-								</td>
+								<td colspan="4">회원이 존재하지 않습니다.</td>
+						</c:if>
+						<c:forEach var="member" items="${memberPage.memberList}">
+							<tr>
+								<td>${member.memid }</td>
+								<td>${member.name }</td>
+								<td>${member.email }</td>
+								<td>
+									<c:choose>
+										<c:when test="${member.grade == 1111}">
+											정회원
+										</c:when>
+										<c:when test="${member.grade == 2222}">
+											준회원
+										</c:when>
+										<c:when test="${member.grade == 9999}">
+											관리자
+										</c:when>
+									</c:choose>
+						        </td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				<button type="submit" class="btn btn-danger">수정</button>
-      			<div class="pagination-container">
-          			<div class="pagination">
-             			<a href="#">&laquo;</a>
-              			<a href="#">1</a>
-			            <a href="#" class="active">2</a>
-			            <a href="#">3</a>
-			            <a href="#">4</a>
-			            <a href="#">5</a>
-			            <a href="#">6</a>
-			            <a href="#">&raquo;</a>
-         			</div>
-      			</div>
+				<c:if test="${memberPage.hasMembers()}">
+	      			<div class="pagination-container">
+	          			<div class="pagination">
+	          				<c:if test="${memberPage.startPage > 5}">
+	             				<a href="memberList.do?pageNo=${memberPage.startPage - 5}">&laquo;</a>
+	             			</c:if>
+	             			<c:forEach var="pNo" begin="${memberPage.startPage}" end="${memberPage.endPage}">
+	             			<!--
+	             				<c:if test="${pNo} == ${pageNo}">
+	             					<a href="list.do?pageNo=${pNo}" class="active">${pNo}</a>
+	              				</c:if>
+	             				<c:if test="${pNo} != ${pageNo}">
+	             					<a href="list.do?pageNo=${pNo}">${pNo}</a>
+	              				</c:if>
+	              			  -->
+	             				<a href="memberList.do?pageNo=${pNo}">${pNo}</a>
+				            </c:forEach>
+				            <c:if test="${memberPage.endPage < memberPage.totalPages}">
+				            	<a href="memberList.do?pageNo=${memberPage.startPage + 5}">&raquo;</a>
+				            </c:if>
+	         			</div>
+	      			</div>
+      			</c:if>
 			</form>
 		</div>
 	</div>
