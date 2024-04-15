@@ -16,7 +16,7 @@ public class ListMemberService {
 	public MemberPage getMemberPage(int pageNum) {
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			int total = memberDao.selectCount(conn);
-			List<Member> memberList = memberDao.select(conn, (pageNum - 1) * size, size);
+			List<Member> memberList = memberDao.select(conn, (pageNum - 1) * size + 1, pageNum * size);
 			return new MemberPage(total, pageNum, size, memberList);
 		} catch(SQLException e) {
 			throw new RuntimeException(e);

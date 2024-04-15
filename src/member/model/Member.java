@@ -7,13 +7,15 @@ public class Member {
 	private String name;
 	private String email;
 	private int grade;
+	private String regdate;
 	
-	public Member(String memid, String mempw, String name, String email, int grade) {
+	public Member(String memid, String mempw, String name, String email, int grade, String regdate) {
 		this.memid = memid;
 		this.mempw = mempw;
 		this.name = name;
 		this.email = email;
 		this.grade = grade;
+		this.regdate = regdate;
 	}
 
 	public String getMemid() {
@@ -54,6 +56,14 @@ public class Member {
 
 	public void setGrade(int grade) {
 		this.grade = grade;
+	}
+
+	public String getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 	
 }

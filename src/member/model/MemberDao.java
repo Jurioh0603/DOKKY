@@ -26,7 +26,8 @@ public class MemberDao {
 						rs.getString(2),
 						rs.getString(3),
 						rs.getString(4),
-						rs.getInt(5));
+						rs.getInt(5),
+						rs.getDate(6).toString());
 			}
 			return member;
 		} finally {
@@ -71,7 +72,8 @@ public class MemberDao {
 						rs.getString(2),
 						rs.getString(3),
 						rs.getString(4),
-						rs.getInt(5));
+						rs.getInt(5),
+						rs.getDate(6).toString());
 			}
 			return member;
 		} finally {
@@ -114,7 +116,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from member) A)"
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from member order by regdate desc) A)"
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -136,6 +138,20 @@ public class MemberDao {
 				rs.getString(2),
 				rs.getString(3), 
 				rs.getString(4),
-				rs.getInt(5));
+				rs.getInt(5),
+				rs.getDate(6).toString());
+	}
+	
+	public void updateGrade(Connection conn, String id, int grade) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "update member set grade=? where memid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, grade);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
 	}
 }
