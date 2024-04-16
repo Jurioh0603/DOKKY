@@ -40,7 +40,7 @@ svg {
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container ">
 	  <div class="container">
-	    <a href="landingPage.jsp" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
+	    <a href="<%=request.getContextPath()%>/view/board/main/mainPage.jsp" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
 		<!-- 로고 이미지 경로 설정 주의하기! -->
 	      <img src="<%=request.getContextPath() %>/imgs/dokkyLogo.png" alt="DOKKY Logo" width="100" height="auto">
 	    </a>
