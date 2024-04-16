@@ -40,7 +40,7 @@ svg {
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container ">
 	  <div class="container">
-	    <a href="<%=request.getContextPath()%>/view/board/main/mainPage.jsp" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
+	    <a href="<%=request.getContextPath()%>/main.do" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
 		<!-- 로고 이미지 경로 설정 주의하기! -->
 	      <img src="<%=request.getContextPath() %>/imgs/dokkyLogo.png" alt="DOKKY Logo" width="100" height="auto">
 	    </a>
@@ -48,10 +48,10 @@ svg {
 		<!-- nav-bar에 게시판 메뉴명 클릭 시 각 게시판으로 이동 -->
 	    <div class="collapse navbar-collapse justify-content-center" id="navbarNav" role="header">
 	      <ul class="navbar-nav">
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">Q&A</a></li>
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">자유게시판</a></li>
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">스터디모집</a></li>
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">점메추</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="nav-link px-4 text-black">Q&A</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/community/communitySelect.jsp" class="nav-link px-4 text-black">자유게시판</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/study/studySelect.jsp" class="nav-link px-4 text-black">스터디모집</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/lunch/lunchSelect.jsp" class="nav-link px-4 text-black">점메추</a></li>
 	      </ul>
 	    </div>
         
