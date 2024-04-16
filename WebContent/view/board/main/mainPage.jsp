@@ -9,10 +9,8 @@
 
 <!-- css 참조링크 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<!-- main게시판 css 추후 수정필요 -->
+<!-- main게시판 css -->
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/dokkyCss/mainStyle.css?after">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/dokkyCss/mainLiStyle.css?after">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/dokkyCss/mainTopBanner.css?after">
 <!-- 폰트설정 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,20 +111,13 @@
 	<!-- 게시판 미리보기 영역 -->
 	<div class="container mt-4 board-preview">
 	  <!-- 게시글 1과 2를 묶는 섹션 -->
-	  <!-- 부트스트랩 사용 
-	  	   - m: margin,		         p: padding
-	  	   - x: *-left and *-right,	 y: *-top and *-bottom
-	  	   - t: top, 				 b: bottom
-	  	   - sm: small,	-md: medium,	- lg: large
-	       https://getbootstrap.kr/docs/5.0/utilities/spacing/
-	  -->
 	  <section class="my-12 flex flex-col gap-x-10 gap-y-10 md:flex-row">
 	    <div class="row mb-4">
 	    <!-- Q&A게시판 영역 -->
 	      <div class="col-md-6">
 			<!-- top-banner영역 -->
 			<div class="container">
-			  <a href="#" class="main-square-box">
+			  <a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="main-square-box">
 			    <div class="main-text">
 			      <span>Q&A</span>
 			    </div>
@@ -143,7 +134,7 @@
 	      <!-- 자유게시판영역 -->
 	      <div class="col-md-6">
 	        <div class="container">
-			  <a href="#" class="main-square-box">
+			  <a href="<%=request.getContextPath() %>/view/board/community/communitySelect.jsp" class="main-square-box">
 			    <div class="main-text">
 			      <span>자유게시판</span>
 			    </div>
@@ -165,7 +156,7 @@
 	    <!-- 스터디게시판 영역 -->
 	      <div class="col-md-6">
 			<div class="container">
-			  <a href="study.jsp" class="main-square-box">
+			  <a href="<%=request.getContextPath() %>/view/board/study/studySelect.jsp" class="main-square-box">
 			    <div class="main-text">
 			      <span>스터디모집</span>
 			    </div>
@@ -181,7 +172,7 @@
 	      <!-- 점심게시판 영역 -->
 	      <div class="col-md-6">
 	        <div class="container">
-			  <a href="#" class="main-square-box">
+			  <a href="<%=request.getContextPath() %>/view/board/lunch/lunchSelect.jsp" class="main-square-box">
 			    <div class="main-text">
 			      <span>점메추</span>
 			    </div>
