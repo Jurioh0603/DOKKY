@@ -73,11 +73,11 @@
 		          <div class="card text-center">
 		            <div class="card-body">
 		              <h6 class="card-title">DOKKY에 오신 것을 환영합니다!</h6>
-		              <a href="http://localhost:8081/login.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
+		              <a href="/login.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
 		              <div>
 			              <p class="card-text">
-			                <a href="http://localhost:8081/findId.do">아이디찾기</a> |
-			                <a href="http://localhost:8081/findPwd.do">비밀번호찾기</a> |
+			                <a href="/findId.do">아이디찾기</a> |
+			                <a href="/findPwd.do">비밀번호찾기</a> |
 			                <a href="#">회원가입</a>
 			              </p>
 		              </div>
@@ -92,7 +92,10 @@
 	             <div class="card text-center">
 	               <div class="card-body">
 	               <h6 class="card-title"><a href="#">${authUser.name}</a>님, 어서오세요!</h6>
-	                 <a href="logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
+	                 <c:if test="${authUser.grade eq 9999}">
+	                 	<a href="/admin/memberList.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9; margin-bottom: 0px">홈페이지 관리</a>
+	                 </c:if>
+	                 <a href="/logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	                 <div>
 	                 </div>
 	               </div>
@@ -123,11 +126,9 @@
 			</div>
 			<!-- 게시글목록영역 -->
 	        <ul>
-	          <li>게시글제목1
-	          <li>게시글제목2
-	          <li>게시글제목3
-	          <li>게시글제목4
-	          <li>게시글제목5
+	        	<c:forEach var="board" items="${boardList.qna}">
+		          <li>${board.memid}<br/><a href="/qna/read.do?no=${board.bno}">${board.title}</a></li>
+	        	</c:forEach>
 	        </ul>
 	      </div>
 	      <!-- 자유게시판영역 -->
@@ -141,11 +142,9 @@
 			  </a>
 			</div>
 	        <ul>
-	          <li>게시글제목1
-	          <li>게시글제목2
-	          <li>게시글제목3
-	          <li>게시글제목4
-	          <li>게시글제목5
+	        	<c:forEach var="board" items="${boardList.community}">
+		          <li>${board.memid}<br/><a href="/community/read.do?no=${board.bno}">${board.title}</a></li>
+	        	</c:forEach>
 	        </ul>
 	      </div>
 	      </div>
@@ -165,11 +164,9 @@
 			  </a>
 			</div>
 	        <ul>
-	          <li>게시글제목1
-	          <li>게시글제목2
-	          <li>게시글제목3
-	          <li>게시글제목4
-	          <li>게시글제목5
+	        	<c:forEach var="board" items="${boardList.study}">
+		          <li>${board.memid}<br/><a href="/study/read.do?no=${board.bno}">${board.title}</a></li>
+	        	</c:forEach>
 	        </ul>
 	      </div>
 	      <!-- 점심게시판 영역 -->
@@ -183,11 +180,9 @@
 			  </a>
 			</div>
 	        <ul>
-	          <li>게시글제목1
-	          <li>게시글제목2
-	          <li>게시글제목3
-	          <li>게시글제목4
-	          <li>게시글제목5
+	        	<c:forEach var="board" items="${boardList.lunch}">
+		          <li>${board.memid}<br/><a href="/lunch/read.do?no=${board.bno}">${board.title}</a></li>
+	        	</c:forEach>
 	        </ul>
 	      </div>
 	      </div>

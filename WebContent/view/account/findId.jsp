@@ -27,9 +27,9 @@
             var previousPageUrl = document.referrer;
 
             if (previousPageUrl.includes("login.do")) {
-                window.location.href = "login.do";
+                window.location.href = "/login.do";
             } else {
-                window.location.href = "/view/board/main/mainPage.jsp";
+                window.location.href = "/main.do";
             }
         }
 
@@ -40,8 +40,8 @@
 <body class="text-center">
 
 	<main class="form-container">
-  		<form action="findId.do" method="post">
-  			<a href="#"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
+  		<form action="/findId.do" method="post">
+  			<a href="/main.do"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
     		<h1 class="h3 mb-4 fw-bold">아이디 찾기</h1>
     
 	   		<div class="wrap">
@@ -102,7 +102,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary" onclick="location.href='login.do'" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>
+		        <button type="button" class="btn btn-primary" onclick="location.href='/login.do'" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>
 		      </div>
 		    </div>
 		</div>

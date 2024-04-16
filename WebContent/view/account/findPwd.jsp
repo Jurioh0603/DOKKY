@@ -26,9 +26,9 @@
             var previousPageUrl = document.referrer;
 
             if (previousPageUrl.includes("login.do")) {
-                window.location.href = "login.do";
+                window.location.href = "/login.do";
             } else {
-                window.location.href = "/view/board/main/mainPage.jsp";
+                window.location.href = "/main.do";
             }
         }
 
@@ -39,8 +39,8 @@
 <body class="text-center">
 
 	<main class="form-container">
-  		<form action="findPwd.do" method="post">
-    		<a href="#"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
+  		<form action="/findPwd.do" method="post">
+    		<a href="/main.do"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
     		<h1 class="h3 mb-4 fw-bold">비밀번호 찾기</h1>
     
    			<div class="wrap">

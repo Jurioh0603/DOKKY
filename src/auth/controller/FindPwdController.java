@@ -54,7 +54,7 @@ public class FindPwdController implements CommandHandler {
 		try {
 			String memid = findPwdService.findMember(name, id, email);
 			req.setAttribute("memid", memid);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("changePwd.do");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/changePwd.do");
 			dispatcher.forward(req, res);
 			return null;
 		} catch(FindPwdFailException e) {

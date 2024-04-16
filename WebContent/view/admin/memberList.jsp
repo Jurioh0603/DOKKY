@@ -46,17 +46,17 @@
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a href="memberList.do" class="nav-link link-dark active">회원 관리</a>
+      			<a href="/admin/memberList.do" class="nav-link link-dark active">회원 관리</a>
     		</li>
     		<li class="l1">
 	  			<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
 	  			게시글 관리
 	  			</a>
 	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				    <li><a class="dropdown-item" href="#">Q&A</a></li>
-				    <li><a class="dropdown-item" href="#">자유게시판</a></li>
-				    <li><a class="dropdown-item" href="#">스터디모집</a></li>
-				    <li><a class="dropdown-item" href="#">점메추</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=qna">Q&A</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=community">자유게시판</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=study">스터디모집</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=lunch">점메추</a></li>
 	  			</ul>
     		</li>
   		</ul>
@@ -68,71 +68,69 @@
 		<h2>회원 관리</h2>
 		<h6 style="color: gray;">클릭 시 회원 정보 수정이 가능합니다.</h6>
 		<div class="container mt-4">
-			<form action="#" method="post">
-				<table class="table table-striped table-hover">
-					<thead>
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+			            <th scope="col">번호</th>
+			            <th scope="col">아이디</th>
+			            <th scope="col">이름</th>
+			            <th scope="col">이메일</th>
+			            <th scope="col">가입일</th>
+			            <th scope="col">회원등급</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${memberPage.hasNoMembers()}">
 						<tr>
-				            <th scope="col">번호</th>
-				            <th scope="col">아이디</th>
-				            <th scope="col">이름</th>
-				            <th scope="col">이메일</th>
-				            <th scope="col">가입일</th>
-				            <th scope="col">회원등급</th>
+							<td colspan="6">회원이 존재하지 않습니다.</td>
+					</c:if>
+					<c:set var="currentPage" value="${memberPage.getCurrentPage()}"/>
+					<c:set var="number" value="${(currentPage-1)*10+1 }"/>
+					<c:forEach var="member" items="${memberPage.memberList}">
+						<tr onclick="showModal('${member.memid}', '${member.name}', '${member.email}', '${member.grade}', ${currentPage})">
+							<td>${number }</td>
+							<td>${member.memid }</td>
+							<td>${member.name }</td>
+							<td>${member.email }</td>
+							<td>${member.regdate }</td>
+							<td>
+								<c:choose>
+									<c:when test="${member.grade == 1111}">
+										정회원
+									</c:when>
+									<c:when test="${member.grade == 2222}">
+										준회원
+									</c:when>
+									<c:when test="${member.grade == 9999}">
+										관리자
+									</c:when>
+								</c:choose>
+					        </td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${memberPage.hasNoMembers()}">
-							<tr>
-								<td colspan="6">회원이 존재하지 않습니다.</td>
-						</c:if>
-						<c:set var="currentPage" value="${memberPage.getCurrentPage()}"/>
-						<c:set var="number" value="${(currentPage-1)*10+1 }"/>
-						<c:forEach var="member" items="${memberPage.memberList}">
-							<tr onclick="showModal('${member.memid}', '${member.name}', '${member.email}', '${member.grade}', ${currentPage})">
-								<td>${number }</td>
-								<td>${member.memid }</td>
-								<td>${member.name }</td>
-								<td>${member.email }</td>
-								<td>${member.regdate }</td>
-								<td>
-									<c:choose>
-										<c:when test="${member.grade == 1111}">
-											정회원
-										</c:when>
-										<c:when test="${member.grade == 2222}">
-											준회원
-										</c:when>
-										<c:when test="${member.grade == 9999}">
-											관리자
-										</c:when>
-									</c:choose>
-						        </td>
-							</tr>
-							<c:set var="number" value="${number+1}"/>
-						</c:forEach>
-					</tbody>
-				</table>
-				<c:if test="${memberPage.hasMembers()}">
-	      			<div class="pagination-container">
-	          			<div class="pagination">
-	          				<c:if test="${memberPage.startPage > 5}">
-	             				<a href="memberList.do?pageNo=${memberPage.startPage - 5}">&laquo;</a>
-	             			</c:if>
-	             			<c:forEach var="pNo" begin="${memberPage.startPage}" end="${memberPage.endPage}">
-	             				<c:if test="${pNo eq memberPage.getCurrentPage()}">
-	             					<a href="memberList.do?pageNo=${pNo}" class="active">${pNo}</a>
-	              				</c:if>
-	             				<c:if test="${pNo ne memberPage.getCurrentPage()}">
-	             					<a href="memberList.do?pageNo=${pNo}">${pNo}</a>
-	              				</c:if>
-				            </c:forEach>
-				            <c:if test="${memberPage.endPage < memberPage.totalPages}">
-				            	<a href="memberList.do?pageNo=${memberPage.startPage + 5}">&raquo;</a>
-				            </c:if>
-	         			</div>
-	      			</div>
-      			</c:if>
-			</form>
+						<c:set var="number" value="${number+1}"/>
+					</c:forEach>
+				</tbody>
+			</table>
+			<c:if test="${memberPage.hasMembers()}">
+      			<div class="pagination-container">
+          			<div class="pagination">
+          				<c:if test="${memberPage.startPage > 5}">
+             				<a href="/admin/memberList.do?pageNo=${memberPage.startPage - 5}">&laquo;</a>
+             			</c:if>
+             			<c:forEach var="pNo" begin="${memberPage.startPage}" end="${memberPage.endPage}">
+             				<c:if test="${pNo eq memberPage.getCurrentPage()}">
+             					<a href="/admin/memberList.do?pageNo=${pNo}" class="active">${pNo}</a>
+              				</c:if>
+             				<c:if test="${pNo ne memberPage.getCurrentPage()}">
+             					<a href="/admin/memberList.do?pageNo=${pNo}">${pNo}</a>
+              				</c:if>
+			            </c:forEach>
+			            <c:if test="${memberPage.endPage < memberPage.totalPages}">
+			            	<a href="/admin/memberList.do?pageNo=${memberPage.startPage + 5}">&raquo;</a>
+			            </c:if>
+         			</div>
+      			</div>
+     		</c:if>
 		</div>
 	</div>
 </div>
@@ -144,7 +142,7 @@
 	        <h5 class="modal-title">회원 정보 수정</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	        <form action="updateGrade.do" method="post">
+	        <form action="/admin/updateGrade.do" method="post">
 		      <div class="modal-body">
 		          <div class="mb-3">
 		            <label for="id" class="col-form-label">아이디</label>
