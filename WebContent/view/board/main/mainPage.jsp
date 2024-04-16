@@ -127,7 +127,7 @@
 			<!-- 게시글목록영역 -->
 	        <ul>
 	        	<c:forEach var="board" items="${boardList.qna}">
-		          <li>${board.memid}<br/>${board.title }</li>
+		          <li>${board.memid}<br/><a href="/qna/read.do?no=${board.bno}">${board.title}</a></li>
 	        	</c:forEach>
 	        </ul>
 	      </div>
@@ -143,7 +143,7 @@
 			</div>
 	        <ul>
 	        	<c:forEach var="board" items="${boardList.community}">
-		          <li>${board.memid}<br/>${board.title }</li>
+		          <li>${board.memid}<br/><a href="/community/read.do?no=${board.bno}">${board.title}</a></li>
 	        	</c:forEach>
 	        </ul>
 	      </div>
@@ -165,7 +165,7 @@
 			</div>
 	        <ul>
 	        	<c:forEach var="board" items="${boardList.study}">
-		          <li>${board.memid}<br/>${board.title }</li>
+		          <li>${board.memid}<br/><a href="/study/read.do?no=${board.bno}">${board.title}</a></li>
 	        	</c:forEach>
 	        </ul>
 	      </div>
@@ -181,7 +181,7 @@
 			</div>
 	        <ul>
 	        	<c:forEach var="board" items="${boardList.lunch}">
-		          <li>${board.memid}<br/>${board.title }</li>
+		          <li>${board.memid}<br/><a href="/lunch/read.do?no=${board.bno}">${board.title}</a></li>
 	        	</c:forEach>
 	        </ul>
 	      </div>

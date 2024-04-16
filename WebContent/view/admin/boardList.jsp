@@ -41,19 +41,23 @@
         $('#deleteButton').on('click', function(){
             var $checked = $('table input[type=checkbox]:checked');
             if($checked.length < 1) {
-            	alert('삭제할 데이터를 선택해주세요.');
+            	alert('삭제할 게시글을 선택해주세요.');
             	return false;
+            } else {
+            	var confirmation = confirm('선택한 게시글을 삭제하시겠습니까?');
+            	
+            	if(confirmation) {
+                    var deleteList = [];
+                    
+                    $checked.each(function() {
+                        deleteList.push($(this).closest('tr').find('td:first').text());
+                    });
+                    
+                    $('input[name="deleteList"]').val(deleteList.join(','));
+                    
+                    $('form[name="deleteForm"]').submit();
+            	}
             }
-            
-            var deleteList = [];
-            
-            $checked.each(function() {
-                deleteList.push($(this).closest('tr').find('td:first').text());
-            });
-            
-            $('input[name="deleteList"]').val(deleteList.join(','));
-            
-            $('form[name="deleteForm"]').submit();
         });
         
     });
@@ -73,7 +77,7 @@
 	  			게시글 관리
 	  			</a>
 	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				    <li><a class="dropdown-item" id="qna-link" href="/admin/boardList.do?board=qna" >Q&A</a></li>
+				    <li><a class="dropdown-item" id="qna-link" href="/admin/boardList.do?board=qna">Q&A</a></li>
 				    <li><a class="dropdown-item" id="community-link" href="/admin/boardList.do?board=community">자유게시판</a></li>
 				    <li><a class="dropdown-item" id="study-link" href="/admin/boardList.do?board=study">스터디모집</a></li>
 				    <li><a class="dropdown-item" id="lunch-link" href="/admin/boardList.do?board=lunch">점메추</a></li>
@@ -111,12 +115,12 @@
 							<tr>
 								<td colspan="5">게시글이 존재하지 않습니다.</td>
 						</c:if>
-						<c:forEach var="board" items="${boardPage.boardList}">
+						<c:forEach var="boardItem" items="${boardPage.boardList}">
 							<tr>
-								<td>${board.bno }</td>
-								<td>${board.title }</td>
-								<td>${board.memid }</td>
-								<td>${board.regdate }</td>
+								<td>${boardItem.bno }</td>
+								<td><a href="/${board}/read.do?no=${boardItem.bno}">${boardItem.title }</a></td>
+								<td>${boardItem.memid }</td>
+								<td>${boardItem.regdate }</td>
 								<td><input type="checkbox"></td>
 							</tr>
 						</c:forEach>
