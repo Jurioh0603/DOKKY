@@ -5,13 +5,13 @@ import member.model.Member;
 public class Qna {
 	
 	private int bno;
-	private Member memId;
+	private String memId;
 	private String title;
 	private Date regDate;
 	private int hit;
 	
-	//Qna°´Ã¼ »ý¼º ½Ã °¢°¢ÀÇ ÀÚ¸®¿¡ µé¾î°¡´Â ¸Å°³º¯¼öµé(»ý¼ºÀÚ)
-	public Qna(int bno, Member memid, String title, Date regDate, int hit) {
+	//Qnaï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+	public Qna(int bno, String memid, String title, Date regDate, int hit) {
 		this.bno = bno;
 		this.memId = memid;
 		this.title = title;
@@ -19,12 +19,12 @@ public class Qna {
 		this.hit = hit;
 	}
 
-	//ºÒº¯¼º À¯Áö¸¦ À§ÇØ getter ¸Þ¼­µå¸¸ »ý¼º. °´Ã¼ÀÇ »óÅÂ°¡ º¯°æµÇÁö ¾ÊÀ¸¹Ç·Î ´Ù¸¥ ºÎºÐ¿¡¼­ °´Ã¼¿¡ ´ëÇÑ Á¶ÀÛ ¹æÁö¸¦ À§ÇØ ºÒº¯ °´Ã¼.
+	//ï¿½Òºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ getter ï¿½Þ¼ï¿½ï¿½å¸¸ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ù¸ï¿½ ï¿½ÎºÐ¿ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Òºï¿½ ï¿½ï¿½Ã¼.
 	public int getBno() {
 		return bno;
 	}
 
-	public Member getMemId() {
+	public String getMemId() {
 		return memId;
 	}
 

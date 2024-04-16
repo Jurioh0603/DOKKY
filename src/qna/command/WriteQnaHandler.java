@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ import mvc.command.CommandHandler;
 
 
 public class WriteQnaHandler implements CommandHandler {
-	private static final String FORM_VIEW = "/view/board/write.jsp";
+	private static final String FORM_VIEW = "/view/board/qna/qnaWrite.jsp";
 	private WriteQnaService writeService = new WriteQnaService();
 	
 	@Override
@@ -51,11 +52,14 @@ public class WriteQnaHandler implements CommandHandler {
 		int newBno = writeService.write(writeReq);
 		req.setAttribute("newBno", newBno);
 		
-		return "/view/board/main/mainPage.jsp";
+		return "/view/board/qna/qnaSelect.jsp";
 	}
 	
-	private WriteRequest createWriteRequest(User user, HttpServletRequest req) { //String memberId·Î µÎ´øÁö, User¸¦ »ç¿ëÇØ¼­ °¡Á®¿À´øÁö ¼öÁ¤.
-		return new WriteRequest(
-				new Member(user.getId(), null, user.getName(), null, user.getGrade(), user.getRegDate()), req.getParameter("title"), req.getParameter("content"));
-	}
+		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {
+		    String memberId = user.getId(); // íšŒì› ID ê°€ì ¸ì˜¤ê¸°
+		    String title = req.getParameter("title");
+		    String content = req.getParameter("content");
+		    return new WriteRequest(memberId, title, content);
+		}
+
 }

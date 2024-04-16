@@ -20,12 +20,12 @@ public class QnaDao {
         ResultSet rs = null;
         
         try {
-            // SQL Äõ¸®¸¦ ÁØºñÇÕ´Ï´Ù.
+            // SQL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½Õ´Ï´ï¿½.
             String sql = "INSERT INTO qna (bno, memid, title, regdate, hit) VALUES (seq_qna.nextval, ?, ?, ?, 0)";
             
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, qna.getMemId().getMemid());
+            pstmt.setString(1, qna.getMemId());
             pstmt.setString(2, qna.getTitle());
             pstmt.setDate(3, new java.sql.Date(qna.getRegDate().getTime()));
 
@@ -38,15 +38,15 @@ public class QnaDao {
                 if (rs.next()) {
                     int newBno = rs.getInt(1);
                     return new Qna(newBno, qna.getMemId(), qna.getTitle(), qna.getRegDate(), 0);
-                    //memId¸¦ Member °´Ã¼·Î ¹Þ¾Ò±â ¶§¹®¿¡, °´Ã¼¸¦ ¹ÝÈ¯ÇÒ ¶§µµ Member °´Ã¼¸¦ ¹ÝÈ¯ÇÏ´Â °Í
+                    //memIdï¿½ï¿½ Member ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Þ¾Ò±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Member ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½ï¿½
                 }
             }
         } catch (SQLException e) {
-            // SQLException Ã³¸®
+            // SQLException Ã³ï¿½ï¿½
             e.printStackTrace();
             throw e; 
         } finally {
-            // ÀÚ¿øÀ» ÇØÁ¦ÇÕ´Ï´Ù.
+            // ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             if (rs != null) {
                 rs.close();
             }
