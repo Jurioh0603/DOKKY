@@ -26,7 +26,7 @@
         function goBackToPreviousPage() {
             var previousPageUrl = document.referrer;
             
-        	window.location.href = "findPwd.do";
+        	window.location.href = "/findPwd.do";
         }
 
         document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
@@ -36,8 +36,8 @@
 <body class="text-center">
 
 	<main class="form-container">
-  		<form action="changePwd.do" method="post">
-    		<a href="#"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
+  		<form action="/changePwd.do" method="post">
+    		<a href="/main.do"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
     		<h1 class="h3 mb-4 fw-bold">비밀번호 변경</h1>
     
    			<div class="wrap">
@@ -103,7 +103,7 @@
 		        <p style="font-size: 16px; margin-bottom: 0px">비밀번호 변경이 완료되었습니다.<br/>새로운 비밀번호로 로그인해주세요.</p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" onclick="location.href='login.do'" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>
+		        <button type="button" class="btn btn-primary" onclick="location.href='/login.do'" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>
 		      </div>
 		    </div>
 		</div>

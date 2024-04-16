@@ -43,17 +43,17 @@
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a href="memberList.do" class="nav-link link-dark">회원 관리</a>
+      			<a href="/admin/memberList.do" class="nav-link link-dark">회원 관리</a>
     		</li>
     		<li class="l1">
 	  			<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
 	  			게시글 관리
 	  			</a>
 	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				    <li><a class="dropdown-item" id="qna-link" href="boardList.do?board=qna" >Q&A</a></li>
-				    <li><a class="dropdown-item" id="community-link" href="boardList.do?board=community">자유게시판</a></li>
-				    <li><a class="dropdown-item" id="study-link" href="boardList.do?board=study">스터디모집</a></li>
-				    <li><a class="dropdown-item" id="lunch-link" href="boardList.do?board=lunch">점메추</a></li>
+				    <li><a class="dropdown-item" id="qna-link" href="/admin/boardList.do?board=qna" >Q&A</a></li>
+				    <li><a class="dropdown-item" id="community-link" href="/admin/boardList.do?board=community">자유게시판</a></li>
+				    <li><a class="dropdown-item" id="study-link" href="/admin/boardList.do?board=study">스터디모집</a></li>
+				    <li><a class="dropdown-item" id="lunch-link" href="/admin/boardList.do?board=lunch">점메추</a></li>
 	  			</ul>
 	  		</li>
 	  	</ul>
@@ -104,18 +104,18 @@
 	      			<div class="pagination-container">
 	          			<div class="pagination">
 	          				<c:if test="${boardPage.startPage > 5}">
-	             				<a href="boardList.do?board=${board}&pageNo=${boardPage.startPage - 5}">&laquo;</a>
+	             				<a href="/admin/boardList.do?board=${board}&pageNo=${boardPage.startPage - 5}">&laquo;</a>
 	             			</c:if>
 	             			<c:forEach var="pNo" begin="${boardPage.startPage}" end="${boardPage.endPage}">
 	             				<c:if test="${pNo eq boardPage.getCurrentPage()}">
-	             					<a href="boardList.do?board=${board}&pageNo=${pNo}" class="active">${pNo}</a>
+	             					<a href="/admin/boardList.do?board=${board}&pageNo=${pNo}" class="active">${pNo}</a>
 	              				</c:if>
 	             				<c:if test="${pNo ne boardPage.getCurrentPage()}">
-	             					<a href="boardList.do?board=${board}&pageNo=${pNo}">${pNo}</a>
+	             					<a href="/admin/boardList.do?board=${board}&pageNo=${pNo}">${pNo}</a>
 	              				</c:if>
 				            </c:forEach>
 				            <c:if test="${boardPage.endPage < boardPage.totalPages}">
-				            	<a href="boardList.do?board=${board}&pageNo=${boardPage.startPage + 5}">&raquo;</a>
+				            	<a href="/admin/boardList.do?board=${board}&pageNo=${boardPage.startPage + 5}">&raquo;</a>
 				            </c:if>
 	         			</div>
 	      			</div>

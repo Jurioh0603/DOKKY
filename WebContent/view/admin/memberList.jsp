@@ -46,17 +46,17 @@
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a href="memberList.do" class="nav-link link-dark active">회원 관리</a>
+      			<a href="/admin/memberList.do" class="nav-link link-dark active">회원 관리</a>
     		</li>
     		<li class="l1">
 	  			<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
 	  			게시글 관리
 	  			</a>
 	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				    <li><a class="dropdown-item" href="boardList.do?board=qna">Q&A</a></li>
-				    <li><a class="dropdown-item" href="boardList.do?board=community">자유게시판</a></li>
-				    <li><a class="dropdown-item" href="boardList.do?board=study">스터디모집</a></li>
-				    <li><a class="dropdown-item" href="boardList.do?board=lunch">점메추</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=qna">Q&A</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=community">자유게시판</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=study">스터디모집</a></li>
+				    <li><a class="dropdown-item" href="/admin/boardList.do?board=lunch">점메추</a></li>
 	  			</ul>
     		</li>
   		</ul>
@@ -115,18 +115,18 @@
       			<div class="pagination-container">
           			<div class="pagination">
           				<c:if test="${memberPage.startPage > 5}">
-             				<a href="memberList.do?pageNo=${memberPage.startPage - 5}">&laquo;</a>
+             				<a href="/admin/memberList.do?pageNo=${memberPage.startPage - 5}">&laquo;</a>
              			</c:if>
              			<c:forEach var="pNo" begin="${memberPage.startPage}" end="${memberPage.endPage}">
              				<c:if test="${pNo eq memberPage.getCurrentPage()}">
-             					<a href="memberList.do?pageNo=${pNo}" class="active">${pNo}</a>
+             					<a href="/admin/memberList.do?pageNo=${pNo}" class="active">${pNo}</a>
               				</c:if>
              				<c:if test="${pNo ne memberPage.getCurrentPage()}">
-             					<a href="memberList.do?pageNo=${pNo}">${pNo}</a>
+             					<a href="/admin/memberList.do?pageNo=${pNo}">${pNo}</a>
               				</c:if>
 			            </c:forEach>
 			            <c:if test="${memberPage.endPage < memberPage.totalPages}">
-			            	<a href="memberList.do?pageNo=${memberPage.startPage + 5}">&raquo;</a>
+			            	<a href="/admin/memberList.do?pageNo=${memberPage.startPage + 5}">&raquo;</a>
 			            </c:if>
          			</div>
       			</div>
@@ -142,7 +142,7 @@
 	        <h5 class="modal-title">회원 정보 수정</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	        <form action="updateGrade.do" method="post">
+	        <form action="/admin/updateGrade.do" method="post">
 		      <div class="modal-body">
 		          <div class="mb-3">
 		            <label for="id" class="col-form-label">아이디</label>

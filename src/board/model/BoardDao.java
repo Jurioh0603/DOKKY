@@ -57,5 +57,4 @@ public class BoardDao {
 				rs.getInt(4),
 				rs.getString(5));
 	}
-	
 }

@@ -23,8 +23,8 @@
 <body class="text-center">
 
 	<main class="form-container">
-		<form action="login.do" method="post">
-	    	<a href="#"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
+		<form action="/login.do" method="post">
+	    	<a href="/main.do"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
 	    	<h1 class="h3 mb-3 fw-bold">DOKKY에 오신것을 환영합니다.</h1>
 	    	<p>DOKKY는 중앙정보처리학원 수강생들을 위한 커뮤니티 사이트입니다.</p>
 	    
@@ -47,9 +47,9 @@
 	    	<button class="w-100 btn btn-lg btn-primary custom-button login-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>  
 	
 		    <div class="link-container">
-			    <a href="findId.do">아이디찾기</a>
-			    <a href="findPwd.do">비밀번호찾기</a>
-			    <a href="join.jsp">회원가입</a>
+			    <a href="/findId.do">아이디찾기</a>
+			    <a href="/findPwd.do">비밀번호찾기</a>
+			    <a href="#">회원가입</a>
 			</div>
   		</form>
   		<c:choose>
