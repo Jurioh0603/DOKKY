@@ -44,7 +44,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 로그인 검사 필터(사용시 주석을 지우고 <url-pattern> 태그 안에 작성)
+	<!-- 로그인 검사 필터(사용시 주석을 지우고 <url-pattern> 태그 안에 작성)-->
 	<filter>
 		<filter-name>LoginCheckFilter</filter-name>
 		<filter-class>filter.LoginCheckFilter</filter-class>
@@ -52,9 +52,9 @@
 	
 	<filter-mapping>
 		<filter-name>LoginCheckFilter</filter-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/study/modify.do</url-pattern>
 	</filter-mapping>
-	-->
+	
 	
 	<servlet>
 		<servlet-name>ControllerUsingURI</servlet-name>

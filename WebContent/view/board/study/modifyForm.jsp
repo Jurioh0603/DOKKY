@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ tablib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -16,6 +16,7 @@
 <title>DOKKY - 스터디 글작성</title>
 </head>
 <body>
+<form action="modify.do" method="post">
 <!-- 헤더 -->
 <%@ include file="../../headerFooter/header.jsp" %>
 <br>
@@ -36,20 +37,13 @@
 	<div class="form-group row">
 		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
 		<div class="col-sm-10">
-			<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}" />
-			<c:if test="${errors.title}">제목을 입력하세요.</c:if>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
-		<div class="col-sm-10">
-			<input type="text" name="author" class="form-text" id="inputAuthor" />
+			<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}"/>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
 		<div class="col-sm-10">
-			<textarea type="text" name="content" class="form-text1" id="inputContent" value="${modReq.content}"></textarea>
+			<textarea type="text" name="content" class="form-text1" id="inputContent" >${modReq.content}</textarea>
 		</div>
 	</div>
 
@@ -58,7 +52,8 @@
 		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
 		<div class="col-sm-10">
 			<div class="button-container">
-				<button type="button" class="custom-button">글 수정</button>
+				<button type="button" class="custom-button" style="margin-right:10px;">수정</button>
+				<button type="button" class="custom-button">취소</button>
 			</div>
 		</div>
 	</div>
@@ -70,6 +65,8 @@
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
+
+</form>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
