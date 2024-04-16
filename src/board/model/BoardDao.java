@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,5 +55,19 @@ public class BoardDao {
 				rs.getDate(3), 
 				rs.getInt(4),
 				rs.getString(5));
+	}
+	
+	public void delete(Connection conn, String board, String bno) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "delete from " + board + " where bno=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(bno));
+			pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
 	}
 }

@@ -25,7 +25,7 @@
 		<h3>원하시는 페이지를 찾을 수 없습니다.</h3>
 		<p>잘못된 경로로 접근하셨습니다.<br/>
 			올바른 주소로 서비스를 이용해 주십시오.</p>
-		<button type="button" class="btn btn-outline-primary">메인으로 가기</button>
+		<button type="button" class="btn btn-outline-primary" onclick="location.href='/main.do'">메인으로 가기</button>
 	</main>
 </body>
 </html>

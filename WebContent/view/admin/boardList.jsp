@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +35,28 @@
 		document.getElementById("lunch-link").classList.add("active");
 	  }
 	});
+	
+    $(document).ready(function(){
+        
+        $('#deleteButton').on('click', function(){
+            var $checked = $('table input[type=checkbox]:checked');
+            if($checked.length < 1) {
+            	alert('삭제할 데이터를 선택해주세요.');
+            	return false;
+            }
+            
+            var deleteList = [];
+            
+            $checked.each(function() {
+                deleteList.push($(this).closest('tr').find('td:first').text());
+            });
+            
+            $('input[name="deleteList"]').val(deleteList.join(','));
+            
+            $('form[name="deleteForm"]').submit();
+        });
+        
+    });
 </script>
 </head>
 <body>
@@ -72,7 +95,7 @@
 		</h2>
 		<h6 style="color: gray;">제목 클릭 시 글 링크로 이동합니다.</h6>
 		<div class="container mt-4">
-			<form action="#" method="post">
+			<form name="deleteForm" method="post" action="/admin/deleteBoard.do" >
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -99,7 +122,10 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="submit" class="btn btn-danger">삭제</button>
+				<input type="hidden" name="deleteList"/>
+				<input type="hidden" name="board" value="${board}"/>   			
+				<input type="hidden" name="pageNo" value="${boardPage.getCurrentPage()}"/>			
+				<button type="button" class="btn btn-danger" id="deleteButton">삭제</button>
       			<c:if test="${boardPage.hasContents()}">
 	      			<div class="pagination-container">
 	          			<div class="pagination">

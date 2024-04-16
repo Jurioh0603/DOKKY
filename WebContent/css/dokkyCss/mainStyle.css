@@ -79,16 +79,15 @@
   width: 100%;
 }
 
-.board-preview .rounded-box {
-  border-radius: 0.375rem; /* 6px */
-  border-width: 1px;
-  border-style: solid;
-  border-color: #d1d5db; /* border-gray-300 */
-}
 .board-preview ul li {
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #D1D5DB; /* 연한 회색 밑줄 */
   list-style-type: none;
+  padding: 10px;
+}
+
+ul {
+	padding-right: 32px;
 }
 
 /* 추가된 스타일 */
@@ -105,7 +104,6 @@
   position: relative;
   width: 100%; /* 스퀘어 박스를 부모 요소의 너비에 맞춥니다. */
   height: 64px;
-  margin-bottom: 10px;
   background-image: url('../../imgs/topBanner.jpg');
   border-radius: 15px;
   display: flex;
