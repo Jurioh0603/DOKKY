@@ -8,7 +8,7 @@ import jdbc.connection.ConnectionProvider;
 import member.model.Member;
 import member.model.MemberDao;
 
-public class ListMemberService {
+public class MemberListService {
 
 	private MemberDao memberDao = new MemberDao();
 	private int size = 10;
@@ -18,6 +18,14 @@ public class ListMemberService {
 			int total = memberDao.selectCount(conn);
 			List<Member> memberList = memberDao.select(conn, (pageNum - 1) * size + 1, pageNum * size);
 			return new MemberPage(total, pageNum, size, memberList);
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void updateGrade(String id, int grade) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+			memberDao.updateGrade(conn, id, grade);
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}

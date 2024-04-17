@@ -106,7 +106,7 @@
 		</h2>
 		<h6 style="color: gray;">제목 클릭 시 글 링크로 이동합니다.</h6>
 		<div class="container mt-4">
-			<form name="deleteForm" method="post" action="/admin/deleteBoard.do" >
+			<form name="deleteForm" method="post" action="/admin/boardList.do" >
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>

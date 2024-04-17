@@ -142,7 +142,7 @@
 	        <h5 class="modal-title">회원 정보 수정</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	        <form action="/admin/updateGrade.do" method="post">
+	        <form action="/admin/memberList.do" method="post">
 		      <div class="modal-body">
 		          <div class="mb-3">
 		            <label for="id" class="col-form-label">아이디</label>
