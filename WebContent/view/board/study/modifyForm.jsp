@@ -32,7 +32,9 @@
 		<br>
 		<br>
 	</div>
-
+	
+	<form action="/study/modify.do" method="POST">
+	<input type="hidden" name="no" value="${modReq.studyNumber}">
 	<!-- 글쓰기 -->
 	<div class="form-group row">
 		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
@@ -52,16 +54,18 @@
 		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
 		<div class="col-sm-10">
 			<div class="button-container">
-				<button type="button" class="custom-button" style="margin-right:10px;">수정</button>
+				<button type="submit" class="custom-button" style="margin-right:10px;">수정</button>
 				<button type="button" class="custom-button">취소</button>
 			</div>
 		</div>
 	</div>
+	</form>
 </div>
 <br>
 <br>
 <br>
 <br>
+
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>

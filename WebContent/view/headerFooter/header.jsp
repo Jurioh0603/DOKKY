@@ -31,7 +31,9 @@ svg {
 .searchButton:hover svg path {
     stroke: #0090f9;
 }
-
+.login-btn:hover {
+background-color: #f5f5f5;
+}
 </style>
 </head>
 <body>
@@ -67,6 +69,24 @@ svg {
             <!-- 검색창 입력 필드 -->
             <input type="search" class="form-control rounded-pill  pl-6" placeholder="검색" aria-label="Search" style="padding-left: 25px; font-weight: 300;">
           </div>
+          
+          
+	<button class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;">
+	  로그인
+	</button>
+	<button class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;">
+	  로그아웃
+	</button>
+	<button class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 10px; background-color: #0090F9;">
+	  회원가입
+	</button>
+
+
+
+
+
+          
+          
         </form>
         
       </div> 

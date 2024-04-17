@@ -97,8 +97,8 @@
 	<c:if test="${authUser != null && authUser.id == studyData.study.memId}">
 	<div class="form-group row">
 	  <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-	  
-	    <form id="editForm" action="#" method="post">
+	    <form id="editForm" action="/study/modify.do" method="get">
+	    <input type="hidden" name="no" value="${studyData.study.bno}">
 	      <button type="submit" class="custom-button">글수정</button>
 	    </form>
 	    <form id="deleteForm" action="#" method="post">

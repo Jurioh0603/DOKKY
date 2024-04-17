@@ -56,7 +56,7 @@ public class ScontentDao {
 	public int update(Connection conn, int no, String content) throws SQLException {
 		try (PreparedStatement pstmt =
 				conn.prepareStatement(
-					"update Scontent set content = ? "+
+					"update Scontent set content = ? "+ 
 					"where bno = ?")){
 		pstmt.setString(1, content);
 		pstmt.setInt(2, no);

@@ -17,7 +17,7 @@ import study.service.StudyData;
 import study.service.StudyNotFoundException;
 
 public class ModifyStudyController implements CommandHandler{
-	private static final String FORM_VIEW = "/view/modifyForm.jsp";
+	private static final String FORM_VIEW = "/view/board/study/modifyForm.jsp";
 	
 	
 	private ReadStudyService readService = new ReadStudyService();
@@ -74,7 +74,6 @@ public class ModifyStudyController implements CommandHandler{
 				req.getParameter("title"), 
 				req.getParameter("content"));
 		req.setAttribute("modReq", modReq);
-		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		modReq.validate(errors);
@@ -83,7 +82,7 @@ public class ModifyStudyController implements CommandHandler{
 		}
 		try {
 			modifyService.modify(modReq);
-			return "/view/board/study/modifySuccess.jsp";
+			return "/study/read.do?no="+noVal;
 		}catch(StudyNotFoundException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;

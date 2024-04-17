@@ -55,7 +55,7 @@ public class StudyDao {
    public int update(Connection conn, int no, String title)throws SQLException{
 	   try(PreparedStatement pstmt = 
 			   conn.prepareStatement(
-					   "update study set title = ?, regDate = SYSDATE" +
+					   "update study set title = ? " + 
 					   "where bno = ?")) {
 		   pstmt.setString(1, title);
 		   pstmt.setInt(2, no);
