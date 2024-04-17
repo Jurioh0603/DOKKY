@@ -24,7 +24,7 @@
     
     <!-- 푸터 왼쪽 영역(로고+문구한줄) -->
       <div class="col-md-3 mb-3 mb-md-0"> 
-      <a href="<%=request.getContextPath()%>/main.do"> <!-- 로고 클릭 시 메인페이지 이동 -->
+      <a href="/main.do"> <!-- 로고 클릭 시 메인페이지 이동 -->
         <img src="<%=request.getContextPath() %>/imgs/dokkyLogo.png" alt="DOKKY Logo" width="150" height="auto">
       </a>
         <p style="color: #6B7280; padding-top: 0.35rem; ">All That Developer</p>
