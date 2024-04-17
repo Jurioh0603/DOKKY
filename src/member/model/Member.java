@@ -68,4 +68,8 @@ public class Member {
 		this.regdate = regdate;
 	}
 	
+	public boolean matchMempw(String pwd) {
+		return mempw.equals(pwd);
+	}
+	
 }
