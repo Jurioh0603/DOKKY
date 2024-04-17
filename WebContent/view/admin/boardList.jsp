@@ -46,7 +46,7 @@
     	});
         
         $('#deleteButton').on('click', function(){
-            var $checked = $('table input[type=checkbox]:checked');
+            var $checked = $('table input[type=checkbox]:checked').not('#selectAll');
             if($checked.length < 1) {
             	alert('삭제할 게시글을 선택해주세요.');
             	return false;
