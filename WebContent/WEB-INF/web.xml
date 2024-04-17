@@ -83,5 +83,10 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 에러페이지 설정 -->
+	<error-page>
+	  <error-code>404</error-code>
+	  <location>/view/board/errorPage/deleteBoardPage.jsp</location>
+	</error-page>
 	
 </web-app>

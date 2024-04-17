@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,23 +72,20 @@ background-color: #f5f5f5;
             <!-- 검색창 입력 필드 -->
             <input type="search" class="form-control rounded-pill  pl-6" placeholder="검색" aria-label="Search" style="padding-left: 25px; font-weight: 300;">
           </div>
-               
-	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;"  onclick="location.href='/login.do'">
+     <c:if test="${ empty authUser }">
+	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 30px;"  onclick="location.href='/login.do'">
 	  로그인
 	</button>
-	<!--  <button class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;">
-	  로그아웃
-	</button> -->
 	<button type="button" class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 10px; background-color: #0090F9;" onclick="location.href='/join.do'">
 	  회원가입
 	</button>
-
-
-
-
-
-          
-          
+	</c:if>
+	
+	<c:if test="${ !empty authUser }">          
+	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;" onclick="location.href='/logout.do'">
+	  로그아웃
+	</button>
+	</c:if>
         </form>
         
       </div> 
