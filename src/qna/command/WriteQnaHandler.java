@@ -38,11 +38,12 @@ public class WriteQnaHandler implements CommandHandler {
 		return FORM_VIEW;
 	}
 	
+	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
-		System.out.println("aaaaa");
+		
 		
 		User user = (User)req.getSession(false).getAttribute("authUser");
 		WriteRequest writeReq = createWriteRequest(user, req);
