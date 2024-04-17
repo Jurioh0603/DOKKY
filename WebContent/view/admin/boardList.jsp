@@ -37,9 +37,16 @@
 	});
 	
     $(document).ready(function(){
+    	
+    	$('#selectAll').on('click', function() {
+    		
+    		var checked = $(this).is(':checked');
+    		
+    		$('tbody input[type=checkbox]').prop('checked', checked);
+    	});
         
         $('#deleteButton').on('click', function(){
-            var $checked = $('table input[type=checkbox]:checked');
+            var $checked = $('table input[type=checkbox]:checked').not('#selectAll');
             if($checked.length < 1) {
             	alert('삭제할 게시글을 선택해주세요.');
             	return false;
@@ -99,7 +106,7 @@
 		</h2>
 		<h6 style="color: gray;">제목 클릭 시 글 링크로 이동합니다.</h6>
 		<div class="container mt-4">
-			<form name="deleteForm" method="post" action="/admin/deleteBoard.do" >
+			<form name="deleteForm" method="post" action="/admin/boardList.do" >
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -107,7 +114,7 @@
 							<th scope="col">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
-							<th scope="col">선택</th>
+							<th scope="col">선택 <input id="selectAll" type="checkbox"></th>
 						</tr>
 					</thead>
 					<tbody>
