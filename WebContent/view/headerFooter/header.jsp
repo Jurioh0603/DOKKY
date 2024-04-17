@@ -43,7 +43,7 @@ background-color: #f5f5f5;
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container ">
 	  <div class="container">
-	    <a href="<%=request.getContextPath()%>/main.do" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
+	    <a href="/main.do" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
 		<!-- 로고 이미지 경로 설정 주의하기! -->
 	      <img src="<%=request.getContextPath() %>/imgs/dokkyLogo.png" alt="DOKKY Logo" width="100" height="auto">
 	    </a>
@@ -71,13 +71,13 @@ background-color: #f5f5f5;
             <input type="search" class="form-control rounded-pill  pl-6" placeholder="검색" aria-label="Search" style="padding-left: 25px; font-weight: 300;">
           </div>
                
-	<button class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;">
+	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;"  onclick="location.href='/login.do'">
 	  로그인
 	</button>
 	<!--  <button class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;">
 	  로그아웃
 	</button> -->
-	<button class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 10px; background-color: #0090F9;">
+	<button type="button" class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 10px; background-color: #0090F9;" onclick="location.href='/join.do'">
 	  회원가입
 	</button>
 
