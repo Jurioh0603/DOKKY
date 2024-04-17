@@ -37,6 +37,13 @@
 	});
 	
     $(document).ready(function(){
+    	
+    	$('#selectAll').on('click', function() {
+    		
+    		var checked = $(this).is(':checked');
+    		
+    		$('tbody input[type=checkbox]').prop('checked', checked);
+    	});
         
         $('#deleteButton').on('click', function(){
             var $checked = $('table input[type=checkbox]:checked');
@@ -107,7 +114,7 @@
 							<th scope="col">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
-							<th scope="col">선택</th>
+							<th scope="col">선택 <input id="selectAll" type="checkbox"></th>
 						</tr>
 					</thead>
 					<tbody>
