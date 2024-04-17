@@ -65,8 +65,17 @@
 	<hr/>
 
 	<div class="m-5 flex-grow-1">
-		<h2>회원 관리</h2>
-		<h6 style="color: gray;">클릭 시 회원 정보 수정이 가능합니다.</h6>
+		<div style="display: flex; justify-content: space-between;">
+		    <div>
+				<h2>회원 관리</h2>
+				<h6 style="color: gray;">클릭 시 회원 정보 수정이 가능합니다.</h6>
+			</div>
+			<form action="/admin/memberList.do" method="get" class="d-flex" style="align-self: flex-end;">
+				<input type="hidden" name="pageNo" value="${memberPage.getCurrentPage()}"/>
+	        	<input class="form-control me-2" type="search" name="searchId" placeholder="회원 검색" value="${searchId}" aria-label="Search" style="height: 40px;">
+	        	<button class="btn btn-outline-primary" type="submit" style="height: 40px; width: 70px">검색</button>
+	      	</form>
+      	</div>
 		<div class="container mt-4">
 			<table class="table table-striped table-hover">
 				<thead>

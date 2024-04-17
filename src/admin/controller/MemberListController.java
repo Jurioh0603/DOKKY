@@ -25,14 +25,22 @@ public class MemberListController implements CommandHandler {
 	}
 	
 	private String processList(HttpServletRequest req, HttpServletResponse res) {
+		String searchId = req.getParameter("searchId");
 		String pageNoVal = req.getParameter("pageNo");
 		int pageNo = 1;
 		if(pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
-		MemberPage memberPage = memberListService.getMemberPage(pageNo);
-		req.setAttribute("memberPage", memberPage);
-		return "/view/admin/memberList.jsp";
+		if(searchId == null) {
+			MemberPage memberPage = memberListService.getMemberPage(pageNo);
+			req.setAttribute("memberPage", memberPage);
+			return "/view/admin/memberList.jsp";
+		} else {
+			MemberPage memberPage = memberListService.searchMemberPage(pageNo, searchId);
+			req.setAttribute("searchId", searchId);
+			req.setAttribute("memberPage", memberPage);
+			return "/view/admin/memberList.jsp";
+		}
 	}
 	
 	private String processUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
