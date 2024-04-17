@@ -14,7 +14,7 @@ public class LogoutController implements CommandHandler {
 		if(session != null) {
 			session.invalidate();
 		}
-		res.sendRedirect(req.getContextPath() + "/view/board/main/mainPage.jsp");
+		res.sendRedirect("/main.do");
 		return null;
 	}
 }

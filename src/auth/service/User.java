@@ -7,13 +7,11 @@ public class User {
 	private String id;
 	private String name;
 	private int grade;
-	private Date regDate;
 	
-	public User(String id, String name, int grade, Date regDate) {
+	public User(String id, String name, int grade) {
 		this.id = id;
 		this.name = name;
 		this.grade = grade;
-		this.regDate = regDate;
 	}
 	
 	public String getId() {
@@ -28,7 +26,4 @@ public class User {
 		return grade;
 	}
 	
-	public Date getRegDate() {
-		return regDate;
-	}
 }
