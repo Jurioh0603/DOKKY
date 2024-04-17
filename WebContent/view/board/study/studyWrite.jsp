@@ -49,7 +49,7 @@
 	<div class="form-group row">
 		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
 		<div class="col-sm-10">
-			<textarea type="text" name="content" class="form-text1" id="inputContent" value="${modReq.content}"></textarea>
+			<textarea cols="100" wrap="hard" name="content" class="form-text1" id="inputContent">${modReq.content}</textarea>
 		</div>
 	</div>
 

@@ -75,13 +75,11 @@
 	  }
 	  regDateElement.textContent = displayText;
 	  
-	// 콘솔에 작성된 시간 출력
-	  console.log("작성된 시간:", regDate)
 	</script>
 	
 	<main class="main">
-		<div class="post">
-			<p class="post-content">${studyData.getContent()}</p>
+		<div class="post" >
+			<p class="post-content" style="white-space:pre;">${studyData.content}</p>
 		</div>
 		<br>
 		<br>
