@@ -38,9 +38,12 @@ public class WriteQnaHandler implements CommandHandler {
 		return FORM_VIEW;
 	}
 	
+	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
+		
+		
 		
 		User user = (User)req.getSession(false).getAttribute("authUser");
 		WriteRequest writeReq = createWriteRequest(user, req);
@@ -53,7 +56,7 @@ public class WriteQnaHandler implements CommandHandler {
 		req.setAttribute("newBno", newBno);
 		
 		return "/view/board/qna/qnaSelect.jsp";
-	}
+		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {
 		    String memberId = user.getId(); // 회원 ID 가져오기
