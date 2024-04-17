@@ -34,6 +34,12 @@ public class MemberListService {
 	public MemberPage searchMemberPage(int pageNum, String searchId) {
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			int total = memberDao.selectSearchCount(conn, searchId);
+			int totalPages = total / size;
+			if(total % size > 0) {
+				totalPages++;
+			}
+			if(totalPages < pageNum)
+				pageNum = 1;
 			List<Member> memberList = memberDao.selectSearch(conn, (pageNum - 1) * size + 1, pageNum * size, searchId);
 			return new MemberPage(total, pageNum, size, memberList);
 		} catch(SQLException e) {

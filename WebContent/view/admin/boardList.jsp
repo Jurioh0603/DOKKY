@@ -127,7 +127,7 @@
 								<td>${boardItem.bno }</td>
 								<td><a href="/${board}/read.do?no=${boardItem.bno}">${boardItem.title }</a></td>
 								<td>${boardItem.memid }</td>
-								<td>${boardItem.regdate }</td>
+								<td style="white-space: nowrap;">${boardItem.regdate }</td>
 								<td><input type="checkbox"></td>
 							</tr>
 						</c:forEach>

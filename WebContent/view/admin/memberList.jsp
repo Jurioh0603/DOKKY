@@ -71,8 +71,8 @@
 				<h6 style="color: gray;">클릭 시 회원 정보 수정이 가능합니다.</h6>
 			</div>
 			<form action="/admin/memberList.do" method="get" class="d-flex" style="align-self: flex-end;">
-				<input type="hidden" name="pageNo" value="${memberPage.getCurrentPage()}"/>
-	        	<input class="form-control me-2" type="search" name="searchId" placeholder="회원 검색" value="${searchId}" aria-label="Search" style="height: 40px;">
+				<input type="hidden" name="pageNo" value="1"/>
+	        	<input class="form-control me-2" type="search" name="searchId" placeholder="회원 아이디 검색" value="${searchId}" aria-label="Search" style="height: 40px;">
 	        	<button class="btn btn-outline-primary" type="submit" style="height: 40px; width: 70px">검색</button>
 	      	</form>
       	</div>
@@ -124,18 +124,18 @@
       			<div class="pagination-container">
           			<div class="pagination">
           				<c:if test="${memberPage.startPage > 5}">
-             				<a href="/admin/memberList.do?pageNo=${memberPage.startPage - 5}">&laquo;</a>
+             				<a href="/admin/memberList.do?pageNo=${memberPage.startPage - 5}&searchId=${searchId}">&laquo;</a>
              			</c:if>
              			<c:forEach var="pNo" begin="${memberPage.startPage}" end="${memberPage.endPage}">
              				<c:if test="${pNo eq memberPage.getCurrentPage()}">
-             					<a href="/admin/memberList.do?pageNo=${pNo}" class="active">${pNo}</a>
+             					<a href="/admin/memberList.do?pageNo=${pNo}&searchId=${searchId}" class="active">${pNo}</a>
               				</c:if>
              				<c:if test="${pNo ne memberPage.getCurrentPage()}">
-             					<a href="/admin/memberList.do?pageNo=${pNo}">${pNo}</a>
+             					<a href="/admin/memberList.do?pageNo=${pNo}&searchId=${searchId}">${pNo}</a>
               				</c:if>
 			            </c:forEach>
 			            <c:if test="${memberPage.endPage < memberPage.totalPages}">
-			            	<a href="/admin/memberList.do?pageNo=${memberPage.startPage + 5}">&raquo;</a>
+			            	<a href="/admin/memberList.do?pageNo=${memberPage.startPage + 5}&searchId=${searchId}">&raquo;</a>
 			            </c:if>
          			</div>
       			</div>
@@ -173,7 +173,8 @@
 		                <option value="9999">관리자</option>
 					</select>
 		          </div>
-		          <input type="hidden" id="currentPage" name="currentPage"/>
+		          <input type="hidden" id="currentPage" name="currentPage" value="${memberPage.getCurrentPage()}"/>
+		          <input type="hidden" id="searchId" name="searchId" value="${searchId}"/>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>

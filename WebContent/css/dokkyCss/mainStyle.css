@@ -149,6 +149,13 @@ li > a:hover {
 	color: #0090f9;
 }
 
+.title {
+overflow: hidden; 
+text-overflow: ellipsis; 
+white-space: nowrap; 
+display: block;
+}
+
 /* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
 @media (max-width: 768px) {
   .container {

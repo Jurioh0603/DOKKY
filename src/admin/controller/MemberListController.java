@@ -45,12 +45,13 @@ public class MemberListController implements CommandHandler {
 	
 	private String processUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String currentPage = req.getParameter("currentPage");
+		String searchId = req.getParameter("searchId");
 		String id = trim(req.getParameter("id"));
 		int grade = Integer.parseInt(req.getParameter("grade"));
 		
 		try {
 			memberListService.updateGrade(id, grade);
-			res.sendRedirect(LIST_VIEW + "?pageNo=" + currentPage);
+			res.sendRedirect(LIST_VIEW + "?pageNo=" + currentPage + "&searchId=" + searchId);
 			return null;
 		} catch(Exception e) {
 			return LIST_VIEW;
