@@ -31,6 +31,9 @@ svg {
 .searchButton:hover svg path {
     stroke: #0090f9;
 }
+.login-btn:hover {
+background-color: #f5f5f5;
+}
 
 </style>
 </head>
@@ -40,7 +43,7 @@ svg {
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container ">
 	  <div class="container">
-	    <a href="landingPage.jsp" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
+	    <a href="/main.do" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
 		<!-- 로고 이미지 경로 설정 주의하기! -->
 	      <img src="<%=request.getContextPath() %>/imgs/dokkyLogo.png" alt="DOKKY Logo" width="100" height="auto">
 	    </a>
@@ -48,10 +51,10 @@ svg {
 		<!-- nav-bar에 게시판 메뉴명 클릭 시 각 게시판으로 이동 -->
 	    <div class="collapse navbar-collapse justify-content-center" id="navbarNav" role="header">
 	      <ul class="navbar-nav">
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">Q&A</a></li>
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">자유게시판</a></li>
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">스터디모집</a></li>
-	        <li class="nav-item"><a href="#" class="nav-link px-4 text-black">점메추</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="nav-link px-4 text-black">Q&A</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/community/communitySelect.jsp" class="nav-link px-4 text-black">자유게시판</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/study/studySelect.jsp" class="nav-link px-4 text-black">스터디모집</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/lunch/lunchSelect.jsp" class="nav-link px-4 text-black">점메추</a></li>
 	      </ul>
 	    </div>
         
@@ -67,6 +70,23 @@ svg {
             <!-- 검색창 입력 필드 -->
             <input type="search" class="form-control rounded-pill  pl-6" placeholder="검색" aria-label="Search" style="padding-left: 25px; font-weight: 300;">
           </div>
+               
+	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;"  onclick="location.href='/login.do'">
+	  로그인
+	</button>
+	<!--  <button class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;">
+	  로그아웃
+	</button> -->
+	<button type="button" class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 10px; background-color: #0090F9;" onclick="location.href='/join.do'">
+	  회원가입
+	</button>
+
+
+
+
+
+          
+          
         </form>
         
       </div> 
