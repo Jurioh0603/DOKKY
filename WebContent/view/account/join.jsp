@@ -6,9 +6,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../../imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
-<title>DOKKY - All That Developer</title>
+<title>회원가입</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -30,7 +31,7 @@
    			</div>
 
 		    <div class="form-floating custom-form">
-		      	<input type="text" class="form-control" name="id" id="floatingId" placeholder="아이디">
+		      	<input type="text" class="form-control" name="id" value="${param.id}" id="floatingId" placeholder="아이디">
 		      	<label for="floatingId">아이디</label>
 		    </div>
 	    
@@ -45,42 +46,40 @@
 		    </div>
 		    
 		    <div class="form-floating custom-form">
-		      	<input type="text" class="form-control" name="name" id="floatingName" placeholder="이름">
+		      	<input type="text" class="form-control" name="name" value="${param.name}" id="floatingName" placeholder="이름">
 		      	<label for="floatingName">이름</label>
 		    </div>
     
 		    <div class="form-floating custom-form">
-		      	<input type="email" class="form-control" name="email" id="floatingEmail" placeholder="이메일">
+		      	<input type="email" class="form-control" name="email" value="${param.email}" id="floatingEmail" placeholder="이메일">
 		      	<label for="floatingEmail">이메일</label>
 		    </div>
 
 			<div class="button-wrapper d-flex justify-content-center">
 		    	<button class="btn btn-lg btn-primary custom-button form-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">회원가입</button>  
 		 	</div>
-		    	이미 회원이신가요?<a href="../account/login.jsp" class="flex items-center text-blue-500 underline hover:text-blue-400">로그인</a>
+		    	이미 회원이신가요?<a href="/login.do" class="flex items-center text-blue-500 underline hover:text-blue-400">로그인</a>
   		</form>
-  		<c:if test="${not empty errors}">
-            <c:choose>
-                <c:when test="${errors.id}">
-                    <p class="errors-msg"><b>아이디</b>를 입력해 주세요.</p>
-                </c:when>
-                <c:when test="${errors.password}">
-                    <p class="errors-msg"><b>비밀번호</b>를 입력해 주세요.</p>
-                </c:when>
-                <c:when test="${errors.name}">
-                    <p class="errors-msg"><b>이름</b>을 입력해 주세요.</p>
-                </c:when>
-                <c:when test="${errors.email}">
-                    <p class="errors-msg"><b>이메일</b>을 입력해 주세요.</p>
-                </c:when>
-                <c:when test="${errors.notMatch}">
-                    <p class="errors-msg">비밀번호와 비밀번호 확인이 일치하지 않습니다.</p>
-                </c:when>
-                <c:otherwise>
-                    <p class="errors-msg">&nbsp;</p>
-                </c:otherwise>
-            </c:choose>
-        </c:if>
+	       <c:choose>
+	           <c:when test="${errors.id}">
+	               <p class="errors-msg"><b>아이디</b>를 다시 입력해 주세요.</p>
+	           </c:when>
+	           <c:when test="${errors.password}">
+	               <p class="errors-msg"><b>비밀번호</b>를 입력해 주세요.</p>
+	           </c:when>
+	           <c:when test="${errors.name}">
+	               <p class="errors-msg"><b>이름</b>을 입력해 주세요.</p>
+	           </c:when>
+	           <c:when test="${errors.email}">
+	               <p class="errors-msg"><b>이메일</b>을 입력해 주세요.</p>
+	           </c:when>
+	           <c:when test="${errors.notMatch}">
+	               <p class="errors-msg">비밀번호와 비밀번호 확인이 일치하지 않습니다.</p>
+	           </c:when>
+	           <c:otherwise>
+	               <p class="errors-msg">&nbsp;</p>
+	           </c:otherwise>
+	       </c:choose>
 	</main>
 
 </body>

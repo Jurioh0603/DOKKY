@@ -43,14 +43,15 @@ public class JoinController implements CommandHandler {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 
+		joinReq.validate(errors);
+		
 		if (!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
 
 		try {
 			joinService.join(joinReq);
-			req.setAttribute("successMessage", "회원가입이 성공적으로 완료되었습니다.");
-			return "view/account/login.jsp";
+			return "view/account/login.do";
 		} catch (DuplicateIdException e) {
 			errors.put("duplicateId", Boolean.TRUE);
 			return FORM_VIEW;

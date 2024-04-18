@@ -59,12 +59,12 @@ public class JoinRequest {
 	}
 	
 	private void checkEmpty(Map<String, Boolean> errors, String value, String fieldName) {
-		if(value == null || value.trim().isEmpty() || value.contains(" ") || value.length() < 20)
-			errors.put("fieldName", Boolean.TRUE);
+		if(value == null || value.isEmpty()) 
+			errors.put(fieldName, Boolean.TRUE);
 	}
 	
 	private void checkEmptyEmail(Map<String, Boolean> errors, String value, String fieldName) {
-		if(value == null || value.trim().isEmpty() || value.contains(" ") || value.length() < 30)
-			errors.put("fieldName", Boolean.TRUE);
+		if(value == null || value.isEmpty())
+			errors.put(fieldName, Boolean.TRUE);
 	}
 }
