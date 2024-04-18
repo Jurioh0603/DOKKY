@@ -96,13 +96,16 @@
 	</form>
 	
 <!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
-<c:if test="${authUser != null && authUser.id == studyData.study.memId}">
+<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == studyData.study.memId)}">
     <div class="form-group row">
         <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-            <form id="editForm" action="/study/modify.do" method="get">
-                <input type="hidden" name="no" value="${studyData.study.bno}">
-                <button type="submit" class="custom-button">글수정</button>
-            </form>
+            <c:if test="${authUser.id == studyData.study.memId}">
+                <!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+                <form id="editForm" action="/study/modify.do" method="get">
+                    <input type="hidden" name="no" value="${studyData.study.bno}">
+                    <button type="submit" class="custom-button">글수정</button>
+                </form>
+            </c:if>
             <!-- 모달 버튼 -->
             <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
         </div>
