@@ -63,5 +63,14 @@ public class StudyDao {
 	   }
    }
    
-   
+   //게시글 삭제 부분 구현시도
+	public int delete(Connection conn, int studyNo) throws SQLException {
+		try (PreparedStatement pstmt = 
+				conn.prepareStatement(
+						"delete from study " + 
+						"where bno = ? ")) {
+				pstmt.setInt(1, studyNo);
+				return pstmt.executeUpdate();
+			}
+		}
 }

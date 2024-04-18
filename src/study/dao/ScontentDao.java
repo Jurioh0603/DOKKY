@@ -10,27 +10,6 @@ import study.model.Scontent;
 
 public class ScontentDao {
 	
-	/*public Scontent insert(Connection conn, Scontent scontent) throws SQLException{
-        PreparedStatement pstmt = null;
-        try {
-        	pstmt = conn.prepareStatement(
-        			"INSERT INTO scontent (bno, content) VALUES(?,?)"
-        			);
-        	pstmt.setInt(1,  scontent.getBno());
-        	pstmt.setString(2, scontent.getContent());
-        	
-        	int insertedCount = pstmt.executeUpdate();
-        	
-        	if(insertedCount > 0) {
-        		return scontent;
-        	}else {
-        		return null;
-        	}
-        } finally {
-        	JdbcUtil.close(pstmt);
-        }
-        
-       }*/
 	//p.656 조회관련메서드 selectById()
 	public Scontent selectById(Connection conn, int no)throws SQLException{
 		PreparedStatement pstmt = null;
@@ -61,6 +40,17 @@ public class ScontentDao {
 		pstmt.setString(1, content);
 		pstmt.setInt(2, no);
 		return pstmt.executeUpdate();
+		}
+	}
+	
+	//delete메서드 구현시도
+	public int delete(Connection conn, int scontentNo) throws SQLException {
+		try (PreparedStatement pstmt = 
+				conn.prepareStatement(
+						"delete from Scontent " +  
+						"where bno = ?")) {
+			pstmt.setInt(1, scontentNo);
+			return pstmt.executeUpdate();
 		}
 	}
 	

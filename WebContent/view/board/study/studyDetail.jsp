@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page errorPage = "deleteBoardPage.jsp" %>
     
 <!DOCTYPE html>
 <html>
@@ -12,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
   	  	
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
@@ -37,7 +38,9 @@
 	<!-- 글 보기 -->
 	<p style="margin-bottom: 5px;">작성자: ${studyData.study.memId}</p>
 	<!-- p태그에 id값 부여해서 자바스크립트 실행 -->
-	<p id="regDate" style="margin-bottom: 5px;">${studyData.study.regDate}</p>
+	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${studyData.study.regDate}</span>
+	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${studyData.study.hit}</span></p>
+	<br>
 	<h2 class="logo">${studyData.study.title}</h2>
 	
 	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
@@ -92,22 +95,46 @@
 		<button class="next">목록</button>
 	</form>
 	
-	<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
-	<c:if test="${authUser != null && authUser.id == studyData.study.memId}">
-	<div class="form-group row">
-	  <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-	    <form id="editForm" action="/study/modify.do" method="get">
-	    <input type="hidden" name="no" value="${studyData.study.bno}">
-	      <button type="submit" class="custom-button">글수정</button>
-	    </form>
-	    <form id="deleteForm" action="#" method="post">
-	      <button type="submit" class="custom-button">글삭제</button>
-	    </form>
-	  </div>
-	</div>
-	</c:if>
-	<br/>
-	<br/>
+<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
+<c:if test="${authUser != null && authUser.id == studyData.study.memId}">
+    <div class="form-group row">
+        <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+            <form id="editForm" action="/study/modify.do" method="get">
+                <input type="hidden" name="no" value="${studyData.study.bno}">
+                <button type="submit" class="custom-button">글수정</button>
+            </form>
+            <!-- 모달 버튼 -->
+            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
+        </div>
+    </div>
+</c:if>
+<br/>
+<br/>
+
+<!-- 모달 창 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">글 삭제</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <!-- 삭제 버튼 클릭 시 폼 제출 -->
+                <form id="deleteForm" action="/study/delete.do" method="post">
+                    <input type="hidden" name="no" value="${param.no}">
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 모달 창 끝 -->
+
 	
     
     <!-- 댓글 -->
