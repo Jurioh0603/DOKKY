@@ -159,7 +159,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select count(*) from member where memid like '%' || ? || '%'";
+			String sql = "select count(*) from member where memid=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, searchId);
 			rs = pstmt.executeQuery();
@@ -177,7 +177,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from member where memid like '%' || ? || '%' order by regdate desc) A)"
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from member where memid=? order by regdate desc) A)"
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, searchId);
