@@ -9,6 +9,47 @@ import study.model.Study;
 
 public class StudyDao {
 	
+	//게시글 읽기
+	public Study insert(Connection conn, Study study) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = "INSERT INTO study (bno, memid, title, regdate, hit) VALUES (STUDY_SEQ.nextval, ?, ?, ?, 0)";
+            
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, study.getMemId());
+            pstmt.setString(2, study.getTitle());
+            pstmt.setDate(3, new java.sql.Date(study.getRegDate().getTime()));
+
+            int insertedCount = pstmt.executeUpdate();
+            
+            if (insertedCount > 0) {
+                String sqlGetLastBno = "SELECT STUDY_SEQ.CURRVAL FROM DUAL";
+                pstmt = conn.prepareStatement(sqlGetLastBno);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    int newBno = rs.getInt(1);
+                    return new Study(newBno, study.getMemId(), study.getTitle(), study.getRegDate(), 0);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; 
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            
+        }
+        
+        return null; 
+    }
+	
    //게시글 리스트 함수 p.647
    private Study convertStudy(ResultSet rs) throws SQLException {
 	   return new Study(rs.getInt("bno"),
@@ -63,5 +104,14 @@ public class StudyDao {
 	   }
    }
    
-   
+   //게시글 삭제 부분 구현시도
+	public int delete(Connection conn, int studyNo) throws SQLException {
+		try (PreparedStatement pstmt = 
+				conn.prepareStatement(
+						"delete from study " + 
+						"where bno = ? ")) {
+				pstmt.setInt(1, studyNo);
+				return pstmt.executeUpdate();
+			}
+		}
 }
