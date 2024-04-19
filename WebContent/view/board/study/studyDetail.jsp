@@ -91,8 +91,8 @@
 	</main>
 	<hr style="clear:both;"/>
 	<!-- 글목록 버튼 -->
-	<form action="#" method="post">
-		<button class="next">목록</button>
+	<form action="/study/list.do" method="post">
+		<button class="next" >목록</button>
 	</form>
 	
 <!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
