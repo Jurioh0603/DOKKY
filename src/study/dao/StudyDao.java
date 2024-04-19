@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import jdbc.JdbcUtil;
 import study.model.Study;
 
@@ -50,6 +53,44 @@ public class StudyDao {
         return null; 
     }
 	
+	 //글목록
+    public int selectCount(Connection conn) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select count(*) from lunch";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<Study> select(Connection conn, int startRow, int endRow) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by regdate desc) A)"
+					   + "where Rnum >= ? and Rnum <= ?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			List<Study> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertStudy(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
    //게시글 리스트 함수 p.647
    private Study convertStudy(ResultSet rs) throws SQLException {
 	   return new Study(rs.getInt("bno"),

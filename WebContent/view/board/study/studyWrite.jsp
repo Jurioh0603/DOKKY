@@ -51,8 +51,8 @@
             <label class="col-sm-2"></label>
             <div class="col-sm-10">
                 <div class="button-container">
-                    <button type="button" onclick="submitForm()" class="custom-button" style="margin-right:10px;">취소</button>
                     <button type="submit" class="custom-button">등록</button>
+                    <button type="button" onclick="submitForm()" class="custom-button" style="margin-right:10px;">취소</button>
                 </div>
             </div>
         </div>

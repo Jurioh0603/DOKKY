@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +32,12 @@
 
 	<!-- 글작성버튼 -->
 	<div class="button-container">
-		<button class="custom-button">
+		<button class="custom-button" onclick="location.href='/study/write.do'">
 			<span><img src="<%=request.getContextPath() %>/imgs/write-icon.png" alt="write-icon"></span>
 			<span>작성하기</span>
 		</button>
 	</div>
+
 
 	<!-- 정렬바 -->
 	<div class="dropdown" style="float:right;">
@@ -58,31 +60,25 @@
    		</form>
 	</div>
 	<div style="clear:both;"></div>
+	<c:if test="${studyPage.hasNoContents()}">
+			<tr>
+				<td colspan="4">게시글이 없습니다.</td>
+			</tr>
+	</c:if> 
     
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
+	    <c:forEach var="study" items="${studyPage.studyList}">
+	        <li>
+	            <div class="content">
+	                <div class="user">${study.memId}</div>
+	                <div class="title">${study.title}</div>
+	                <div class="date">${study.regDate}</div>
+	            </div>
+	        </li>
+	    </c:forEach>
 	</ul>
+
 
 	<hr>
 
