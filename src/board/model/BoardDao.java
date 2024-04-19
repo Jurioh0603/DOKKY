@@ -93,7 +93,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " where title like '%' || ? || '%' order by regdate desc) A)"
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " where title like '%' || ? || '%' order by bno desc) A)"
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, searchId);
