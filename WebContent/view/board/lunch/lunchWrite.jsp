@@ -32,35 +32,39 @@
 	</div>
 
 	<!-- 글쓰기 -->
-	<div class="form-group row">
-		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-		<div class="col-sm-10">
-			<input type="text" name="title" class="form-text" id="inputTitle" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
-		<div class="col-sm-10">
-			<input type="text" name="author" class="form-text" id="inputAuthor" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-		<div class="col-sm-10">
-			<textarea type="text" name="content" class="form-text1" id="inputContent"></textarea>
-		</div>
-	</div>
-
-	<!-- 글 등록과 취소 -->
-	<div class="form-group row">
-		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
-		<div class="col-sm-10">
-			<div class="button-container">
-				<button type="button" class="custom-button" style="margin-right:10px;">취소</button>
-				<button type="button" class="custom-button">등록</button>
+	<form id="writeForm" action="/lunch/lunchWrite.do" method="post">
+		<div class="form-group row">
+			<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+			<div class="col-sm-10">
+				<input type="text" name="title" class="form-text" id="inputTitle" />
 			</div>
 		</div>
-	</div>
+		<div class="form-group row">
+			<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+			<div class="col-sm-10">
+				<textarea name="content" class="form-text1" id="inputContent"></textarea>
+			</div>
+		</div>
+	
+		<!-- 글 등록과 취소 -->
+		<div class="form-group row">
+			<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
+			<div class="col-sm-10">
+				<div class="button-container">
+					<button type="button" onclick="submitForm()" class="custom-button" style="margin-right:10px;">취소</button>
+					<button type="button" class="custom-button">등록</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<!-- 첨부파일 -->
+	<form action="/lunch/imageAdd.do" method="post" enctype="multipart/form-data">
+		<input type="file" name="file"/>
+	</form>
+	<c:if test="${not empty errorMessage}">
+		<p>${errorMessage}</p>
+	</c:if>	
 </div>
 <br>
 <br>
