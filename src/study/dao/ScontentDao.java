@@ -10,6 +10,32 @@ import study.model.Scontent;
 
 public class ScontentDao {
 	
+	//게시글 쓰기
+	public Scontent insert(Connection conn, Scontent scontent) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = "INSERT INTO scontent (bno, content) VALUES (?, ?)";
+            
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, scontent.getBno());
+            pstmt.setString(2, scontent.getContent());
+
+            int insertedCount = pstmt.executeUpdate();
+            
+            if (insertedCount > 0) {
+                return scontent;
+            } else {
+            	 return null; 
+            }
+        } finally {
+            JdbcUtil.close(pstmt);
+            
+        	}
+       }
+	
 	//p.656 조회관련메서드 selectById()
 	public Scontent selectById(Connection conn, int no)throws SQLException{
 		PreparedStatement pstmt = null;

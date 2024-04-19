@@ -34,9 +34,8 @@
 	  } else if (board === "lunch") {
 		document.getElementById("lunch-link").classList.add("active");
 	  }
-	});
 	
-    $(document).ready(function(){
+    $(function() {
     	
     	$('#selectAll').on('click', function() {
     		
@@ -66,7 +65,21 @@
             	}
             }
         });
-        
+	}); 
+	 // searchItem의 값이 title이면 value가 title인 option을 선택
+	 // writer이면 value가 writer인 option을 선택
+	
+	 var searchItem = "${searchItem}"; // 여기에 searchItem의 값이 들어가야 합니다.
+	
+	 var selectElement = document.getElementById('searchItem');
+	
+	 for (var i = 0; i < selectElement.options.length; i++) {
+	     if (selectElement.options[i].value === searchItem) {
+	         selectElement.selectedIndex = i;
+	         break;
+	     }
+	 }
+
     });
 </script>
 </head>
@@ -84,10 +97,10 @@
 	  			게시글 관리
 	  			</a>
 	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				    <li><a class="dropdown-item" id="qna-link" href="/admin/boardList.do?board=qna">Q&A</a></li>
-				    <li><a class="dropdown-item" id="community-link" href="/admin/boardList.do?board=community">자유게시판</a></li>
-				    <li><a class="dropdown-item" id="study-link" href="/admin/boardList.do?board=study">스터디모집</a></li>
-				    <li><a class="dropdown-item" id="lunch-link" href="/admin/boardList.do?board=lunch">점메추</a></li>
+				    <li><a class="dropdown-item" id="qna-link" href="/admin/boardList.do?board=qna&pageNo=1">Q&A</a></li>
+				    <li><a class="dropdown-item" id="community-link" href="/admin/boardList.do?board=community&pageNo=1">자유게시판</a></li>
+				    <li><a class="dropdown-item" id="study-link" href="/admin/boardList.do?board=study&pageNo=1">스터디모집</a></li>
+				    <li><a class="dropdown-item" id="lunch-link" href="/admin/boardList.do?board=lunch&pageNo=1">점메추</a></li>
 	  			</ul>
 	  		</li>
 	  	</ul>
@@ -96,15 +109,30 @@
 	<hr/>
 
 	<div class="m-5 flex-grow-1">
-		<h2>
-			<c:choose>
-				<c:when test="${board eq 'qna'}">Q&A</c:when>
-				<c:when test="${board eq 'community'}">자유게시판</c:when>
-				<c:when test="${board eq 'study'}">스터디모집</c:when>
-				<c:when test="${board eq 'lunch'}">점메추</c:when>
-			</c:choose>
-		</h2>
-		<h6 style="color: gray;">제목 클릭 시 글 링크로 이동합니다.</h6>
+		<div style="display: flex; justify-content: space-between;">
+			<div>
+				<h2>
+					<c:choose>
+						<c:when test="${board eq 'qna'}">Q&A</c:when>
+						<c:when test="${board eq 'community'}">자유게시판</c:when>
+						<c:when test="${board eq 'study'}">스터디모집</c:when>
+						<c:when test="${board eq 'lunch'}">점메추</c:when>
+					</c:choose>
+				</h2>
+				<h6 style="color: gray;">제목 클릭 시 글 링크로 이동합니다.</h6>
+				<h6 style="color: gray;">총 게시물 수: ${boardPage.total}개</h6>
+			</div>
+			<form action="/admin/boardList.do" method="get" class="d-flex" style="align-self: flex-end;">
+				<input type="hidden" name="pageNo" value="1"/>
+				<input type="hidden" name="board" value="${board}"/>
+				<select name="searchItem" id="searchItem" style="margin-right: 8px;">
+					<option value="title">제목</option>
+					<option value="writer">작성자</option>
+				</select>
+	        	<input class="form-control me-2" type="search" name="searchId" placeholder="검색어를 입력하세요." value="${searchId}" aria-label="Search" style="height: 40px;">
+	        	<button class="btn btn-outline-primary" type="submit" style="white-space: nowrap;">검색</button>
+	      	</form>
+	    </div>
 		<div class="container mt-4">
 			<form name="deleteForm" method="post" action="/admin/boardList.do" >
 				<table class="table table-striped table-hover">
@@ -114,7 +142,7 @@
 							<th scope="col">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
-							<th scope="col">선택 <input id="selectAll" type="checkbox"></th>
+							<th scope="col">선택 <input class="form-check-input" id="selectAll" type="checkbox"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -127,8 +155,8 @@
 								<td>${boardItem.bno }</td>
 								<td><a href="/${board}/read.do?no=${boardItem.bno}">${boardItem.title }</a></td>
 								<td>${boardItem.memid }</td>
-								<td>${boardItem.regdate }</td>
-								<td><input type="checkbox"></td>
+								<td style="white-space: nowrap;">${boardItem.regdate }</td>
+								<td><input class="form-check-input" type="checkbox"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -136,23 +164,25 @@
 				<input type="hidden" name="deleteList"/>
 				<input type="hidden" name="board" value="${board}"/>   			
 				<input type="hidden" name="pageNo" value="${boardPage.getCurrentPage()}"/>			
+				<input type="hidden" name="searchId" value="${searchId}"/>	
+				<input type="hidden" name="searchItem" value="${searchItem}"/>	
 				<button type="button" class="btn btn-danger" id="deleteButton">삭제</button>
       			<c:if test="${boardPage.hasContents()}">
 	      			<div class="pagination-container">
 	          			<div class="pagination">
 	          				<c:if test="${boardPage.startPage > 5}">
-	             				<a href="/admin/boardList.do?board=${board}&pageNo=${boardPage.startPage - 5}">&laquo;</a>
+	             				<a href="/admin/boardList.do?board=${board}&pageNo=${boardPage.startPage - 5}&searchId=${searchId}&searchItem=${searchItem}">&laquo;</a>
 	             			</c:if>
 	             			<c:forEach var="pNo" begin="${boardPage.startPage}" end="${boardPage.endPage}">
 	             				<c:if test="${pNo eq boardPage.getCurrentPage()}">
-	             					<a href="/admin/boardList.do?board=${board}&pageNo=${pNo}" class="active">${pNo}</a>
+	             					<a href="/admin/boardList.do?board=${board}&pageNo=${pNo}&searchId=${searchId}&searchItem=${searchItem}" class="active">${pNo}</a>
 	              				</c:if>
 	             				<c:if test="${pNo ne boardPage.getCurrentPage()}">
-	             					<a href="/admin/boardList.do?board=${board}&pageNo=${pNo}">${pNo}</a>
+	             					<a href="/admin/boardList.do?board=${board}&pageNo=${pNo}&searchId=${searchId}&searchItem=${searchItem}">${pNo}</a>
 	              				</c:if>
 				            </c:forEach>
 				            <c:if test="${boardPage.endPage < boardPage.totalPages}">
-				            	<a href="/admin/boardList.do?board=${board}&pageNo=${boardPage.startPage + 5}">&raquo;</a>
+				            	<a href="/admin/boardList.do?board=${board}&pageNo=${boardPage.startPage + 5}&searchId=${searchId}&searchItem=${searchItem}">&raquo;</a>
 				            </c:if>
 	         			</div>
 	      			</div>

@@ -5,7 +5,7 @@ import java.util.Date;
 public class Study {
    
    private int bno;
-   private String memId; //우리는 따로 글쓴이 안빼니까 스트링으로 하는게 맞나여??
+   private String memId; 
    private String title;
    private Date regDate;
    private int hit;

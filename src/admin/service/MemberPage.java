@@ -12,11 +12,13 @@ public class MemberPage {
 	private int totalPages;
 	private int startPage;
 	private int endPage;
+	private int size;
 	
 	public MemberPage(int total, int currentPage, int size, List<Member> memberList) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.memberList = memberList;
+		this.size = size;
 		if(total == 0) {
 			totalPages = 0;
 			startPage = 0;
@@ -44,7 +46,7 @@ public class MemberPage {
 	}
 	
 	public boolean hasMembers() {
-		return total > 0;
+		return total > size;
 	}
 	
 	public int getCurrentPage() {
