@@ -23,8 +23,7 @@ public class ReadStudyController implements CommandHandler{
 			req.setAttribute("studyData", studyData);
 			return "/view/board/study/studyDetail.jsp";
 		}catch (StudyNotFoundException | ScontentNotFoundException e) {
-			req.getServletContext().log("no study",e);
-			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			res.sendRedirect("/view/errorPage/deleteBoardPage.jsp");
 			return null;
 		}
 	}
