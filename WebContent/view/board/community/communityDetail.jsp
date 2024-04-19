@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../../css/dokkyCss/communityDetailStyle.css"> <!-- 스타일 시트 링크 -->
-  	  	  	  	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="../../../css/dokkyCss/communityDetailStyle.css"> <!-- 스타일 시트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
   	  	
@@ -30,16 +32,79 @@
 	<hr style="clear:both;"/>
 	
 	<!-- 글 보기 -->
-	<h1 class="logo">게시글 제목</h1>
+	<p style="margin-bottom: 5px;">작성자: ${communityData.community.memId}</p>
+	<!-- p태그에 id값 부여해서 자바스크립트 실행 -->
+	<p id="regDate" style="margin-bottom: 5px;">${communityData.community.regDate}</p>
+	<h2 class="logo">${communityData.community.title}</h2>
+	
+	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
+	<script>
+	  // 작성된 시간을 표시할 요소 선택
+	  var regDateElement = document.getElementById('regDate');
+	  
+	  // 작성된 시간 가져오기
+	  var regDate = regDateElement.textContent.trim();
+	  
+	  // 현재 시간
+	  var currentDate = new Date();
+	  
+	  // 작성된 시간을 Date 객체로 변환
+	  var postDate = new Date(regDate);
+	  
+	  // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
+	  var timeDiff = currentDate - postDate;
+	  
+	  // 밀리초를 시간으로 변환
+	  var seconds = Math.floor(timeDiff / 1000);
+	  var minutes = Math.floor(seconds / 60);
+	  var hours = Math.floor(minutes / 60);
+	  var days = Math.floor(hours / 24);
+	  
+	  // 시간 전에 대한 표시를 작성된 시간 요소에 추가
+	  var displayText = '';
+	  if (days > 0) {
+	    displayText = days + '일 전';
+	  } else if (hours > 0) {
+	    displayText = hours + '시간 전';
+	  } else if (minutes > 0) {
+	    displayText = minutes + '분 전';
+	  } else {
+	    displayText = seconds + '초 전';
+	  }
+	  regDateElement.textContent = displayText;
+	  
+	</script>
+	
 	<main class="main">
-		<div class="post">
-			<p class="post-content">게시글 내용이 여기에 들어갑니다.</p>
+		<div class="post" >
+			<p class="post-content" style="white-space:pre;">${communityData.content}</p>
 		</div>
 		<br>
 		<br>
 		<br>
 	</main>
 	<hr style="clear:both;"/>
+	<!-- 글목록 버튼 -->
+	<form action="#" method="post">
+		<button class="next">목록</button>
+	</form>
+	
+	<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
+	<c:if test="${authUser != null && authUser.id == communityData.community.memId}">
+	<div class="form-group row">
+	  <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+	    <form id="editForm" action="/study/modify.do" method="get">
+	    <input type="hidden" name="no" value="${communityData.community.bno}">
+	      <button type="submit" class="custom-button">글수정</button>
+	    </form>
+	    <form id="deleteForm" action="#" method="post">
+	      <button type="submit" class="custom-button">글삭제</button>
+	    </form>
+	  </div>
+	</div>
+	</c:if>
+	<br/>
+	<br/>
     
     <!-- 댓글 -->
 	<div class="comment-form">
