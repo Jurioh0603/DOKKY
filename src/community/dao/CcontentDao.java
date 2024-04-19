@@ -19,12 +19,12 @@ public class CcontentDao {
 					"SELECT * FROM Ccontent WHERE bno = ?");
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			Ccontent scontent = null;
+			Ccontent ccontent = null;
 			if(rs.next()) {
-				scontent = new Ccontent(
+				ccontent = new Ccontent(
 						rs.getInt("bno"),rs.getString("content"));
 			}
-			return scontent;
+			return ccontent;
 		}finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
@@ -57,5 +57,28 @@ public class CcontentDao {
     	}
 	}
 	
+	//update메서드 p.665
+	public int update(Connection conn, int no, String content) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("update Ccontent set content = ? where bno = ?");
+			pstmt.setString(1, content);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
 	
+	//delete메서드 구현시도
+	public int delete(Connection conn, int ccontentNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("delete from Ccontent where bno = ?");
+			pstmt.setInt(1, ccontentNo);
+			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
 }

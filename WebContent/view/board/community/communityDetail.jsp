@@ -31,11 +31,13 @@
 	</div>
 	<hr style="clear:both;"/>
 	
-	<!-- 글 보기 -->
-	<p style="margin-bottom: 5px;">작성자: ${communityData.community.memId}</p>
-	<!-- p태그에 id값 부여해서 자바스크립트 실행 -->
-	<p id="regDate" style="margin-bottom: 5px;">${communityData.community.regDate}</p>
-	<h2 class="logo">${communityData.community.title}</h2>
+   <!-- 글 보기 -->
+   <p style="margin-bottom: 5px;">작성자: ${communityData.community.memId}</p>
+   <!-- p태그에 id값 부여해서 자바스크립트 실행 -->
+   <p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${communityData.community.regDate}</span>
+   <span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${communityData.community.hit}</span></p>
+   <br>
+   <h2 class="logo">${communityData.community.title}</h2>
 	
 	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
 	<script>
@@ -89,44 +91,72 @@
 		<button class="next">목록</button>
 	</form>
 	
-	<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
-	<c:if test="${authUser != null && authUser.id == communityData.community.memId}">
-	<div class="form-group row">
-	  <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-	    <form id="editForm" action="/study/modify.do" method="get">
-	    <input type="hidden" name="no" value="${communityData.community.bno}">
-	      <button type="submit" class="custom-button">글수정</button>
-	    </form>
-	    <form id="deleteForm" action="#" method="post">
-	      <button type="submit" class="custom-button">글삭제</button>
-	    </form>
-	  </div>
-	</div>
-	</c:if>
-	<br/>
-	<br/>
+<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
+<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == communityData.community.memId)}">
+    <div class="form-group row">
+        <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+            <c:if test="${authUser.id == communityData.community.memId}">
+                <!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+                <form id="editForm" action="/community/modify.do" method="get">
+                    <input type="hidden" name="no" value="${communityData.community.bno}">
+                    <button type="submit" class="custom-button">글수정</button>
+                </form>
+            </c:if>
+            <!-- 모달 버튼 -->
+            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
+        </div>
+    </div>
+</c:if>
+<br/>
+<br/>
+
+<!-- 모달 창 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">글 삭제</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <!-- 삭제 버튼 클릭 시 폼 제출 -->
+                <form id="deleteForm" action="/community/delete.do" method="post">
+                    <input type="hidden" name="no" value="${param.no}">
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 모달 창 끝 -->
+
+   
     
     <!-- 댓글 -->
-	<div class="comment-form">
-		<form action="#" method="POST">
-			<div class="form-group">
-				<label for="comment">댓글</label>
-				<textarea id="comment" name="comment" rows="4" required></textarea>
-			</div>
-			<div class="form-group row">
-				<div class="button-container" style="margin-bottom:15px;">
-					<button type="button" class="custom-button">댓글작성</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	<br/>
-	<br/>
-	<br/>
-	<div>
-		<button class="next">이전글</button>
-		<button class="next" style="float: right;">다음글</button>
-	</div>
+   <div class="comment-form">
+      <form action="#" method="POST">
+         <div class="form-group">
+            <label for="comment">댓글</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+         </div>
+         <div class="form-group row">
+            <div class="button-container" style="margin-bottom:15px;">
+               <button type="button" class="custom-button">댓글작성</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <br/>
+   <br/>
+   <br/>
+   <div>
+      <button class="next">이전글</button>
+      <button class="next" style="float: right;">다음글</button>
+   </div>
 </div>  
      
 <br>
