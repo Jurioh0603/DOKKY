@@ -31,7 +31,7 @@ public class MemberListController implements CommandHandler {
 		if(pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
-		if(searchId == null) {
+		if(searchId == null || searchId == "") {
 			MemberPage memberPage = memberListService.getMemberPage(pageNo);
 			req.setAttribute("memberPage", memberPage);
 			return "/view/admin/memberList.jsp";

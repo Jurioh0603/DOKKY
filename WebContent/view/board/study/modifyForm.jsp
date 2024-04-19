@@ -13,7 +13,7 @@
 
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
-<title>DOKKY - 스터디 글작성</title>
+<title>DOKKY - 스터디 글수정</title>
 </head>
 <body>
 <form action="modify.do" method="post">

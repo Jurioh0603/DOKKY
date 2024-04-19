@@ -32,7 +32,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " order by regdate desc) A)"
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " order by bno desc) A)"
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -65,6 +65,86 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(bno));
 			pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public int selectSearchCountByTitle(Connection conn, String board, String searchId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select count(*) from " + board + " where title like '%' || ? || '%'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<Board> selectSearchByTitle(Connection conn, String board, int startRow, int endRow, String searchId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " where title like '%' || ? || '%' order by bno desc) A)"
+					+ "where Rnum >= ? and Rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			List<Board> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertBoard(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public int selectSearchCountById(Connection conn, String board, String searchId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select count(*) from " + board + " where memid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<Board> selectSearchById(Connection conn, String board, int startRow, int endRow, String searchId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " where memid=? order by bno desc) A)"
+					+ "where Rnum >= ? and Rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			List<Board> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertBoard(rs));
+			}
+			return result;
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);

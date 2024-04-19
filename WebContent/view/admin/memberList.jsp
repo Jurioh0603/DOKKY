@@ -69,11 +69,14 @@
 		    <div>
 				<h2>회원 관리</h2>
 				<h6 style="color: gray;">클릭 시 회원 정보 수정이 가능합니다.</h6>
+				<c:if test="${memberPage.hasMembers()}">
+					<h6 style="color: gray;">총 회원 수: ${memberPage.total}명</h6>
+				</c:if>
 			</div>
 			<form action="/admin/memberList.do" method="get" class="d-flex" style="align-self: flex-end;">
 				<input type="hidden" name="pageNo" value="1"/>
 	        	<input class="form-control me-2" type="search" name="searchId" placeholder="회원 아이디 검색" value="${searchId}" aria-label="Search" style="height: 40px;">
-	        	<button class="btn btn-outline-primary" type="submit" style="height: 40px; width: 70px">검색</button>
+	        	<button class="btn btn-outline-primary" type="submit" style="white-space: nowrap;">검색</button>
 	      	</form>
       	</div>
 		<div class="container mt-4">
