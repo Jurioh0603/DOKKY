@@ -75,8 +75,8 @@ public class StudyDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by regdate desc) A)"
-					   + "where Rnum >= ? and Rnum <= ?;";
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by regdate desc) A ) " 
+					   + "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
