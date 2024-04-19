@@ -62,7 +62,10 @@
   		</form>
 	       <c:choose>
 	           <c:when test="${errors.id}">
-	               <p class="errors-msg"><b>아이디</b>를 다시 입력해 주세요.</p>
+	               <p class="errors-msg"><b>아이디</b>를 입력해 주세요.</p>
+	           </c:when>
+	           <c:when test="${errors.duplicateId}">
+	               <p class="errors-msg">이미 사용중인 아이디입니다.</p>
 	           </c:when>
 	           <c:when test="${errors.password}">
 	               <p class="errors-msg"><b>비밀번호</b>를 입력해 주세요.</p>
@@ -75,6 +78,9 @@
 	           </c:when>
 	           <c:when test="${errors.notMatch}">
 	               <p class="errors-msg">비밀번호와 비밀번호 확인이 일치하지 않습니다.</p>
+	           </c:when>
+	           <c:when test="${errors.invalidEmail}">
+	               <p class="errors-msg">이메일 형식이 올바르지 않습니다.</p>
 	           </c:when>
 	           <c:otherwise>
 	               <p class="errors-msg">&nbsp;</p>

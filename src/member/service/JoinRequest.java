@@ -56,15 +56,22 @@ public class JoinRequest {
 		}
 		checkEmpty(errors, name, "name");
 		checkEmptyEmail(errors, email, "email");
+		if (!isValidEmail(email)) {
+            errors.put("invalidEmail", Boolean.TRUE);
+        }
 	}
+	private boolean isValidEmail(String email) {
+        String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(EMAIL_REGEX);
+    }
 	
 	private void checkEmpty(Map<String, Boolean> errors, String value, String fieldName) {
-		if(value == null || value.isEmpty()) 
+		if(value == null || value.trim().isEmpty() || value.contains(" ") || value.length() > 20) 
 			errors.put(fieldName, Boolean.TRUE);
 	}
 	
 	private void checkEmptyEmail(Map<String, Boolean> errors, String value, String fieldName) {
-		if(value == null || value.isEmpty())
+		if(value == null || value.isEmpty() || value.contains(" ") || value.length() > 30)
 			errors.put(fieldName, Boolean.TRUE);
 	}
 }

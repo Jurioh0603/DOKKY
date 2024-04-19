@@ -51,7 +51,7 @@ public class JoinController implements CommandHandler {
 
 		try {
 			joinService.join(joinReq);
-			return "view/account/login.do";
+			return "/login.do";
 		} catch (DuplicateIdException e) {
 			errors.put("duplicateId", Boolean.TRUE);
 			return FORM_VIEW;
