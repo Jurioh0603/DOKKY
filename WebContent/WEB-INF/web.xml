@@ -53,6 +53,7 @@
 	<filter-mapping>
 		<filter-name>LoginCheckFilter</filter-name>
 		<url-pattern>/study/modify.do</url-pattern>
+		<url-pattern>/qna/qnaWrite.do</url-pattern>
 	</filter-mapping>
 	
 	
@@ -82,6 +83,16 @@
 		<servlet-name>ControllerUsingURI</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+    <servlet-name>ReplyHandler</servlet-name>
+    <servlet-class>reply.command.ReplyHandler</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ReplyHandler</servlet-name>
+    <url-pattern>/reply/command/*</url-pattern>
+</servlet-mapping>
+
 	
 	
 </web-app>
