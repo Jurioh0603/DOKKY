@@ -1,4 +1,4 @@
-package study.controller;
+package study.command;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;

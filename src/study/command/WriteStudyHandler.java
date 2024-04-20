@@ -1,4 +1,4 @@
-package study.controller;
+package study.command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import member.model.Member;
 import mvc.command.CommandHandler;
 
 
-public class WriteStudyController implements CommandHandler {
+public class WriteStudyHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/view/board/study/studyWrite.jsp";
 	private WriteStudyService writeService = new WriteStudyService();
 	

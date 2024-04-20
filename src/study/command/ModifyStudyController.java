@@ -1,4 +1,4 @@
-package study.controller;
+package study.command;
 
 import java.io.IOException;
 import java.util.HashMap;

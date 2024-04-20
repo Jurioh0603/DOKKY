@@ -8,7 +8,6 @@
 <title>글 삭제</title>
 <script>
 	alert('글 삭제 실패.');
-	window.location.href = '/study/list.do';
 </script>
 </head>
 <body>

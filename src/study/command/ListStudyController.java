@@ -1,4 +1,4 @@
-package study.controller;
+package study.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
