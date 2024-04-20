@@ -61,7 +61,7 @@ background-color: #f5f5f5;
 	      <ul class="navbar-nav">
 	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="nav-link px-4 text-black">Q&A</a></li>
 	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/community/communitySelect.jsp" class="nav-link px-4 text-black">자유게시판</a></li>
-	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/study/studySelect.jsp" class="nav-link px-4 text-black">스터디모집</a></li>
+	        <li class="nav-item"><a href="<%=request.getContextPath() %>/study/list.do" class="nav-link px-4 text-black">스터디모집</a></li>
 	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/lunch/lunchSelect.jsp" class="nav-link px-4 text-black">점메추</a></li>
 	      </ul>
 	    </div>

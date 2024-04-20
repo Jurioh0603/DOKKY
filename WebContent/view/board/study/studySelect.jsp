@@ -72,7 +72,7 @@
 	        <li>
 	            <div class="content">
 	                <div class="user">${study.memId}</div>
-	                <div class="title">${study.title}</div>
+	                <div class="title"><a href="/study/read.do?no=${study.bno}" class="title">${study.title}</a></div>
 	                <div class="date">${study.regDate}</div>
 	            </div>
 	        </li>
