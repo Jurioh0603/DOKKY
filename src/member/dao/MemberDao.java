@@ -1,14 +1,17 @@
-package member.model;
+package member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jdbc.JdbcUtil;
+import member.model.Member;
 
 public class MemberDao {
 
@@ -194,4 +197,25 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	private Date toDate(Timestamp date) {
+		return date == null ? null : new Date(date.getTime());
+	}
+	
+    public void joinMember(Connection conn, Member mem) throws SQLException {
+    	PreparedStatement pstmt = null;
+    	try{
+    		String sql = "insert into member values (?,?,?,?,?,?)";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setString(1, mem.getMemid());
+    		pstmt.setString(2, mem.getMempw());
+    		pstmt.setString(3, mem.getName());
+    		pstmt.setString(4, mem.getEmail());
+    		pstmt.setInt(5, mem.getGrade());
+    		pstmt.setTimestamp(6, new Timestamp(mem.getRegdate().getTime()));
+    		pstmt.executeUpdate();
+    	}finally {
+    		JdbcUtil.close(pstmt);
+    	}
+    }
 }
