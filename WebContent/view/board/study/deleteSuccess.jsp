@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:set var="pageNo" value="${empty modReq.pageNumber ? '1' : modReq.pageNumber}" />
-<meta http-equiv="refresh" content="0; url=/board/study/list.do?pageNo=${pageNo}"></meta>
+<meta http-equiv="refresh" content="0; url=/study/list.do"></meta>
 <title>글 삭제</title>
 <script>
-	alert('글 삭제 성공!');
+    alert('글 삭제 성공!');
+    // 확인을 클릭하면 목록 페이지로 바로 이동
+    window.location.href = '/study/list.do';
 </script>
 </head>
 <body>
