@@ -78,7 +78,7 @@
 			              <p class="card-text">
 			                <a href="/findId.do">아이디찾기</a> |
 			                <a href="/findPwd.do">비밀번호찾기</a> |
-			                <a href="#">회원가입</a>
+			                <a href="/join.do">회원가입</a>
 			              </p>
 		              </div>
 		            </div>

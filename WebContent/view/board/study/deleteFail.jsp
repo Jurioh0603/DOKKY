@@ -8,6 +8,8 @@
 <title>글 삭제</title>
 <script>
 	alert('글 삭제 실패.');
+	// 확인을 클릭하면 목록 페이지로 바로 이동
+    window.location.href = '/study/list.do';
 </script>
 </head>
 <body>
