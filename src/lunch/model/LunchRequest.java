@@ -3,142 +3,80 @@ package lunch.model;
 import java.sql.Date;
 
 public class LunchRequest {
-	int bno;
-	String title;
-	Date regdate;
-	int hit;
-	String memid;
-	String filerealname;
-	String filename;
 	
+	private int bno;
+	private String memId;
+	private String title;
+	private Date regDate;
+	private int hit;
+	private String fileName;
+	private String fileRealName;
 	
-	
-
-
-	public LunchRequest(int bno, String title, Date regdate, int hit, String memid, String filerealname,
-			String filename) {
+	public LunchRequest(int bno, String memId, String title, Date regDate, int hit, String fileName,
+			String fileRealName) {
 		super();
 		this.bno = bno;
+		this.memId = memId;
 		this.title = title;
-		this.regdate = regdate;
+		this.regDate = regDate;
 		this.hit = hit;
-		this.memid = memid;
-		this.filerealname = filerealname;
-		this.filename = filename;
+		this.fileName = fileName;
+		this.fileRealName = fileRealName;
 	}
-
-
-
-
 
 	public int getBno() {
 		return bno;
 	}
 
-
-
-
-
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
 
+	public String getMemId() {
+		return memId;
+	}
 
-
-
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
 
 	public String getTitle() {
 		return title;
 	}
 
-
-
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-
-
-
-
-	public Date getRegdate() {
-		return regdate;
+	public Date getRegDate() {
+		return regDate;
 	}
 
-
-
-
-
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
-
-
-
-
 
 	public int getHit() {
 		return hit;
 	}
 
-
-
-
-
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
 
-
-
-
-
-	public String getMemid() {
-		return memid;
+	public String getFileName() {
+		return fileName;
 	}
 
-
-
-
-
-	public void setMemid(String memid) {
-		this.memid = memid;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
-
-
-
-
-	public String getFilerealname() {
-		return filerealname;
+	public String getFileRealName() {
+		return fileRealName;
 	}
 
-
-
-
-
-	public void setFilerealname(String filerealname) {
-		this.filerealname = filerealname;
+	public void setFileRealName(String fileRealName) {
+		this.fileRealName = fileRealName;
 	}
-
-
-
-
-
-	public String getFilename() {
-		return filename;
-	}
-
-
-
-
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-
-	
 }

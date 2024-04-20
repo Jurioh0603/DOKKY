@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import jdbc.connection.ConnectionProvider;
-import lunch.model.LunchDao;
+import lunch.dao.LunchDao;
 import lunch.model.LunchRequest;
 
 public class ListLunchService {
