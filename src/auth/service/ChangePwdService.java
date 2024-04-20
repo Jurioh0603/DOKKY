@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import jdbc.connection.ConnectionProvider;
-import member.model.MemberDao;
+import member.dao.MemberDao;
 
 public class ChangePwdService {
 
