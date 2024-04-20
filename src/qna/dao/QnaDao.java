@@ -20,8 +20,7 @@ public class QnaDao {
         ResultSet rs = null;
         
         try {
-            // SQL ������ �غ��մϴ�.
-            String sql = "INSERT INTO qna (bno, memid, title, regdate, hit) VALUES (seq_qna.nextval, ?, ?, ?, 0)";
+            String sql = "INSERT INTO qna (bno, memid, title, regdate, hit) VALUES (qna_seq.nextval, ?, ?, ?, 0)";
             
             pstmt = conn.prepareStatement(sql);
 
@@ -32,21 +31,18 @@ public class QnaDao {
             int insertedCount = pstmt.executeUpdate();
             
             if (insertedCount > 0) {
-                String sqlGetLastBno = "SELECT seq_qna.CURRVAL FROM DUAL";
+                String sqlGetLastBno = "SELECT qna_seq.CURRVAL FROM DUAL";
                 pstmt = conn.prepareStatement(sqlGetLastBno);
                 rs = pstmt.executeQuery();
                 if (rs.next()) {
                     int newBno = rs.getInt(1);
                     return new Qna(newBno, qna.getMemId(), qna.getTitle(), qna.getRegDate(), 0);
-                    //memId�� Member ��ü�� �޾ұ� ������, ��ü�� ��ȯ�� ���� Member ��ü�� ��ȯ�ϴ� ��
                 }
             }
         } catch (SQLException e) {
-            // SQLException ó��
             e.printStackTrace();
             throw e; 
         } finally {
-            // �ڿ��� �����մϴ�.
             if (rs != null) {
                 rs.close();
             }

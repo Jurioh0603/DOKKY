@@ -30,12 +30,12 @@
 	</div>
 
 	<!-- 글작성버튼 -->
-	<div class="button-container">
-		<button class="custom-button">
-			<span><img src="<%=request.getContextPath() %>/imgs/write-icon.png" alt="write-icon"></span>
-			<span>작성하기</span>
-		</button>
-	</div>
+<div class="button-container">
+    <button class="custom-button" onclick="goToWritePage()">
+        <span><img src="<%=request.getContextPath() %>/imgs/write-icon.png" alt="write-icon"></span>
+        <span>작성하기</span>
+    </button>
+</div>
 
 	<!-- 정렬바 -->
 	<div class="dropdown" style="float:right;">
@@ -108,5 +108,11 @@
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+    function goToWritePage() {
+        window.location.href = "/view/board/qna/qnaWrite.jsp"; // 적절한 경로를 지정해야 합니다.
+    }
+</script>
+
 </body>
 </html>
