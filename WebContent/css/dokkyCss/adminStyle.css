@@ -51,6 +51,10 @@ td > a {
   color: white;
 }
 
+th {
+	white-space: nowrap;
+}
+
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
 @media (max-width: 768px) {
@@ -61,7 +65,7 @@ td > a {
   .m-5.flex-grow-1 {
     order: 1;
   }
-  
+    
   .side-bar {
     width: 100%;
     margin: 0;

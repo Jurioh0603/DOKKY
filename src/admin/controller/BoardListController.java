@@ -13,6 +13,8 @@ public class BoardListController implements CommandHandler {
 	String board = null;
 	String pageNoVal = null;
 	int pageNo = 1;
+	String searchId = null;
+	String searchItem = null;
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -28,12 +30,22 @@ public class BoardListController implements CommandHandler {
 	
 	private String processList(HttpServletRequest req, HttpServletResponse res) {
 		getInfo(req, res);
-		
-		BoardPage boardPage = boardListService.getBoardPage(pageNo, board);
-		
-		req.setAttribute("boardPage", boardPage);
-		req.setAttribute("board", board);
-		return "/view/admin/boardList.jsp";
+		if(searchId == null || searchId == "") {
+			BoardPage boardPage = boardListService.getBoardPage(pageNo, board);
+			
+			req.setAttribute("boardPage", boardPage);
+			req.setAttribute("board", board);
+			req.setAttribute("searchItem", searchItem);
+			return "/view/admin/boardList.jsp";
+		} else {
+			BoardPage boardPage = boardListService.searchBoardPage(pageNo, board, searchId, searchItem);
+			
+			req.setAttribute("searchId", searchId);			
+			req.setAttribute("boardPage", boardPage);
+			req.setAttribute("board", board);
+			req.setAttribute("searchItem", searchItem);
+			return "/view/admin/boardList.jsp";
+		}
 	}
 	
 	private String processDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -42,7 +54,7 @@ public class BoardListController implements CommandHandler {
 		
 		boardListService.deleteBoard(board, deleteList);
 		
-		res.sendRedirect("/admin/boardList.do?board=" + board + "&pageNo=" + pageNo);
+		res.sendRedirect("/admin/boardList.do?board=" + board + "&pageNo=" + pageNo + "&searchId=" + searchId + "&searchItem=" + searchItem);
 		return null;
 	}
 	
@@ -52,6 +64,8 @@ public class BoardListController implements CommandHandler {
 		if(pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
+		searchId = req.getParameter("searchId");
+		searchItem = req.getParameter("searchItem");
 	}
 	
 }

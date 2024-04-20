@@ -19,7 +19,7 @@
 		<param-name>poolConfig</param-name>
 		<param-value>
 			jdbcdriver=oracle.jdbc.driver.OracleDriver
-			jdbcUrl=jdbc:oracle:thin:@localhost:1521:xe
+			jdbcUrl=jdbc:oracle:thin:@172.30.1.99:1521:xe
 			dbUser=DOKKY
 			dbPass=1234
 			validationQuery=select 1 from dual
@@ -84,6 +84,7 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
+<<<<<<< HEAD
 	<servlet>
     <servlet-name>ReplyHandler</servlet-name>
     <servlet-class>reply.command.ReplyHandler</servlet-class>
@@ -95,4 +96,6 @@
 
 	
 	
+=======
+>>>>>>> 7f2b2bde90024c38209d823fb53e9c445918e8a4
 </web-app>

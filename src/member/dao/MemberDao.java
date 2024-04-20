@@ -1,14 +1,17 @@
-package member.model;
+package member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jdbc.JdbcUtil;
+import member.model.Member;
 
 public class MemberDao {
 
@@ -154,4 +157,65 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public int selectSearchCount(Connection conn, String searchId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select count(*) from member where memid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<Member> selectSearch(Connection conn, int startRow, int endRow, String searchId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from member where memid=? order by regdate desc) A)"
+					+ "where Rnum >= ? and Rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			List<Member> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertMember(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	private Date toDate(Timestamp date) {
+		return date == null ? null : new Date(date.getTime());
+	}
+	
+    public void joinMember(Connection conn, Member mem) throws SQLException {
+    	PreparedStatement pstmt = null;
+    	try{
+    		String sql = "insert into member values (?,?,?,?,?,?)";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setString(1, mem.getMemid());
+    		pstmt.setString(2, mem.getMempw());
+    		pstmt.setString(3, mem.getName());
+    		pstmt.setString(4, mem.getEmail());
+    		pstmt.setInt(5, mem.getGrade());
+    		pstmt.setTimestamp(6, new Timestamp(mem.getRegdate().getTime()));
+    		pstmt.executeUpdate();
+    	}finally {
+    		JdbcUtil.close(pstmt);
+    	}
+    }
 }

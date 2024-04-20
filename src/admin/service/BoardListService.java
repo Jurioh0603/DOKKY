@@ -33,4 +33,34 @@ public class BoardListService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public BoardPage searchBoardPage(int pageNum, String board, String searchId, String searchItem) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+			if(searchItem.equals("writer")) {
+				int total = boardDao.selectSearchCountById(conn, board, searchId);
+				int totalPages = total / size;
+				if(total % size > 0) {
+					totalPages++;
+				}
+				if(totalPages < pageNum)
+					pageNum = totalPages;
+				List<Board> boardList = boardDao.selectSearchById(conn, board, (pageNum - 1) * size + 1, pageNum * size, searchId);
+				return new BoardPage(total, pageNum, size, boardList);
+			} else if(searchItem.equals("title")) {
+				int total = boardDao.selectSearchCountByTitle(conn, board, searchId);
+				int totalPages = total / size;
+				if(total % size > 0) {
+					totalPages++;
+				}
+				if(totalPages < pageNum)
+					pageNum = totalPages;
+				List<Board> boardList = boardDao.selectSearchByTitle(conn, board, (pageNum - 1) * size + 1, pageNum * size, searchId);
+				return new BoardPage(total, pageNum, size, boardList);
+			} else {
+				return null;
+			}
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
