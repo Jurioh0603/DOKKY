@@ -79,6 +79,7 @@
 		<div class="post" >
 			<p class="post-content" style="white-space:pre;">${lunchData.content}</p>
 		</div>
+		<img src="/tmp/" alt="Image">
 		<br>
 		<br>
 		<br>

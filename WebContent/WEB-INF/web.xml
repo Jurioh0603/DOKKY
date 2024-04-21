@@ -77,6 +77,12 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+	        <location>/tmp/</location> <!-- 업로드된 파일을 임시로 저장할 디렉토리 경로 -->
+	        <max-file-size>20848820</max-file-size> <!-- 최대 파일 크기 설정 (바이트 단위) -->
+	        <max-request-size>418018841</max-request-size> <!-- 최대 요청 크기 설정 (바이트 단위) -->
+	        <file-size-threshold>1048576</file-size-threshold> <!-- 파일이 임시 디렉토리에 저장되는 최소 크기 (바이트 단위) -->
+	    </multipart-config>
 	</servlet>
 	
 	<servlet-mapping>
@@ -92,5 +98,6 @@
     	<servlet-name>ReplyHandler</servlet-name>
     	<url-pattern>/reply/command/*</url-pattern>
 	</servlet-mapping>
+	
 
 </web-app>
