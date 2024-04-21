@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 
-import member.model.Member;
-import member.model.MemberDao;
 import community.dao.CcontentDao;
 import community.dao.CommunityDao;
 import community.model.Community;

@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import jdbc.JdbcUtil;
-import community.model.Community;
 import community.model.Community;
 
 public class CommunityDao {
@@ -109,6 +112,43 @@ public class CommunityDao {
 				pstmt.setInt(1, communityNo);
 				return pstmt.executeUpdate();
 			} finally {
+				JdbcUtil.close(pstmt);
+			}
+		}
+		
+		public int selectCount(Connection conn) throws SQLException {
+			Statement stmt = null;
+			ResultSet rs = null;
+			try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select count(*) from community");
+				if(rs.next()) {
+					return rs.getInt(1);
+				}
+				return 0;
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(stmt);
+			}
+		}
+		
+		public List<Community> select(Connection conn, int startRow, int endRow) throws SQLException {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				String sql = "select * from (select A.*, Rownum Rnum from (select * from community order by bno desc) A)"
+						+ "where Rnum >= ? and Rnum <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,  startRow);
+				pstmt.setInt(2, endRow);
+				rs = pstmt.executeQuery();
+				List<Community> result = new ArrayList<>();
+				while(rs.next()) {
+					result.add(convertCommunity(rs));
+				}
+				return result;
+			} finally {
+				JdbcUtil.close(rs);
 				JdbcUtil.close(pstmt);
 			}
 		}

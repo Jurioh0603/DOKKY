@@ -55,7 +55,7 @@ public class WriteCommunityController implements CommandHandler {
 		int newBno = writeService.write(writeReq);
 		req.setAttribute("newBno", newBno);
 		
-		return "/view/board/community/communitySelect.jsp";
+		return "/community/list.do";
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

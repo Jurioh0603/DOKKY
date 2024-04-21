@@ -4,7 +4,7 @@
 <html>
 <head>
 <c:set var="pageNo" value="${empty modReq.pageNumber ? '1' : modReq.pageNumber}" />
-<meta http-equiv="refresh" content="0; url=/board/community/list.do?pageNo=${pageNo}"></meta>
+<meta http-equiv="refresh" content="0; url=/community/list.do?pageNo=${pageNo}"></meta>
 <title>글 삭제</title>
 <script>
 	alert('글 삭제 성공!');

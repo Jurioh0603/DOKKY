@@ -87,7 +87,7 @@
 	</main>
 	<hr style="clear:both;"/>
 	<!-- 글목록 버튼 -->
-	<form action="#" method="post">
+	<form action="/community/list.do" method="post">
 		<button class="next">목록</button>
 	</form>
 	
