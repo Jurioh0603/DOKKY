@@ -57,7 +57,7 @@ public class WriteLunchController implements CommandHandler {
 		int newBno = writeService.write(writeReq);
 		req.setAttribute("newBno", newBno);
 		
-		return "/view/board/lunch/lunchSelect.jsp";
+		return "/lunch/list.do";
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

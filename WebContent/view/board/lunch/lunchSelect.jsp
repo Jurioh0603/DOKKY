@@ -79,7 +79,7 @@
 	    		<div class="gallery-item-box-col-321">
 	        		<div class="gallery-item-img">
 	           			 <a target="_blank" href="/lunch/read.do?no=${lunchItem.bno}">
-	               			<img src="C:\JSP\upload\${lunchItem.filerealname}" alt="${lunchItem.title}" width="600" height="400">
+	               			<img src="${pageContext.request.contextPath}/upload/${lunchItem.filerealname}" alt="${lunchItem.title}" width="600" height="400">
 	            		</a>
 	        		</div>
 	        		<div class="gallery-title">
