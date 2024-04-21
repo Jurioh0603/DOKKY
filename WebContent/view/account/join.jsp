@@ -15,6 +15,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
+
+<style>
+    .form-label {
+        font-size: 0.9rem;
+        font-weight: 600; 
+    }
+</style>
+
 </head>
 <body class="text-center">
 
@@ -30,29 +38,29 @@
 	   			<hr class="bar">
    			</div>
 
-		    <div class="form-floating custom-form">
-		      	<input type="text" class="form-control" name="id" value="${param.id}" id="floatingId" placeholder="아이디">
-		      	<label for="floatingId">아이디</label>
+			<div class="mb-3 text-start">
+				<label for="floatingId" class="form-label">아이디</label>
+			    <input type="text" id="floatingId" name="id" value="${param.id}" maxlength="15" placeholder="공백없이 15자 이내로 입력해주세요." class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
+			</div>
+			
+		    <div class="mb-3 text-start">
+		      	<label for="floatingPassword1" class="form-label">비밀번호</label>
+		      	<input type="password" name="password" maxlength="15" id="floatingPassword1" placeholder="공백없이 15자 이내로 입력해주세요." class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 		    </div>
 	    
-		    <div class="form-floating custom-form">
-		      	<input type="password" class="form-control" name="password" id="floatingPassword1" placeholder="비밀번호">
-		      	<label for="floatingPassword1">비밀번호</label>
-		    </div>
-	    
-		    <div class="form-floating custom-form">
-		      	<input type="password" class="form-control" name="verifyPassword" id="floatingPassword2" placeholder="비밀번호 확인">
-		      	<label for="floatingPassword2">비밀번호 확인</label>
+		    <div class="mb-3 text-start">
+		      	<label for="floatingPassword2" class="form-label">비밀번호 확인</label>
+		      	<input type="password" name="verifyPassword" maxlength="15" id="floatingPassword2" placeholder="공백없이 15자 이내로 입력해주세요." class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 		    </div>
 		    
-		    <div class="form-floating custom-form">
-		      	<input type="text" class="form-control" name="name" value="${param.name}" id="floatingName" placeholder="이름">
-		      	<label for="floatingName">이름</label>
+		    <div class="mb-3 text-start">
+		      	<label for="floatingName" class="form-label">이름</label>
+		      	<input type="text" name="name" value="${param.name}" id="floatingName" placeholder="최원준" class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 		    </div>
     
-		    <div class="form-floating custom-form">
-		      	<input type="email" class="form-control" name="email" value="${param.email}" id="floatingEmail" placeholder="이메일">
-		      	<label for="floatingEmail">이메일</label>
+		    <div class="mb-3 text-start">
+		      	<label for="floatingEmail" class="form-label">이메일</label>
+		      	<input type="email" name="email" value="${param.email}" id="floatingEmail" placeholder="wonjoon@dokky.kr" class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 		    </div>
 
 			<div class="button-wrapper d-flex justify-content-center">
@@ -82,10 +90,13 @@
 	           <c:when test="${errors.invalidEmail}">
 	               <p class="errors-msg">이메일 형식이 올바르지 않습니다.</p>
 	           </c:when>
-	           <c:otherwise>
-	               <p class="errors-msg">&nbsp;</p>
-	           </c:otherwise>
+			   <c:otherwise>
+		           <p class="errors-msg">&nbsp;</p>
+		       </c:otherwise>
 	       </c:choose>
+		<c:if test="${not empty joinSuccess}">
+			<div class="alert alert-success" role="alert">${joinSuccess}</div>
+		</c:if>
 	</main>
 
 </body>
