@@ -18,7 +18,7 @@ import member.model.Member;
 import mvc.command.CommandHandler;
 
 
-public class WriteStudyHandler implements CommandHandler {
+public class WriteStudyController implements CommandHandler {
 	private static final String FORM_VIEW = "/view/board/study/studyWrite.jsp";
 	private WriteStudyService writeService = new WriteStudyService();
 	
