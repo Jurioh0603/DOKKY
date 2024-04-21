@@ -60,18 +60,20 @@
    		</form>
 	</div>
 	<div style="clear:both;"></div>
-	
+	<c:if test="${studyPage.hasNoContents()}">
+			<tr>
+				<td colspan="4">게시글이 없습니다.</td>
+			</tr>
+	</c:if> 
+    
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
-		<c:if test="${studyPage.hasNoContents()}">
-			<li>게시글이 존재하지 않습니다.</li>
-		</c:if>	
-	    <c:forEach var="studyItem" items="${studyPage.studyList}">
+	    <c:forEach var="study" items="${studyPage.studyList}">
 	        <li>
 	            <div class="content">
-	                <div class="user">${studyItem.memId}</div>
-	                <div class="title"><a href="/study/read.do?no=${studyItem.bno}" class="title">${studyItem.title}</a></div>
-	                <div class="date">${studyItem.regDate}</div>
+	                <div class="user">${study.memId}</div>
+	                <div class="title"><a href="/study/read.do?no=${study.bno}" class="title">${study.title}</a></div>
+	                <div class="date">${study.regDate}</div>
 	            </div>
 	        </li>
 	    </c:forEach>
@@ -81,26 +83,18 @@
 	<hr>
 
 	<!-- 페이지네이션 -->
-	<c:if test="${studyPage.hasContents()}">
-		<div class="pagination-container">
-  			<div class="pagination">
-  				<c:if test="${studyPage.startPage > 5}">
-     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}">&laquo;</a>
-     			</c:if>
-     			<c:forEach var="pNo" begin="${studyPage.startPage}" end="${studyPage.endPage}">
-     				<c:if test="${pNo eq studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}" class="active">${pNo}</a>
-      				</c:if>
-     				<c:if test="${pNo ne studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}">${pNo}</a>
-      				</c:if>
-		       </c:forEach>
-		       <c:if test="${studyPage.endPage < studyPage.totalPages}">
-		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}">&raquo;</a>
-		       </c:if>
- 			</div>
+	<div class="pagination-container">
+		<div class="pagination" style="margin-top:-20px">
+			<a href="#">&laquo;</a>
+			<a href="#">1</a>
+			<a href="#" class="active">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">&raquo;</a>
 		</div>
-	</c:if>
+	</div>
 </div>
 <br>
 <br>
