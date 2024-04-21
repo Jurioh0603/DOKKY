@@ -70,7 +70,6 @@ textarea {
 .custom-button {
   display: flex;
   padding: 8px 13px;
-  margin-bottom: -59px;
   border: 1px solid;
   border-radius: 8px;
   background-color: #0090F9;
@@ -96,12 +95,15 @@ textarea {
 	padding-right: 15px;
 }
 
-.next:not(:last-child) {
-  border-bottom: none; 
-}
 
 .next:hover {
   background-color: #ddd;
+}
+
+/* 모달 창 내의 삭제 버튼 색상 변경 */
+.modal-content .btn-danger {
+    background-color: #0090F9;
+    border-color: #0090F9; /* 선택사항: 버튼 주변의 테두리 색상 변경 */
 }
 
 .search-align {
@@ -206,7 +208,7 @@ textarea {
     position: absolute;
     right: 115px;
     top: 2.3px;
-    transform: scale(1.7);
+    transform: scale(1.87);
 }
 
 .main-text {

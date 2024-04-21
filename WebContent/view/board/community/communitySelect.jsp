@@ -31,7 +31,7 @@
 
 	<!-- 글작성버튼 -->
 	<div class="button-container">
-		<button class="custom-button">
+		<button class="custom-button" onclick="location.href='/community/write.do'">
 			<span><img src="<%=request.getContextPath() %>/imgs/write-icon.png" alt="write-icon"></span>
 			<span>작성하기</span>
 		</button>
@@ -61,44 +61,43 @@
     
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
+		<c:if test="${communityPage.hasNoContents()}">
+			<li>게시글이 존재하지 않습니다.</li>
+		</c:if>
+		<c:forEach var="communityItem" items="${communityPage.communityList }">
+			<li>
+	  			<div class="content">
+	    			<div class="user">${communityItem.memId}</div>
+	    			<div class="title"><a href="/community/read.do?no=${communityItem.bno}">${communityItem.title}</a></div>
+	    			<div class="date">${communityItem.regDate}</div>
+	  			</div>
+			</li>
+		</c:forEach>
 	</ul>
 
 	<hr>
 
 	<!-- 페이지네이션 -->
-	<div class="pagination-container">
-		<div class="pagination" style="margin-top:-20px">
-			<a href="#">&laquo;</a>
-			<a href="#">1</a>
-			<a href="#" class="active">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a>
-			<a href="#">&raquo;</a>
+	<c:if test="${communityPage.hasContents()}">
+		<div class="pagination-container">
+  			<div class="pagination">
+  				<c:if test="${communityPage.startPage > 5}">
+     				<a href="/community/list.do?pageNo=${communityPage.startPage - 5}">&laquo;</a>
+     			</c:if>
+     			<c:forEach var="pNo" begin="${communityPage.startPage}" end="${communityPage.endPage}">
+     				<c:if test="${pNo eq communityPage.getCurrentPage()}">
+     					<a href="/community/list.do?&pageNo=${pNo}" class="active">${pNo}</a>
+      				</c:if>
+     				<c:if test="${pNo ne communityPage.getCurrentPage()}">
+     					<a href="/community/list.do?&pageNo=${pNo}">${pNo}</a>
+      				</c:if>
+		       </c:forEach>
+		       <c:if test="${communityPage.endPage < communityPage.totalPages}">
+		       	<a href="/community/list.do?pageNo=${communityPage.startPage + 5}">&raquo;</a>
+		       </c:if>
+ 			</div>
 		</div>
-	</div>
+	</c:if>
 </div>
 <br>
 <br>
