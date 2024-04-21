@@ -54,6 +54,9 @@
 		<filter-name>LoginCheckFilter</filter-name>
 		<url-pattern>/study/modify.do</url-pattern>
 		<url-pattern>/qna/qnaWrite.do</url-pattern>
+		<url-pattern>/community/write.do</url-pattern>
+		<url-pattern>/community/modify.do</url-pattern>
+		<url-pattern>/community/delete.do</url-pattern>
 	</filter-mapping>
 	
 	
