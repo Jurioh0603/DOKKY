@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -36,13 +37,13 @@
         <div class="form-group row">
             <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
             <div class="col-sm-10">
-                <input type="text" name="title" class="form-text" id="inputTitle" />
+                <input type="text" name="title" class="form-text" id="inputTitle" value="${param.title}">
             </div>
         </div>
         <div class="form-group row">
             <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
             <div class="col-sm-10">
-                <textarea name="content" class="form-text1" id="inputContent"></textarea>
+                <textarea name="content" class="form-text1" id="inputContent" ${param.content}></textarea>
             </div>
         </div>
 

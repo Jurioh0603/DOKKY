@@ -31,8 +31,8 @@ public class ScontentDao {
             	 return null; 
             }
         } finally {
+        	JdbcUtil.close(rs);
             JdbcUtil.close(pstmt);
-            
         	}
        }
 	
@@ -59,24 +59,26 @@ public class ScontentDao {
 	
 	//update메서드 p.665
 	public int update(Connection conn, int no, String content) throws SQLException {
-		try (PreparedStatement pstmt =
-				conn.prepareStatement(
-					"update Scontent set content = ? "+ 
-					"where bno = ?")){
-		pstmt.setString(1, content);
-		pstmt.setInt(2, no);
-		return pstmt.executeUpdate();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("update Scontent set content = ? where bno = ?");
+			pstmt.setString(1, content);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	
 	//delete메서드 구현시도
 	public int delete(Connection conn, int scontentNo) throws SQLException {
-		try (PreparedStatement pstmt = 
-				conn.prepareStatement(
-						"delete from Scontent " +  
-						"where bno = ?")) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("delete from Scontent where bno = ?");
 			pstmt.setInt(1, scontentNo);
 			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	

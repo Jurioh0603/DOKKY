@@ -12,13 +12,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-  	  	
+      
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 스터디 글보기</title>
-
-
 </head>
 <body>
 <!-- 헤더 -->
@@ -28,73 +25,73 @@
 <br>
 <br>
 <br>
-	<div class="square-box">
-		<p class="main-text">스터디</p>
-		<p class="sub-text">스터디원을 모집하거나 참가하고 싶은 분들을 위한 만남의 장을 만들어요!</p>
-		<img src="<%=request.getContextPath() %>/imgs/study.svg" alt="SVG Icon" class="r-icon">
-	</div>
-	<hr style="clear:both;"/>
-	
-	<!-- 글 보기 -->
-	<p style="margin-bottom: 5px;">작성자: ${studyData.study.memId}</p>
-	<!-- p태그에 id값 부여해서 자바스크립트 실행 -->
-	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${studyData.study.regDate}</span>
-	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${studyData.study.hit}</span></p>
-	<br>
-	<h2 class="logo">${studyData.study.title}</h2>
-	
-	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
-	<script>
-	  // 작성된 시간을 표시할 요소 선택
-	  var regDateElement = document.getElementById('regDate');
-	  
-	  // 작성된 시간 가져오기
-	  var regDate = regDateElement.textContent.trim();
-	  
-	  // 현재 시간
-	  var currentDate = new Date();
-	  
-	  // 작성된 시간을 Date 객체로 변환
-	  var postDate = new Date(regDate);
-	  
-	  // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
-	  var timeDiff = currentDate - postDate;
-	  
-	  // 밀리초를 시간으로 변환
-	  var seconds = Math.floor(timeDiff / 1000);
-	  var minutes = Math.floor(seconds / 60);
-	  var hours = Math.floor(minutes / 60);
-	  var days = Math.floor(hours / 24);
-	  
-	  // 시간 전에 대한 표시를 작성된 시간 요소에 추가
-	  var displayText = '';
-	  if (days > 0) {
-	    displayText = days + '일 전';
-	  } else if (hours > 0) {
-	    displayText = hours + '시간 전';
-	  } else if (minutes > 0) {
-	    displayText = minutes + '분 전';
-	  } else {
-	    displayText = seconds + '초 전';
-	  }
-	  regDateElement.textContent = displayText;
-	  
-	</script>
-	
-	<main class="main">
-		<div class="post" >
-			<p class="post-content" style="white-space:pre;">${studyData.content}</p>
-		</div>
-		<br>
-		<br>
-		<br>
-	</main>
-	<hr style="clear:both;"/>
-	<!-- 글목록 버튼 -->
-	<form action="#" method="post">
-		<button class="next">목록</button>
-	</form>
-	
+   <div class="square-box">
+      <p class="main-text">스터디</p>
+      <p class="sub-text">스터디원을 모집하거나 참가하고 싶은 분들을 위한 만남의 장을 만들어요!</p>
+      <img src="<%=request.getContextPath() %>/imgs/study.svg" alt="SVG Icon" class="r-icon">
+   </div>
+   <hr style="clear:both;"/>
+   
+   <!-- 글 보기 -->
+   <p style="margin-bottom: 5px;">작성자: ${studyData.study.memId}</p>
+   <!-- p태그에 id값 부여해서 자바스크립트 실행 -->
+   <p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${studyData.study.regDate}</span>
+   <span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${studyData.study.hit}</span></p>
+   <br>
+   <h2 class="logo">${studyData.study.title}</h2>
+   
+   <!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
+   <script>
+     // 작성된 시간을 표시할 요소 선택
+     var regDateElement = document.getElementById('regDate');
+     
+     // 작성된 시간 가져오기
+     var regDate = regDateElement.textContent.trim();
+     
+     // 현재 시간
+     var currentDate = new Date();
+     
+     // 작성된 시간을 Date 객체로 변환
+     var postDate = new Date(regDate);
+     
+     // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
+     var timeDiff = currentDate - postDate;
+     
+     // 밀리초를 시간으로 변환
+     var seconds = Math.floor(timeDiff / 1000);
+     var minutes = Math.floor(seconds / 60);
+     var hours = Math.floor(minutes / 60);
+     var days = Math.floor(hours / 24);
+     
+     // 시간 전에 대한 표시를 작성된 시간 요소에 추가
+     var displayText = '';
+     if (days > 0) {
+       displayText = days + '일 전';
+     } else if (hours > 0) {
+       displayText = hours + '시간 전';
+     } else if (minutes > 0) {
+       displayText = minutes + '분 전';
+     } else {
+       displayText = seconds + '초 전';
+     }
+     regDateElement.textContent = displayText;
+     
+   </script>
+   
+   <main class="main">
+      <div class="post" >
+         <p class="post-content" style="white-space:pre;">${studyData.content}</p>
+      </div>
+      <br>
+      <br>
+      <br>
+   </main>
+   <hr style="clear:both;"/>
+   <!-- 글목록 버튼 -->
+   <form action="#" method="post">
+      <button class="next">목록</button>
+   </form>
+   
 <!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
 <c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == studyData.study.memId)}">
     <div class="form-group row">
@@ -138,29 +135,29 @@
 </div>
 <!-- 모달 창 끝 -->
 
-	
+   
     
     <!-- 댓글 -->
-	<div class="comment-form">
-		<form action="#" method="POST">
-			<div class="form-group">
-				<label for="comment">댓글</label>
-				<textarea id="comment" name="comment" rows="4" required></textarea>
-			</div>
-			<div class="form-group row">
-				<div class="button-container" style="margin-bottom:15px;">
-					<button type="button" class="custom-button">댓글작성</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	<br/>
-	<br/>
-	<br/>
-	<div>
-		<button class="next">이전글</button>
-		<button class="next" style="float: right;">다음글</button>
-	</div>
+   <div class="comment-form">
+      <form action="#" method="POST">
+         <div class="form-group">
+            <label for="comment">댓글</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+         </div>
+         <div class="form-group row">
+            <div class="button-container" style="margin-bottom:15px;">
+               <button type="button" class="custom-button">댓글작성</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <br/>
+   <br/>
+   <br/>
+   <div>
+      <button class="next">이전글</button>
+      <button class="next" style="float: right;">다음글</button>
+   </div>
 </div>  
      
 <br>
