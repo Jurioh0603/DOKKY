@@ -172,7 +172,7 @@
 	      <!-- 점심게시판 영역 -->
 	      <div class="col-md-6">
 	        <div class="container">
-			  <a href="<%=request.getContextPath() %>/view/board/lunch/lunchSelect.jsp" class="main-square-box">
+			  <a href="/lunch/list.do" class="main-square-box">
 			    <div class="main-text">
 			      <span>점메추</span>
 			    </div>
