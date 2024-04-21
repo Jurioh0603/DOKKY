@@ -32,7 +32,7 @@
 	</div>
 
 	<!-- 글쓰기 -->
-	<form id="writeForm" action="/lunch/write.do" method="post">
+	<form id="writeForm" action="/lunch/write.do" method="post" enctype="multipart/form-data">
 		<div class="form-group row">
 			<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
 			<div class="col-sm-10">
@@ -56,15 +56,13 @@
 				</div>
 			</div>
 		</div>
-	</form>
-	
+		
 	<!-- 첨부파일 -->
-	<form action="/lunch/imageAdd.do" method="post" enctype="multipart/form-data">
 		<input type="file" name="file"/>
+    		<c:if test="${empty filename}">
+        		<div style="color: red;">이미지는 필수항목입니다.</div>
+   			</c:if>
 	</form>
-	<c:if test="${not empty errorMessage}">
-		<p>${errorMessage}</p>
-	</c:if>	
 </div>
 <br>
 <br>

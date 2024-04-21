@@ -6,16 +6,18 @@ import java.util.Date;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
+import lunch.dao.ImageDao;
 import lunch.dao.LcontentDao;
 import lunch.dao.LunchDao;
+import lunch.model.Image;
 import lunch.model.Lcontent;
 import lunch.model.Lunch;
-import study.model.Study;
 
 public class WriteLunchService {
 	
 	private LunchDao LunchDao = new LunchDao();
 	private LcontentDao LcontentDao = new LcontentDao();
+	private ImageDao ImageDao = new ImageDao();
 	
 	public Integer write(WriteRequest req) {
 		Connection conn = null;
@@ -26,13 +28,19 @@ public class WriteLunchService {
 			Lunch lunch = toLunch(req);
 			Lunch savedLunch = LunchDao.insert(conn, lunch);
 			if(savedLunch == null) {
-				throw new RuntimeException("fail to insert study");
+				throw new RuntimeException("fail to insert lunch");
 			}
 			Lcontent lcontent = new Lcontent(savedLunch.getBno(),
 					req.getContent());
 			Lcontent savedContent = LcontentDao.insert(conn, lcontent);
 			if(savedContent == null) {
 				throw new RuntimeException("fail to insert lunch_content");
+			}
+			Image image = new Image(req.getFileName(), req.getFileRealName(), 
+					savedLunch.getBno());
+			Image savedImage = ImageDao.insert(conn, image);
+			if(savedImage == null) {
+				throw new RuntimeException("fail to insert lunch_Image");
 			}
 			
 			conn.commit();
