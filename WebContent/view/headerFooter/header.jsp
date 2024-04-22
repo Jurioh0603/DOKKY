@@ -10,9 +10,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>header</title>
 <style>
+.navbar{
+	border-bottom: 1px solid #ccc;}
 /*nav-bar 게시판 메뉴 마우스 올리면 파란색으로 변하는 hover적용*/
 .nav-item a:hover {
   color: #0090f9 !important; 
+}
+
+body{
+	padding-top:80px;
 }
 
 /* search svg icon 스타일 적용 */
@@ -43,7 +49,7 @@ background-color: #f5f5f5;
 
 <!-- 상단바 영역 -->
 <header>
-	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container ">
+	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container fixed-top">
 	  <div class="container">
 	    <a href="/main.do" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
 		<!-- 로고 이미지 경로 설정 주의하기! -->
@@ -53,10 +59,10 @@ background-color: #f5f5f5;
 		<!-- nav-bar에 게시판 메뉴명 클릭 시 각 게시판으로 이동 -->
 	    <div class="collapse navbar-collapse justify-content-center" id="navbarNav" role="header">
 	      <ul class="navbar-nav">
-	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="nav-link px-4 text-black">Q&A</a></li>
-	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/community/communitySelect.jsp" class="nav-link px-4 text-black">자유게시판</a></li>
-	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/study/studySelect.jsp" class="nav-link px-4 text-black">스터디모집</a></li>
-	        <li class="nav-item"><a href="<%=request.getContextPath() %>/view/board/lunch/lunchSelect.jsp" class="nav-link px-4 text-black">점메추</a></li>
+	        <li class="nav-item"><a href="/qna/list.do" class="nav-link px-4 text-black">Q&A</a></li>
+	        <li class="nav-item"><a href="/community/list.do" class="nav-link px-4 text-black">자유게시판</a></li>
+	        <li class="nav-item"><a href="/study/list.do" class="nav-link px-4 text-black">스터디모집</a></li>
+	        <li class="nav-item"><a href="/lunch/list.do" class="nav-link px-4 text-black">점메추</a></li>
 	      </ul>
 	    </div>
         
@@ -85,14 +91,15 @@ background-color: #f5f5f5;
 	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;" onclick="location.href='/logout.do'">
 	  로그아웃
 	</button>
+	<!-- 마이페이지 경로 설정하기 -->
+	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 5px;" onclick="location.href='/myPage.do'">
+	  마이페이지
+	</button>
 	</c:if>
         </form>
         
       </div> 
     </nav>
-    <!-- 헤더와 메인영역 구분 선 -->
-    <div style="border-bottom: 1px solid #ccc;"></div>
-    <!-- 상단바 영역 끝 -->
 </header>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

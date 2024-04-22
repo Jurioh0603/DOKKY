@@ -1,4 +1,4 @@
-package study.command;
+package study.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ import member.model.Member;
 import mvc.command.CommandHandler;
 
 
-public class WriteStudyHandler implements CommandHandler {
+public class WriteStudyController implements CommandHandler {
 	private static final String FORM_VIEW = "/view/board/study/studyWrite.jsp";
 	private WriteStudyService writeService = new WriteStudyService();
 	
@@ -55,7 +55,7 @@ public class WriteStudyHandler implements CommandHandler {
 		int newBno = writeService.write(writeReq);
 		req.setAttribute("newBno", newBno);
 		
-		return "/view/board/study/studySelect.jsp";
+		return "/study/list.do";
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

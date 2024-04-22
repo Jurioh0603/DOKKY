@@ -156,7 +156,7 @@
 	    <!-- 스터디게시판 영역 -->
 	      <div class="col-md-6">
 			<div class="container">
-			  <a href="<%=request.getContextPath() %>/view/board/study/studySelect.jsp" class="main-square-box">
+			  <a href="/study/list.do" class="main-square-box">
 			    <div class="main-text">
 			      <span>스터디모집</span>
 			    </div>
@@ -169,6 +169,7 @@
 	        	</c:forEach>
 	        </ul>
 	      </div>
+
 	      <!-- 점심게시판 영역 -->
 	      <div class="col-md-6">
 	        <div class="container">
