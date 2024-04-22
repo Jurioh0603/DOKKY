@@ -52,13 +52,15 @@
 	</div>
 
 	<!-- 검색창 -->
-	<div style="display: grid; place-items: center; text-align: center;">
-		<form class="search-box" action="" method="get" >
-   			<input class="search-txt" type="text" name="" placeholder="검색어를 입력하세요."/>
-   			<input class="search-btn" type="image" src="<%=request.getContextPath() %>/imgs/search-icon.png" title="search-icon"/>
-   		</form>
-	</div>
-	<div style="clear:both;"></div>
+	   <div style="display: grid; place-items: center; text-align: center;">
+      <form class="search-box" action="" method="get" >
+            <input class="search-txt" type="text" name="searchword" placeholder="검색어를 입력하세요."/>
+            <button class="search-btn" type="submit" title="검색" style="background-color: transparent;">
+              <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
+          </button>
+         </form>
+   </div>
+   <div style="clear:both;"></div>
     
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
