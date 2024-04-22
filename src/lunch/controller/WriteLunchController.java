@@ -26,7 +26,7 @@ public class WriteLunchController implements CommandHandler {
 	
 	
 	@Override
-	public String process(HttpServletRequest req, HttpServletResponse res) {
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req, res);
 		} else if (req.getMethod().equalsIgnoreCase("POST")) {
@@ -42,7 +42,7 @@ public class WriteLunchController implements CommandHandler {
 	}
 	
 	
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
@@ -55,9 +55,8 @@ public class WriteLunchController implements CommandHandler {
 			return FORM_VIEW;
 		}
 		int newBno = writeService.write(writeReq);
-		req.setAttribute("newBno", newBno);
-		
-		return "/lunch/list.do";
+		res.sendRedirect("/lunch/read.do?no=" + newBno);
+		return null;
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

@@ -19,9 +19,12 @@ public class DeleteLunchService {
             conn = ConnectionProvider.getConnection();
             conn.setAutoCommit(false);
             
+            int imageNo = lunchDao.delete(conn, deleteReq.getImageNumber()); // DeleteRequest로부터 게시글 번호 가져오기
             int lunchNo = lunchDao.delete(conn, deleteReq.getLunchNumber()); // DeleteRequest로부터 게시글 번호 가져오기
             int lcontentNo = lcontentDao.delete(conn, deleteReq.getLunchNumber()); // DeleteRequest로부터 게시글 번호 가져오기
             
+            
+            lunchDao.delete(conn, imageNo); // Study 삭제
             lunchDao.delete(conn, lunchNo); // Study 삭제
             lcontentDao.delete(conn, lcontentNo); // Scontent 삭제
             

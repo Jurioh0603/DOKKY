@@ -51,7 +51,7 @@ public class DeleteLunchController implements CommandHandler {
         } catch (Exception e) {
             // 삭제 실패 시 실패 페이지로 이동
             errors.put("deleteFailed", true);
-            return "/view/errorPage/deleteFail.jsp";
+            return "/view/board/lunch/deleteFail.jsp";
         }
     }
 

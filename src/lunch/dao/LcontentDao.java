@@ -64,24 +64,26 @@ public class LcontentDao {
 	
 	//update메서드 p.665
 	public int update(Connection conn, int no, String content) throws SQLException {
-		try (PreparedStatement pstmt =
-				conn.prepareStatement(
-					"update Lcontent set content = ? "+ 
-					"where bno = ?")){
-		pstmt.setString(1, content);
-		pstmt.setInt(2, no);
-		return pstmt.executeUpdate();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("update Lcontent set content = ? where bno = ?");
+			pstmt.setString(1, content);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	
 	//delete메서드 구현시도
-	public int delete(Connection conn, int scontentNo) throws SQLException {
-		try (PreparedStatement pstmt = 
-				conn.prepareStatement(
-						"delete from Lcontent " +  
-						"where bno = ?")) {
-			pstmt.setInt(1, scontentNo);
+	public int delete(Connection conn, int lcontentNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("delete from Lcontent where bno = ?");
+			pstmt.setInt(1, lcontentNo);
 			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	
