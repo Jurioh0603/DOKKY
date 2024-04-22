@@ -176,7 +176,11 @@ public class StudyDao {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT * FROM (SELECT s.*, Rownum Rnum FROM (SELECT * FROM study s JOIN scontent sc ON s.sno = sc.sno WHERE s.title LIKE '%' || ? || '%' OR sc.content LIKE '%' || ? || '%' ORDER BY s.regdate DESC) s) WHERE Rnum >= ? AND Rnum <= ?";
+	        String sql = "SELECT * FROM (SELECT s.*, Rownum Rnum FROM "
+	        		+ "(SELECT * FROM study s JOIN scontent sc ON s.sno = sc.sno "
+	        		+ "WHERE s.title LIKE '%' || ? || '%' OR sc.content "
+	        		+ "LIKE '%' || ? || '%' ORDER BY s.regdate DESC) s) "
+	        		+ "WHERE Rnum >= ? AND Rnum <= ?";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, keyword);
 	        pstmt.setString(2, keyword);
