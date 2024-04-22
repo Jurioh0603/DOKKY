@@ -39,9 +39,9 @@
 		
 		<!-- 글작성 -->
 		<div class="button-container">
-	  		<button class="custom-button">
+	  		<button class="custom-button" onclick = "location.href='/lunch/write.do'">
 	    		<span><img src="<%=request.getContextPath() %>/imgs/writeIcon.png" alt="write-icon"></span>
-	    		<span  onclick = "location.href = '/lunch/lunchWrite.do' ">작성하기</span>
+	    		<span>작성하기</span>
 	  		</button>
 		</div>
 	
@@ -78,12 +78,12 @@
 			<c:forEach var="lunchItem" items="${lunchPage.lunchList}">
 	    		<div class="gallery-item-box-col-321">
 	        		<div class="gallery-item-img">
-	           			 <a target="_blank" href="/${lunch}/read.do?no=${lunchItem.bno}">
-	               			<img src="<%=request.getContextPath() %>/upload/${lunchItem.filerealname}" alt="${lunchItem.title}" width="600" height="400">
+	           			 <a target="_blank" href="/lunch/read.do?no=${lunchItem.bno}">
+	               			<img src="${pageContext.request.contextPath}/upload/${lunchItem.filerealname}" alt="${lunchItem.title}" style="object-fit: cover;">
 	            		</a>
 	        		</div>
 	        		<div class="gallery-title">
-	            		<a style="text-decoration:none; color:black;" href="/${lunch}/read.do?no=${lunchItem.bno}" title="${lunchItem.title}">
+	            		<a style="text-decoration:none; color:black;" href="/lunch/read.do?no=${lunchItem.bno}" title="${lunchItem.title}">
 	                		<span>${lunchItem.title}</span>
 	            		</a>
 	        		</div>
@@ -105,18 +105,18 @@
 			<div class="pagination-container">
     			<div class="pagination" style="margin-top:-50px">
 					<c:if test="${lunchPage.startPage > 5}">
-						<a href="/lunch/lunchList.do?lunch=${lunch}&pageNo=${lunchPage.startPage - 5}">&laquo;</a>
+						<a href="/lunch/list.do?pageNo=${lunchPage.startPage - 5}">&laquo;</a>
 					</c:if>
 					<c:forEach var="pNo" begin="${lunchPage.startPage }" end="${lunchPage.endPage }">
 						<c:if test="${pNo eq lunchPage.getCurrentPage()}">
-							<a href="lunch/lunchList.do?lunch=${lunch}&pageNo=${pNo}" class="active">${pNo}</a>
+							<a href="lunch/list.do?pageNo=${pNo}" class="active">${pNo}</a>
 						</c:if>
 						<c:if test="${pNo ne lunchPage.getCurrentPage()}">
-							<a href="/lunch/lunchList.do?lunch=${lunch}&pageNo=${pNo}">${pNo}</a>
+							<a href="/lunch/list.do?pageNo=${pNo}">${pNo}</a>
 						</c:if>
 					</c:forEach>
 					<c:if test="${lunchPage.endPage < lunchPage.totalPages}">
-						<a href="/lunch/lunchList.do?lunch=${lunch}&pageNo=${lunchPage.startPage + 5}">&raquo;</a>
+						<a href="/lunch/list.do?pageNo=${lunchPage.startPage + 5}">&raquo;</a>
 					</c:if>
 				</div>
 			</div>

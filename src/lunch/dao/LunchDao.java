@@ -4,8 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import community.model.Community;
 import jdbc.JdbcUtil;
 import lunch.model.Lunch;
+import lunch.service.ListRequest;
 
 public class LunchDao {
     
@@ -117,4 +123,50 @@ public class LunchDao {
 			}
 		}
 	
+	public int selectCount(Connection conn) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select count(*) from lunch");
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+		}
+	}
+	
+	public List<ListRequest> select(Connection conn, int startRow, int endRow) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select A.*, Rownum Rnum from (select L.*, I.filerealname from lunch L join image I "
+					+ "on L.bno=I.bno order by L.bno desc) A) "
+					+ "where Rnum >= ? and Rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			List<ListRequest> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertListRequest(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+   private ListRequest convertListRequest(ResultSet rs) throws SQLException {
+	   return new ListRequest(rs.getInt(1),
+			   rs.getString(2),
+			   rs.getDate(3),
+			   rs.getInt(4),
+			   rs.getString(5),
+			   rs.getString(6));
+   }
 }
