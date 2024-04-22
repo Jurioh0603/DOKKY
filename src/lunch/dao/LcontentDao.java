@@ -76,6 +76,19 @@ public class LcontentDao {
 	}
 	
 	//delete메서드 구현시도
+   public int imageDelete(Connection conn, int imageNo) throws SQLException {
+	   PreparedStatement pstmt = null;
+	   
+	   try {
+		   String imageSql = "delete from image where bno = ?";
+		   pstmt = conn.prepareStatement(imageSql);
+		   pstmt.setInt(1, imageNo);
+		   return pstmt.executeUpdate();
+	   } finally {
+		   JdbcUtil.close(pstmt);
+	   }
+   }
+
 	public int delete(Connection conn, int lcontentNo) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
