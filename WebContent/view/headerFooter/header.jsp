@@ -105,7 +105,7 @@ background-color: #f5f5f5;
 <script type="text/javascript">
   let query = document.querySelector('.query');
   let searchButton = document.querySelector('.searchButton');
-
+  
   searchButton.onclick = function(){
     let url = 'https://www.google.com/search?q='+query.value;
     window.open(url);

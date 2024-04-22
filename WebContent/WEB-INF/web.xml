@@ -103,5 +103,14 @@
     	<url-pattern>/reply/command/*</url-pattern>
 	</servlet-mapping>
 	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/view/errorPage/deleteBoardPage.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/view/errorPage/invalidAccessPage.jsp</location>
+	</error-page>
 
 </web-app>

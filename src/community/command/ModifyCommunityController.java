@@ -19,7 +19,6 @@ import community.service.CommunityNotFoundException;
 public class ModifyCommunityController implements CommandHandler{
 	private static final String FORM_VIEW = "/view/board/community/communityModifyForm.jsp";
 	
-	
 	private ReadCommunityService readService = new ReadCommunityService();
 	private ModifyCommunityService modifyService = new ModifyCommunityService();
 	

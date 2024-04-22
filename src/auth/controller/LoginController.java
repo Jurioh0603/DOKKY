@@ -29,6 +29,10 @@ public class LoginController implements CommandHandler {
 	}
 	
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+		String uri = req.getHeader("Referer");
+		if (uri != null) {
+			req.getSession().setAttribute("prevPage", uri);
+		}
 		return FORM_VIEW;
 	}
 	
@@ -51,7 +55,14 @@ public class LoginController implements CommandHandler {
 		try {
 			User user = loginService.login(id, password);
 			req.getSession().setAttribute("authUser", user);
-			res.sendRedirect("/main.do");
+			
+			String prevPage = (String)req.getSession().getAttribute("prevPage");
+			req.getSession().removeAttribute("prevPage");
+			if(prevPage != null) {
+				res.sendRedirect(prevPage);
+			} else {
+				res.sendRedirect("/main.do");
+			}
 			return null;
 		} catch(LoginFailException e) {
 			errors.put("idOrPwNotMatch", Boolean.TRUE);
