@@ -22,4 +22,14 @@ public class ListCommunityService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public CommunityPage getSearchCommunityPage(int pageNum, String search) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			int total = communityDao.selectSearchCount(conn, search);
+			List<Community> communityList = communityDao.selectSearch(conn, search, (pageNum - 1) * size + 1, pageNum * size);
+			return new CommunityPage(total, pageNum, size, communityList);
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
