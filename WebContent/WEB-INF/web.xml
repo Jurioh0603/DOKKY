@@ -58,6 +58,9 @@
 		<url-pattern>/community/write.do</url-pattern>
 		<url-pattern>/community/modify.do</url-pattern>
 		<url-pattern>/community/delete.do</url-pattern>
+		<url-pattern>/lunch/write.do</url-pattern>
+		<url-pattern>/lunch/modify.do</url-pattern>
+		<url-pattern>/lunch/delete.do</url-pattern>
 	</filter-mapping>
 	
 	

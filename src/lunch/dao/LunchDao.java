@@ -102,26 +102,33 @@ public class LunchDao {
    
    //게시글 제목 수정 기능 p.665
    public int update(Connection conn, int no, String title)throws SQLException{
-	   try(PreparedStatement pstmt = 
-			   conn.prepareStatement(
-					   "update lunch set title = ? " + 
-					   "where bno = ?")) {
+	   PreparedStatement pstmt = null;
+	   
+	   try {
+		   pstmt = conn.prepareStatement("update lunch set title = ? where bno = ?");
 		   pstmt.setString(1, title);
 		   pstmt.setInt(2, no);
 		   return pstmt.executeUpdate();
-	   }
+	   } finally {
+		   JdbcUtil.close(pstmt);
+       }
    }
    
    //게시글 삭제 부분 구현시도
-	public int delete(Connection conn, int studyNo) throws SQLException {
-		try (PreparedStatement pstmt = 
-				conn.prepareStatement(
-						"delete from lunch " + 
-						"where bno = ? ")) {
-				pstmt.setInt(1, studyNo);
-				return pstmt.executeUpdate();
-			}
+   
+	public int delete(Connection conn, int lunchNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		   
+		try {
+			String lunchSql = "delete from lunch where bno = ?";
+			pstmt = conn.prepareStatement(lunchSql);
+			pstmt.setInt(1, lunchNo);
+			return pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
 		}
+	}
+	
 	
 	public int selectCount(Connection conn) throws SQLException {
 		Statement stmt = null;
