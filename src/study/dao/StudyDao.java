@@ -133,25 +133,29 @@ public class StudyDao {
    }
    
    //게시글 제목 수정 기능 p.665
-   public int update(Connection conn, int no, String title)throws SQLException{
-	   try(PreparedStatement pstmt = 
-			   conn.prepareStatement(
-					   "update study set title = ? " + 
-					   "where bno = ?")) {
+   public int update(Connection conn, int no, String title) throws SQLException{
+	   PreparedStatement pstmt = null;
+	   
+	   try {
+		   pstmt = conn.prepareStatement("update study set title = ? where bno = ?");
 		   pstmt.setString(1, title);
 		   pstmt.setInt(2, no);
 		   return pstmt.executeUpdate();
-	   }
+	   } finally {
+		   JdbcUtil.close(pstmt);
+       }
    }
    
    //게시글 삭제 부분 구현시도
 	public int delete(Connection conn, int studyNo) throws SQLException {
-		try (PreparedStatement pstmt = 
-				conn.prepareStatement(
-						"delete from study " + 
-						"where bno = ? ")) {
-				pstmt.setInt(1, studyNo);
-				return pstmt.executeUpdate();
-			}
+		PreparedStatement pstmt = null;
+		   
+		try {
+			pstmt = conn.prepareStatement("delete from study where bno = ?");
+			pstmt.setInt(1, studyNo);
+			return pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
 		}
+	}
 }

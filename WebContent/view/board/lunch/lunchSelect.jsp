@@ -39,7 +39,7 @@
 		
 		<!-- 글작성 -->
 		<div class="button-container">
-	  		<button class="custom-button">
+	  		<button class="custom-button" onclick = "location.href='/lunch/write.do'">
 	    		<span><img src="<%=request.getContextPath() %>/imgs/writeIcon.png" alt="write-icon"></span>
 	    		<span>작성하기</span>
 	  		</button>
@@ -67,190 +67,60 @@
 		</div>
 		<hr style="clear:both;"/>
 		
+		<c:if test="${lunchPage.hasNoContents()}">
+			<tr>
+				<td colspan="4">게시글이 없습니다.</td>
+			</tr>
+		</c:if> 
+		
 		<!-- 1 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/cu.jpeg" alt="cu" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EC%94%A8%EC%9C%A0+%EC%97%AD%EC%82%BC%EC%8B%9C%ED%8B%B0%EC%A0%90&oquery=%EC%94%A8%EC%9C%A0+%EA%B0%95%EB%82%A8%EC%97%AD%EC%A0%90&tqi=imOpjwqVOsVssANKIdlssssstP4-200340" title="갤러리텍스트">
-					<span>우리학원 로컬맛집 CU</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2024-01-25</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>이윤서</span>
-			</div>
-		</div>
-		
-		<!-- 2 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/sushi.jpeg" alt="Cinque Terre" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EA%B0%95%EB%82%A8%EC%97%AD+%EC%9D%80%ED%96%89%EA%B3%A8&oquery=%EA%B0%95%EB%82%A8%EC%97%AD+%EB%A7%9B%EC%A7%91&tqi=imOEddqo1SossCgVxEZssssstBV-055905" title="갤러리텍스트">
-					<span>강남역 은행골 강추!</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-09-06</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>오주리</span>
-			</div>
-		</div>
-		
-		<!-- 3 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/meat.png" alt="Cinque Terre" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EB%B0%94%EC%9A%B0%EA%B3%A8%EC%B0%B8%EC%88%AF%ED%99%94%EB%A1%9C%EA%B5%AC%EC%9D%B4&oquery=%EA%B0%95%EB%82%A8%EC%97%AD+%EC%9D%80%ED%96%89%EA%B3%A8&tqi=imOolsqVOsCssB7%2FmQVssssst2w-469866" title="갤러리텍스트">
-					<span>바우골참숯화로구이 숯불냄새 폴폴</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-0625</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>김경애</span>
-			</div>
-		</div>
-		
-		<!-- 4 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/exam4.png" alt="Cinque Terre" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://demo.mangboard.com/board2/?vid=196" title="갤러리텍스트">
-					<span>광장 818</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-09-06</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>홍길동</span>
-			</div>
-		</div>
-		
-		<!-- 5 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/exam1.jpg" alt="Cinque Terre" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://demo.mangboard.com/board2/?vid=196" title="갤러리텍스트">
-					<span>광장 818</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-09-06</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>홍길동</span>
-			</div>
-		</div>
-		
-		<!-- 6 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/exam1.jpg" alt="Cinque Terre" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://demo.mangboard.com/board2/?vid=196" title="갤러리텍스트">
-					<span>광장 818</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-09-06</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>홍길동</span>
-			</div>
-		</div>
-		
-		<!-- 7 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/exam1.jpg" alt="Cinque Terre" width="600" height="400">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://demo.mangboard.com/board2/?vid=196" title="갤러리텍스트">
-					<span>광장 818</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-09-06</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>홍길동</span>
-			</div>
-		</div>
-		
-		<!-- 8 -->
-		<div class="gallery-item-box-col-321">
-			<div class="gallery-item-img">
-				<a target="_blank" href="img_5terre.jpg">
-      				<img src="<%=request.getContextPath() %>/imgs/exam1.jpg" alt="Cinque Terre" width="280" height="150">
-    			</a>
-			</div>
-			<div class="gallery-title">
-				<a style="text-decoration:none; color:black;" href="https://demo.mangboard.com/board2/?vid=196" title="갤러리텍스트">
-					<span>광장 818</span>
-				</a>
-			</div>
-			<div class="gallery-date">
-				<span>2023-09-06</span> | <span>143</span>
-			</div>
-			<div class="gallery-name">
-				<span title="홍길동" class="btn-user-info"></span>
-				<span>홍길동</span>
-			</div>
-		</div>
+		<form name="lunchList" method="post" action="/lunch/lunchList.do" >
+			<c:forEach var="lunchItem" items="${lunchPage.lunchList}">
+	    		<div class="gallery-item-box-col-321">
+	        		<div class="gallery-item-img">
+	           			 <a target="_blank" href="/lunch/read.do?no=${lunchItem.bno}">
+	               			<img src="${pageContext.request.contextPath}/upload/${lunchItem.filerealname}" alt="${lunchItem.title}" style="object-fit: cover;">
+	            		</a>
+	        		</div>
+	        		<div class="gallery-title">
+	            		<a style="text-decoration:none; color:black;" href="/lunch/read.do?no=${lunchItem.bno}" title="${lunchItem.title}">
+	                		<span>${lunchItem.title}</span>
+	            		</a>
+	        		</div>
+	        		<div class="gallery-date">
+	            		<span>${lunchItem.regdate}</span> | <span>${lunchItem.hit}</span>
+	        		</div>
+	        		<div class="gallery-name">
+	            		<span>${lunchItem.memid}</span>
+	        		</div>
+	    		</div>
+			</c:forEach>
+		</form>
 		<div class="clearfix"></div>
 		<br/>
 		<br/>
 		<hr/>
 		<!-- 페이지네이션 -->
-		<div class="pagination-container">
-    		<div class="pagination" style="margin-top:-50px">
-		 		<a href="#">&laquo;</a>
-		  		<a href="#">1</a>
-		  		<a href="#" class="active">2</a>
-		  		<a href="#">3</a>
-		  		<a href="#">4</a>
-		  		<a href="#">5</a>
-		  		<a href="#">6</a>
-		  		<a href="#">&raquo;</a>
+		<c:if test="${lunchPage.hasContents() }">
+			<div class="pagination-container">
+    			<div class="pagination" style="margin-top:-50px">
+					<c:if test="${lunchPage.startPage > 5}">
+						<a href="/lunch/list.do?pageNo=${lunchPage.startPage - 5}">&laquo;</a>
+					</c:if>
+					<c:forEach var="pNo" begin="${lunchPage.startPage }" end="${lunchPage.endPage }">
+						<c:if test="${pNo eq lunchPage.getCurrentPage()}">
+							<a href="lunch/list.do?pageNo=${pNo}" class="active">${pNo}</a>
+						</c:if>
+						<c:if test="${pNo ne lunchPage.getCurrentPage()}">
+							<a href="/lunch/list.do?pageNo=${pNo}">${pNo}</a>
+						</c:if>
+					</c:forEach>
+					<c:if test="${lunchPage.endPage < lunchPage.totalPages}">
+						<a href="/lunch/list.do?pageNo=${lunchPage.startPage + 5}">&raquo;</a>
+					</c:if>
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<br/>
 		<br/>
 		<br/>

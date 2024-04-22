@@ -19,7 +19,7 @@ public class QcontentDao {
         ResultSet rs = null;
         
         try {
-            // SQL Äõ¸®¸¦ ÁØºñÇÕ´Ï´Ù.
+            // SQL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½Õ´Ï´ï¿½.
             String sql = "INSERT INTO qcontent (bno, content) VALUES (?, ?)";
             
             pstmt = conn.prepareStatement(sql);
@@ -37,6 +37,6 @@ public class QcontentDao {
         } finally {
             JdbcUtil.close(pstmt);
             
-        	}
-       }
+        }
+    }
 }

@@ -12,13 +12,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-  	  	
+      
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 스터디 글보기</title>
-
-
 </head>
 <body>
 <!-- 헤더 -->
@@ -136,26 +133,26 @@
 </div>
 
     <!-- 댓글 -->
-	<div class="comment-form">
-		<form action="#" method="POST">
-			<div class="form-group">
-				<label for="comment">댓글</label>
-				<textarea id="comment" name="comment" rows="4" required></textarea>
-			</div>
-			<div class="form-group row">
-				<div class="button-container" style="margin-bottom:15px;">
-					<button type="button" class="custom-button">댓글작성</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	<br/>
-	<br/>
-	<br/>
-	<div>
-		<button class="next">이전글</button>
-		<button class="next" style="float: right;">다음글</button>
-	</div>
+   <div class="comment-form">
+      <form action="#" method="POST">
+         <div class="form-group">
+            <label for="comment">댓글</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+         </div>
+         <div class="form-group row">
+            <div class="button-container" style="margin-bottom:15px;">
+               <button type="button" class="custom-button">댓글작성</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <br/>
+   <br/>
+   <br/>
+   <div>
+      <button class="next">이전글</button>
+      <button class="next" style="float: right;">다음글</button>
+   </div>
 </div>  
      
 <br>
