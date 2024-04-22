@@ -94,7 +94,6 @@ background-color: #f5f5f5;
     <div style="border-bottom: 1px solid #ccc;"></div>
     <!-- 상단바 영역 끝 -->
 </header>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
