@@ -12,13 +12,12 @@ import study.model.Study;
 
 public class StudyDao {
 	
-	//게시글 읽기
 	public Study insert(Connection conn, Study study) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         
         try {
-            String sql = "INSERT INTO study (bno, memid, title, regdate, hit) VALUES (STUDY_SEQ.nextval, ?, ?, ?, 0)";
+            String sql = "INSERT INTO study (bno, memid, title, regdate, hit) VALUES (study_seq.nextval, ?, ?, ?, 0)";
             
             pstmt = conn.prepareStatement(sql);
 
@@ -29,7 +28,7 @@ public class StudyDao {
             int insertedCount = pstmt.executeUpdate();
             
             if (insertedCount > 0) {
-                String sqlGetLastBno = "SELECT STUDY_SEQ.CURRVAL FROM DUAL";
+                String sqlGetLastBno = "SELECT study_seq.CURRVAL FROM DUAL";
                 pstmt = conn.prepareStatement(sqlGetLastBno);
                 rs = pstmt.executeQuery();
                 if (rs.next()) {

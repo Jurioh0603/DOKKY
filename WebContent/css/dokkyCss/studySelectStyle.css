@@ -19,6 +19,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.title a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: black; /* 글자색을 검정색으로 설정 */
+}
 
 
 

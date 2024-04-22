@@ -8,7 +8,7 @@ import study.service.StudyPage;
 import mvc.command.CommandHandler;
 
 public class ListStudyController implements CommandHandler{
-	private ListStudyService listStudyService = new ListStudyService();
+	private ListStudyService listService = new ListStudyService();
 		
 		@Override
 		public String process(HttpServletRequest req, HttpServletResponse res)
@@ -18,7 +18,7 @@ public class ListStudyController implements CommandHandler{
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
-			StudyPage studyPage = listStudyService.getStudyPage(pageNo);
+			StudyPage studyPage = listService.getStudyPage(pageNo);
 			req.setAttribute("studyPage", studyPage);
 			return "/view/board/study/studySelect.jsp";
 		}

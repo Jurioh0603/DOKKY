@@ -55,7 +55,7 @@ public class WriteStudyHandler implements CommandHandler {
 		int newBno = writeService.write(writeReq);
 		req.setAttribute("newBno", newBno);
 		
-		return "/view/board/study/studySelect.jsp";
+		return "/study/list.do";
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {
