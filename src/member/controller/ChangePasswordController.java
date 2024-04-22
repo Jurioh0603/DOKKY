@@ -49,7 +49,10 @@ public class ChangePasswordController implements CommandHandler{
 		if(newPwd ==null || newPwd.trim().isEmpty() || newPwd.contains(" ") || newPwd.length() > 20) {
 			errors.put("newPwd", Boolean.TRUE);
 		}
-		if(newPwd != verifyNewPwd) {
+		if(verifyNewPwd ==null || verifyNewPwd.trim().isEmpty() || verifyNewPwd.contains(" ") || verifyNewPwd.length() > 20) {
+			errors.put("verifyNewPwd", Boolean.TRUE);
+		}
+		if(!newPwd.equals(verifyNewPwd)) {
 			errors.put("notMatch", Boolean.TRUE);
 		}
 			
@@ -59,7 +62,7 @@ public class ChangePasswordController implements CommandHandler{
 		
 		try {
 			changePwdSvc.changePassword(user.getId(), curPwd, newPwd);
-			return "/WEB-INF/view/member/changePwdSuccess.jsp";
+			return "view/member/successChange.jsp";
 		}catch(InvalidPasswordException e) {
 			errors.put("badCurPwd", Boolean.TRUE);
 			return FORM_VIEW; 

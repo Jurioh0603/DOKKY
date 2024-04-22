@@ -13,10 +13,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
+
 </head>
 <body class="text-center">
 <main class="form-container">
-	<form action="changePassword.do" method="post">
+	<form action="/changePassword.do" method="post">
 		<div class="mb-3 text-start">
 	      	<label class="form-label">현재 비밀번호</label>
 	      	<input type="password" name="curPwd" maxlength="15" placeholder="공백없이 15자 이내로 입력해주세요." class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
@@ -31,6 +32,7 @@
 	    </div>	
     	<div class="text-center">
         	<button class="btn btn-primary custom-button form-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 변경</button>  
+        	<button class="btn btn-primary custom-button form-button" type="button" onclick="window.close()" style="background-color: #0090F9; border-color: #0090F9;">닫기</button>  
         </div>
 	</form>
 	<c:choose>

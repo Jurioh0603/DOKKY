@@ -21,13 +21,15 @@
 <link rel="stylesheet" href="../../css/dokkyCss/memberStyle.css"/>
 
 <script>
-	function goPopup(){
+	function openPopup(){
+		var url = "../member/changePassword.jsp";
 		var width = 570; // 팝업 창의 너비
         var height = 420; // 팝업 창의 높이
         var left = (screen.width - width) / 2; // 스크린의 가로 중앙 좌표
         var top = (screen.height - height) / 2; // 스크린의 세로 중앙 좌표
-        var pop = window.open("/view/member/changePassword.jsp", "pop", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",resizable=yes");
+        var pop = window.open(url, "비밀번호 변경 팝업", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",resizable=yes");
     }
+	
 </script>
 </head>
 <body>
@@ -73,7 +75,7 @@
 			                        <input type="text" class="form-control" id="grade" value="${authUser.grade}" readonly>
 			                    </div>
 			                    <div class="text-center">
-			                    	<button class="btn btn-primary custom-button form-button" type="button" onclick="goPopup();" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 변경</button>  
+			                    	<button class="btn btn-primary custom-button form-button" type="button" onclick="openPopup();" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 변경</button>  
 			                    </div>
 		                	</form>
 		            	</div>
