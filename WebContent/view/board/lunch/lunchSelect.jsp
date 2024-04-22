@@ -78,7 +78,7 @@
 			<c:forEach var="lunchItem" items="${lunchPage.lunchList}">
 	    		<div class="gallery-item-box-col-321">
 	        		<div class="gallery-item-img">
-	           			 <a target="_blank" href="/lunch/read.do?no=${lunchItem.bno}">
+	           			 <a href="/lunch/read.do?no=${lunchItem.bno}">
 	               			<img src="${pageContext.request.contextPath}/upload/${lunchItem.filerealname}" alt="${lunchItem.title}" style="object-fit: cover;">
 	            		</a>
 	        		</div>
