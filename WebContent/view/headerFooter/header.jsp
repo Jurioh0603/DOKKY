@@ -83,7 +83,7 @@ background-color: #f5f5f5;
 	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 30px;"  onclick="location.href='/login.do'">
 	  로그인
 	</button>
-	<button type="button" class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 10px; background-color: #0090F9;" onclick="location.href='/join.do'">
+	<button type="button" class="join-btn rounded-pill d-flex justify-content-center align-items-center border border-white text-center text-sm text-white px-4 " style="margin-left: 5px; background-color: #0090F9;" onclick="location.href='/join.do'">
 	  회원가입
 	</button>
 	</c:if>
@@ -93,13 +93,10 @@ background-color: #f5f5f5;
 	  로그아웃
 	</button>
 	<!-- 마이페이지 경로 설정하기 -->
-	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 5px;" onclick="location.href='/myPage.do'">
+	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center text-center text-sm px-4 " style="margin-left: 5px; background-color: #0090F9; border: 1px solid #0090F9; color: white; " onclick="location.href='/myPage.do'">
 	  마이페이지
 	</button>
 	</c:if>
-        </form>
-        
-      </div> 
     </nav>
 </header>
 <script type="text/javascript">

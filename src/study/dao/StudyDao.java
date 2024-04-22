@@ -151,6 +151,49 @@ public class StudyDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public int selectSearchCount(Connection conn, String searchKeyword) throws SQLException {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try {
+	        String sql = "SELECT COUNT(*) FROM study s JOIN scontent sc ON s.sno = sc.sno WHERE s.title LIKE '%' || ? || '%' OR sc.content LIKE '%' || ? || '%'";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, searchKeyword);
+	        pstmt.setString(2, searchKeyword);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1);
+	        }
+	        return 0;
+	    } finally {
+	        JdbcUtil.close(rs);
+	        JdbcUtil.close(pstmt);
+	    }
+	}
+	
+	//검색기능
+	public List<Study> selectSearch(Connection conn, int startRow, int endRow, String keyword) throws SQLException {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try {
+	        String sql = "SELECT * FROM (SELECT s.*, Rownum Rnum FROM (SELECT * FROM study s JOIN scontent sc ON s.sno = sc.sno WHERE s.title LIKE '%' || ? || '%' OR sc.content LIKE '%' || ? || '%' ORDER BY s.regdate DESC) s) WHERE Rnum >= ? AND Rnum <= ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, keyword);
+	        pstmt.setString(2, keyword);
+	        pstmt.setInt(3, startRow);
+	        pstmt.setInt(4, endRow);
+	        rs = pstmt.executeQuery();
+	        List<Study> result = new ArrayList<>();
+	        while (rs.next()) {
+	            result.add(convertStudy(rs));
+	        }
+	        return result;
+	    } finally {
+	        JdbcUtil.close(rs);
+	        JdbcUtil.close(pstmt);
+	    }
+	}
+
 
    
   

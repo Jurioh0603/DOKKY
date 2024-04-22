@@ -46,7 +46,6 @@
 		</button>
 		<div class="dropdown-content">
    			<a href="#">최신순</a>
-   			<a href="#">추천순</a>
    			<a href="#">조회순</a>
    			<a href="#">댓글순</a>
 		</div>
