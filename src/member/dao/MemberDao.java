@@ -218,4 +218,17 @@ public class MemberDao {
     		JdbcUtil.close(pstmt);
     	}
     }
+    
+    public void updatePwd(Connection conn, Member member) throws SQLException{
+    	PreparedStatement pstmt = null;
+    	try{
+    		String sql = "update member set mempw = ? where memid = ?";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setString(1, member.getMempw());
+    		pstmt.setString(2, member.getMemid());
+    		pstmt.executeUpdate();
+    	}finally {
+    		JdbcUtil.close(pstmt);
+    	}
+    }
 }

@@ -26,14 +26,14 @@
         var height = 420; // 팝업 창의 높이
         var left = (screen.width - width) / 2; // 스크린의 가로 중앙 좌표
         var top = (screen.height - height) / 2; // 스크린의 세로 중앙 좌표
-        var pop = window.open("/view/account/changePwd.jsp", "pop", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",resizable=yes");
+        var pop = window.open("/view/member/changePassword.jsp", "pop", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",resizable=yes");
     }
 </script>
 </head>
 <body>
 <%@ include file="../headerFooter/header.jsp" %>
 
-<%-- <c:if test="${ ! empty authUser }"> --%>
+<c:if test="${ ! empty authUser }">
 <div class="d-flex">
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
@@ -57,19 +57,19 @@
 	                		<h4 class="card-title mb-4">내 정보</h4>
 	                		<form>
 		                    	<div class="mb-3">
-		                        	<label for="userID" class="form-label">ID</label>
+		                        	<label for="id" class="form-label">아이디</label>
 		                        	<input type="text" class="form-control" id="id" value="${authUser.id}" readonly>
 		                    	</div>
 		                    	<div class="mb-3">
-			                        <label for="username" class="form-label">이름</label>
+			                        <label for="name" class="form-label">이름</label>
 			                        <input type="text" class="form-control" id="name" value="${authUser.name}" readonly>
 		                    	</div>
 			                    <div class="mb-3">
-			                        <label for="email" class="form-label">이메일 주소</label>
+			                        <label for="email" class="form-label">이메일</label>
 			                        <input type="email" class="form-control" id="email" value="${authUser.email}" readonly>
 			                    </div>
 			                    <div class="mb-3">
-			                        <label for="userGrade" class="form-label">회원 등급</label>
+			                        <label for="grade" class="form-label">회원 등급</label>
 			                        <input type="text" class="form-control" id="grade" value="${authUser.grade}" readonly>
 			                    </div>
 			                    <div class="text-center">
@@ -83,7 +83,7 @@
 		</div>
 	</div>
 </div>
-<%-- </c:if>
+</c:if>
 <c:if test="${ empty authUser }">
 <div class="login-box d-flex justify-content-center align-items-center" style="height: 100vh;">
   <div class="card text-center">
@@ -100,7 +100,7 @@
     </div>
   </div>
 </div>
-</c:if> --%>
+</c:if>
 <%@ include file="../headerFooter/footer.jsp" %>
 </body>
 </html>
