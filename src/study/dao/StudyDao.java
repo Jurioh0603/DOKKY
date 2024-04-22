@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class StudyDao {
 	       }
 	   }
 	   
-	   //게시글 삭제 부분 구현시도
+	   //게시글 삭제 
 		public int delete(Connection conn, int studyNo) throws SQLException {
 			PreparedStatement pstmt = null;
 			   
@@ -115,19 +116,18 @@ public class StudyDao {
         
 	 //글목록
     public int selectCount(Connection conn) throws SQLException {
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select count(*) from study";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select count(*) from study");
 			if(rs.next()) {
 				return rs.getInt(1);
 			}
 			return 0;
 		} finally {
 			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
+			JdbcUtil.close(stmt);
 		}
 	}
     
@@ -151,15 +151,16 @@ public class StudyDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
-	
-	public int selectSearchCount(Connection conn, String searchKeyword) throws SQLException {
+	//검색기능
+	public int selectSearchCount(Connection conn, String search) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT COUNT(*) FROM study s JOIN scontent sc ON s.sno = sc.sno WHERE s.title LIKE '%' || ? || '%' OR sc.content LIKE '%' || ? || '%'";
+	        String sql = "SELECT COUNT(*) FROM study A JOIN scontent B"
+	        		+ "ON A.sno = B.sno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%')";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, searchKeyword);
-	        pstmt.setString(2, searchKeyword);
+	        pstmt.setString(1, search);
+	        pstmt.setString(2, search);
 	        rs = pstmt.executeQuery();
 	        if (rs.next()) {
 	            return rs.getInt(1);
@@ -171,19 +172,17 @@ public class StudyDao {
 	    }
 	}
 	
-	//검색기능
-	public List<Study> selectSearch(Connection conn, int startRow, int endRow, String keyword) throws SQLException {
+	
+	public List<Study> selectSearch(Connection conn, String search,int startRow, int endRow) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT * FROM (SELECT s.*, Rownum Rnum FROM "
-	        		+ "(SELECT * FROM study s JOIN scontent sc ON s.sno = sc.sno "
-	        		+ "WHERE s.title LIKE '%' || ? || '%' OR sc.content "
-	        		+ "LIKE '%' || ? || '%' ORDER BY s.regdate DESC) s) "
+	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM study A JOIN scontent B"
+	        		+ "ON A.bno = B.sno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY A.bno DESC) S) "
 	        		+ "WHERE Rnum >= ? AND Rnum <= ?";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, keyword);
-	        pstmt.setString(2, keyword);
+	        pstmt.setString(1, search);
+	        pstmt.setString(2, search);
 	        pstmt.setInt(3, startRow);
 	        pstmt.setInt(4, endRow);
 	        rs = pstmt.executeQuery();

@@ -22,4 +22,14 @@ public class ListStudyService {
             throw new RuntimeException(e);
         }
     }
+    
+    public StudyPage getSearchStudyPage(int pageNum, String search) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			int total = studyDao.selectSearchCount(conn, search);
+			List<Study> studyList = studyDao.selectSearch(conn, search, (pageNum - 1) * size + 1, pageNum * size);
+			return new StudyPage(total, pageNum, size, studyList);
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

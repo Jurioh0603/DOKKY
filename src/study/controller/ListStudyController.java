@@ -12,12 +12,17 @@ public class ListStudyController implements CommandHandler{
 		
 		@Override
 		public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+			String search = req.getParameter("search");
 			String pageNoVal = req.getParameter("pageNo");
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
 			StudyPage studyPage = listService.getStudyPage(pageNo);
+			if(search == null)
+				studyPage = listService.getStudyPage(pageNo);
+			else
+				studyPage = listService.getSearchStudyPage(pageNo, search);
 			req.setAttribute("studyPage", studyPage);
 			return "/view/board/study/studySelect.jsp";
 		}

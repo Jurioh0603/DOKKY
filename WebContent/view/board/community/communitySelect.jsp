@@ -52,9 +52,11 @@
 
 	<!-- 검색창 -->
 	<div style="display: grid; place-items: center; text-align: center;">
-		<form class="search-box" action="" method="get" >
-   			<input class="search-txt" type="text" name="" placeholder="검색어를 입력하세요."/>
-   			<input class="search-btn" type="image" src="<%=request.getContextPath() %>/imgs/search-icon.png" title="search-icon"/>
+		<form class="search-box" action="/study/list.do" method="get" >
+   			<input class="search-txt" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
+   			<button class="search-btn" type="submit" title="검색">
+   				<img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px"/>
+   			</button>
    		</form>
 	</div>
 	<div style="clear:both;"></div>
@@ -82,18 +84,18 @@
 		<div class="pagination-container">
   			<div class="pagination">
   				<c:if test="${communityPage.startPage > 5}">
-     				<a href="/community/list.do?pageNo=${communityPage.startPage - 5}">&laquo;</a>
+     				<a href="/community/list.do?pageNo=${communityPage.startPage - 5}&search=${search}">&laquo;</a>
      			</c:if>
      			<c:forEach var="pNo" begin="${communityPage.startPage}" end="${communityPage.endPage}">
      				<c:if test="${pNo eq communityPage.getCurrentPage()}">
-     					<a href="/community/list.do?&pageNo=${pNo}" class="active">${pNo}</a>
+     					<a href="/community/list.do?&pageNo=${pNo}&search=${search}" class="active">${pNo}</a>
       				</c:if>
      				<c:if test="${pNo ne communityPage.getCurrentPage()}">
-     					<a href="/community/list.do?&pageNo=${pNo}">${pNo}</a>
+     					<a href="/community/list.do?&pageNo=${pNo}&search=${search}">${pNo}</a>
       				</c:if>
 		       </c:forEach>
 		       <c:if test="${communityPage.endPage < communityPage.totalPages}">
-		       	<a href="/community/list.do?pageNo=${communityPage.startPage + 5}">&raquo;</a>
+		       	<a href="/community/list.do?pageNo=${communityPage.startPage + 5}&search=${search}">&raquo;</a>
 		       </c:if>
  			</div>
 		</div>
