@@ -32,7 +32,7 @@
 	</div>
 
 	<!-- 글쓰기 -->
-	<form id="writeForm" action="/lunch/write.do" method="post" enctype="multipart/form-data">
+	<form id="writeForm" action="/lunch/write.do" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
 		<div class="form-group row">
 			<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
 			<div class="col-sm-10">
@@ -58,10 +58,7 @@
 		</div>
 		
 	<!-- 첨부파일 -->
-		<input type="file" name="file"/>
-    		<c:if test="${empty filename}">
-        		<div style="color: red;">이미지는 필수항목입니다.</div>
-   			</c:if>
+		<input type="file" name="file" />
 	</form>
 </div>
 <br>
@@ -75,6 +72,26 @@
     function submitForm() {
         document.getElementById('writeForm').submit();
     }
+
+    function validateForm() {
+        var fileInput = document.querySelector('input[type="file"]');
+        if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+            alert("이미지는 필수항목입니다.");
+            return false;
+        }
+
+        var fileName = fileInput.files[0].name;
+        var validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        if (!validExtensions.includes(fileExtension)) {
+            alert("올바른 이미지 확장자를 선택하세요.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>

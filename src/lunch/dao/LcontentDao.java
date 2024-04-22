@@ -1,3 +1,4 @@
+
 package lunch.dao;
 
 import java.sql.Connection;
@@ -42,13 +43,17 @@ public class LcontentDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"SELECT * FROM Lcontent WHERE bno = ?");
+					  "select * "
+					+ "from (select L.*, I.filerealname "
+					+ "            from Lcontent L join image I "
+					+ "            on L.bno=I.bno) "
+					+ "where bno = ?");
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			Lcontent lcontent = null;
 			if(rs.next()) {
 				lcontent = new Lcontent(
-						rs.getInt("bno"),rs.getString("content"));
+						rs.getInt("bno"),rs.getString("content"),rs.getString("filerealname"));
 			}
 			return lcontent;
 		}finally {

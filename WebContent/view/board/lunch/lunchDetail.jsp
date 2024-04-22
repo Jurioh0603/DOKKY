@@ -76,10 +76,12 @@
 	</script>
 	
 	<main class="main">
+		<div style="text-align: center; padding: 30px;">
+		<img src="${pageContext.request.contextPath}/upload/${lunchData.filerealname}" alt="${lunchData.filerealname}" width="70%" height="70%" >
+		</div>
 		<div class="post" >
 			<p class="post-content" style="white-space:pre;">${lunchData.content}</p>
 		</div>
-		<img src="/tmp/" alt="Image">
 		<br>
 		<br>
 		<br>

@@ -31,7 +31,7 @@ public class WriteLunchService {
 				throw new RuntimeException("fail to insert lunch");
 			}
 			Lcontent lcontent = new Lcontent(savedLunch.getBno(),
-					req.getContent());
+					req.getContent(),req.getFileRealName());
 			Lcontent savedContent = LcontentDao.insert(conn, lcontent);
 			if(savedContent == null) {
 				throw new RuntimeException("fail to insert lunch_content");

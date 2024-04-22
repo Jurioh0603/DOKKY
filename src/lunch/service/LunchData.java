@@ -20,5 +20,9 @@ public class LunchData {
 	public String getContent() {
 		return content.getContent();
 	}
+	
+	public String getFilerealname() {
+        return content.getFilerealname();
+    }
 
 }
