@@ -86,6 +86,7 @@
   				<c:if test="${studyPage.startPage > 5}">
      				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}">&laquo;</a>
      			</c:if>
+     			
      			<c:forEach var="pNo" begin="${studyPage.startPage}" end="${studyPage.endPage}">
      				<c:if test="${pNo eq studyPage.getCurrentPage()}">
      					<a href="/study/list.do?&pageNo=${pNo}" class="active">${pNo}</a>

@@ -19,10 +19,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.title a {
-    text-decoration: none; /* 밑줄 제거 */
-    color: black; /* 글자색을 검정색으로 설정 */
-}
 
 
 
@@ -53,6 +49,15 @@ hr {
 
 .title {
   font-size: large;
+}
+
+.title > a {
+   text-decoration: none;
+   color: black;
+}
+
+.title > a:hover {
+   color: #0090f9;
 }
 
 .date {

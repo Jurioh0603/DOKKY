@@ -11,8 +11,7 @@ public class ListStudyController implements CommandHandler{
 	private ListStudyService listService = new ListStudyService();
 		
 		@Override
-		public String process(HttpServletRequest req, HttpServletResponse res)
-				throws Exception {
+		public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 			String pageNoVal = req.getParameter("pageNo");
 			int pageNo = 1;
 			if(pageNoVal != null) {
