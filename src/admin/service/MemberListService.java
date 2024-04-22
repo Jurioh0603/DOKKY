@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import jdbc.connection.ConnectionProvider;
+import member.dao.MemberDao;
 import member.model.Member;
-import member.model.MemberDao;
 
 public class MemberListService {
 

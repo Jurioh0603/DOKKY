@@ -91,6 +91,7 @@ background-color: #f5f5f5;
 	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 25px;" onclick="location.href='/logout.do'">
 	  로그아웃
 	</button>
+	<!-- 마이페이지 경로 설정하기 -->
 	<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 5px;" onclick="location.href='/myPage.do'">
 	  마이페이지
 	</button>

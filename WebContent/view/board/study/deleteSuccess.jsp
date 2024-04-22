@@ -8,7 +8,6 @@
 <title>글 삭제</title>
 <script>
 	alert('글 삭제 성공!');
-
 </script>
 </head>
 <body>
