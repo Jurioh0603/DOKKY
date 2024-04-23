@@ -22,7 +22,7 @@
 
 <style>
     input[type="checkbox"] {
-        transform: scale(1.7); /* 기본 크기의 1.7배로 확대 */
+        transform: scale(1.3); /* 기본 크기의 n배로 확대 */
     }
 </style>
 

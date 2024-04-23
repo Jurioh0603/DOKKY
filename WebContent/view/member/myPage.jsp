@@ -71,7 +71,7 @@
 			                    </div>
 			                    <div class="mb-3">
 			                        <label for="grade" class="form-label">회원 등급</label>
-			                        <input type="text" class="form-control" id="grade" value="${authUser.grade}" readonly>
+			                        <input type="text" class="form-control" id="grade" value="${authUser.grade == 2222 ? '준회원' : (authUser.grade == 1111 ? '정회원' : '관리자')}" readonly>
 			                    </div>
 			                    <div class="text-center">
 			                    	<button class="btn btn-primary custom-button form-button" type="button" onclick="openPopup();" style="background-color: #0090F9; border-color: #0090F9;">비밀번호 변경</button>  
