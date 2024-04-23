@@ -145,15 +145,16 @@ public class CommunityDao {
 			}
 		}
 		
-		public List<Community> select(Connection conn, int startRow, int endRow) throws SQLException {
+		public List<Community> select(Connection conn, String sort, int startRow, int endRow) throws SQLException {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
-				String sql = "select * from (select A.*, Rownum Rnum from (select * from community order by bno desc) A)"
+				String sql = "select * from (select A.*, Rownum Rnum from (select * from community order by ? desc, bno desc) A)"
 						+ "where Rnum >= ? and Rnum <= ?";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1,  startRow);
-				pstmt.setInt(2, endRow);
+				pstmt.setString(1,  sort);
+				pstmt.setInt(2,  startRow);
+				pstmt.setInt(3, endRow);
 				rs = pstmt.executeQuery();
 				List<Community> result = new ArrayList<>();
 				while(rs.next()) {
@@ -186,12 +187,41 @@ public class CommunityDao {
 			}
 		}
 		
-		public List<Community> selectSearch(Connection conn, String search, int startRow, int endRow) throws SQLException {
+		public List<Community> selectSearch(Connection conn, String search, String sort, int startRow, int endRow) throws SQLException {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
 				String sql = "select * from (select C.*, Rownum Rnum from (select * from community A join ccontent B "
-						+ "on A.bno = B.bno and (title like '%' || ? || '%' or content like '%' || ? || '%') order by a.bno desc) C) "
+						+ "on A.bno = B.bno and (title like '%' || ? || '%' or content like '%' || ? || '%') order by a." + sort +" desc, a.bno desc) C) "
+						+ "where Rnum >= ? and Rnum <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				rs = pstmt.executeQuery();
+				List<Community> result = new ArrayList<>();
+				while(rs.next()) {
+					result.add(convertCommunity(rs));
+				}
+				return result;
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
+			}
+		}
+		
+		public List<Community> selectSearchReplyCount(Connection conn, String search, int startRow, int endRow) throws SQLException {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				String sql = "select * from (select D.*, Rownum Rnum "
+						+ "from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount, C.content "
+						+ "FROM community A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM creply GROUP BY bno) B "
+						+ "ON A.bno = B.bno JOIN ccontent C ON A.bno = C.bno and "
+						+ "(A.title like '%' || ? || '%' or C.content like '%' || ? || '%') "
+						+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content "
+						+ "order by replyCount desc, A.bno desc) D) "
 						+ "where Rnum >= ? and Rnum <= ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, search);
