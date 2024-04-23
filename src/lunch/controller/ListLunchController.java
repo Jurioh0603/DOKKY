@@ -3,6 +3,7 @@ package lunch.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import community.service.CommunityPage;
 import lunch.service.LunchPage;
 import lunch.service.ListLunchService;
 import mvc.command.CommandHandler;
@@ -13,13 +14,20 @@ public class ListLunchController implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String search = req.getParameter("search");
 		String pageNoVal = req.getParameter("pageNo");
 		int pageNo = 1;
 		if (pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
-		LunchPage lunchPage = listService.getLunchPage(pageNo);
+
+		LunchPage lunchPage = null;
+		if(search == null)
+			lunchPage = listService.getLunchPage(pageNo);
+		else
+			lunchPage = listService.getSearchLunchPage(pageNo, search);
 		req.setAttribute("lunchPage", lunchPage);
+		req.setAttribute("search", search);
 		return "/view/board/lunch/lunchSelect.jsp";
 	}
 }
