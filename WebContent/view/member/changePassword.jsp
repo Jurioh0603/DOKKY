@@ -14,6 +14,17 @@
 
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
 
+<script>
+	function openPopup(){
+		var url = "../member/changePassword.jsp";
+		var width = 570; // 팝업 창의 너비
+        var height = 420; // 팝업 창의 높이
+        var left = (screen.width - width) / 2; // 스크린의 가로 중앙 좌표
+        var top = (screen.height - height) / 2; // 스크린의 세로 중앙 좌표
+        var pop = window.open(url, "비밀번호 변경 팝업", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",resizable=yes");
+    }
+	
+</script>
 </head>
 <body class="text-center">
 <main class="form-container">

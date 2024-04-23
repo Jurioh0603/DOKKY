@@ -51,7 +51,6 @@ public class JoinController implements CommandHandler {
 
 		try {
 			joinService.join(joinReq);
-			req.setAttribute("joinSuccess", "회원가입성공");
 			return "/login.do";
 		} catch (DuplicateIdException e) {
 			errors.put("duplicateId", Boolean.TRUE);

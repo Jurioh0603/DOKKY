@@ -2,15 +2,18 @@ package member.board;
 
 import java.util.Date;
 
-public class Board {
+
+public class Study {
 	
 	private int bno;
+	private Writer writer;
 	private String title;
 	private Date regdate;
 	private int hit;
 	
-	public Board(int bno, String title, Date regdate, int hit) {
+	public Study(int bno, Writer writer, String title, Date regdate, int hit) {
 		this.bno = bno;
+		this.writer = writer;
 		this.title = title;
 		this.regdate = regdate;
 		this.hit = hit;
@@ -18,6 +21,9 @@ public class Board {
 	
 	public int getBno() {
 		return bno;
+	}
+	public Writer getWriter() {
+		return writer;
 	}
 	public String getTitle() {
 		return title;
@@ -29,20 +35,4 @@ public class Board {
 		return hit;
 	}
 
-	public void setBno(int bno) {
-		this.bno = bno;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
-
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
-	
 }

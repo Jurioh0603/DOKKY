@@ -94,9 +94,6 @@
 		           <p class="errors-msg">&nbsp;</p>
 		       </c:otherwise>
 	       </c:choose>
-		<c:if test="${not empty joinSuccess}">
-			<div class="alert alert-success" role="alert">${joinSuccess}</div>
-		</c:if>
 	</main>
 
 </body>
