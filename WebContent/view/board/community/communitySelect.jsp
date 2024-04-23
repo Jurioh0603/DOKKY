@@ -67,9 +67,9 @@
 	        <span id="dropdownText"></span>
 	    </button>
 	    <div class="dropdown-content">
-	        <a href="/community/list.do?&pageNo=${communityPage.getCurrentPage()}&search=${search}&sort=bno">최신순</a>
-	        <a href="/community/list.do?&pageNo=${communityPage.getCurrentPage()}&search=${search}&sort=hit">조회순</a>
-	        <a href="/community/list.do?&pageNo=${communityPage.getCurrentPage()}&search=${search}&sort=replyCount">댓글순</a>
+	        <a href="/community/list.do?&search=${search}&sort=bno">최신순</a>
+	        <a href="/community/list.do?&search=${search}&sort=hit">조회순</a>
+	        <a href="/community/list.do?&search=${search}&sort=replyCount">댓글순</a>
 	    </div>
 	</div>
 
