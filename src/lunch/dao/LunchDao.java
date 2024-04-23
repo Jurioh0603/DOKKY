@@ -168,12 +168,61 @@ public class LunchDao {
 		}
 	}
 	
+	public int selectSearchCount(Connection conn, String search) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select count(*) from lunch A join lcontent B "
+					+ "on A.bno = B.bno and (title like '%' || ? || '%' or content like '%' || ? || '%')";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<ListRequest> selectSearch(Connection conn, String search, int startRow, int endRow) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select C.*, Rownum Rnum "
+						+ "               from (select * "
+						+ "                     from lunch A join (select L.*, I.filerealname "
+						+ "                                        from lcontent L join image I "
+						+ "                                        on L.bno = I.bno) B "
+						+ "                     on A.bno = B.bno and (title like '%' || ? || '%' or content like '%' || ? || '%') "
+						+ "               order by a.bno desc) C) "
+						+ "where Rnum >= ? and Rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			rs = pstmt.executeQuery();
+			List<ListRequest> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertListRequest(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
    private ListRequest convertListRequest(ResultSet rs) throws SQLException {
 	   return new ListRequest(rs.getInt(1),
 			   rs.getString(2),
 			   rs.getDate(3),
 			   rs.getInt(4),
 			   rs.getString(5),
-			   rs.getString(6));
+			   rs.getString("filerealname"));
    }
 }
