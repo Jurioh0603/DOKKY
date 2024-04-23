@@ -35,15 +35,14 @@
 <body>
 <%@ include file="../headerFooter/header.jsp" %>
 
-<c:if test="${ ! empty authUser }">
 <div class="d-flex">
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a class="nav-link link-dark active">계정 관리</a>
+      			<a class="nav-link link-dark active">내 정보</a>
     		</li>
     		<li class="nav-item l1">
-      			<a href="../member/myPostList.jsp" class="nav-link link-dark">내가 쓴 글</a>
+      			<a href="../member/myPostList.jsp" class="nav-link link-dark">내 글 목록</a>
     		</li>
   		</ul>
 	</div>
@@ -85,24 +84,6 @@
 		</div>
 	</div>
 </div>
-</c:if>
-<c:if test="${ empty authUser }">
-<div class="login-box d-flex justify-content-center align-items-center" style="height: 100vh;">
-  <div class="card text-center">
-    <div class="card-body">
-      <h6 class="card-title">로그인 후 이용해주세요.</h6>
-      <a href="/login.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그인</a>
-      <div>
-          <p class="card-text">
-            <a href="/findId.do">아이디찾기</a> |
-            <a href="/findPwd.do">비밀번호찾기</a> |
-            <a href="/join.do">회원가입</a>
-          </p>
-      </div>
-    </div>
-  </div>
-</div>
-</c:if>
 <%@ include file="../headerFooter/footer.jsp" %>
 </body>
 </html>

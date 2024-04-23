@@ -57,6 +57,8 @@
 		<url-pattern>/community/write.do</url-pattern>
 		<url-pattern>/community/modify.do</url-pattern>
 		<url-pattern>/community/delete.do</url-pattern>
+		<url-pattern>/view/member/myPage.jsp</url-pattern>
+		<url-pattern>/view/member/myPostList.jsp</url-pattern>
 	</filter-mapping>
 	
 	

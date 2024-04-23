@@ -19,6 +19,7 @@
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - All That Developer</title>
+
 </head>
 <body>
 <!-- header include -->
@@ -95,9 +96,14 @@
 	                 <c:if test="${authUser.grade eq 9999}">
 	                 	<a href="/admin/memberList.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9; margin-bottom: 0px">홈페이지 관리</a>
 	                 </c:if>
-	                 <a href="/logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	                 <div>
-	                 </div>
+			              <p class="card-text">
+			                <a href="../view/member/myPage.jsp">내 정보</a> /
+			                <a href="../view/member/myPostList.jsp">내 글 목록</a> /
+			                <a href="/changePassword.do">비밀번호 변경</a>
+			              </p>
+		              </div>
+	                 <a href="/logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	               </div>
 	             </div>
 	           </div>
