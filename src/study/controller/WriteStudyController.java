@@ -1,29 +1,23 @@
-package study.command;
+package study.controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import auth.service.User;
-import study.model.Study;
 import study.service.WriteStudyService;
 import study.service.WriteRequest;
-import member.model.Member;
 import mvc.command.CommandHandler;
 
 
-public class WriteStudyHandler implements CommandHandler {
+public class WriteStudyController implements CommandHandler {
 	private static final String FORM_VIEW = "/view/board/study/studyWrite.jsp";
 	private WriteStudyService writeService = new WriteStudyService();
 	
 	@Override
-	public String process(HttpServletRequest req, HttpServletResponse res) {
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req, res);
 		} else if (req.getMethod().equalsIgnoreCase("POST")) {
@@ -39,7 +33,7 @@ public class WriteStudyHandler implements CommandHandler {
 	}
 	
 	
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
@@ -53,9 +47,8 @@ public class WriteStudyHandler implements CommandHandler {
 			return FORM_VIEW;
 		}
 		int newBno = writeService.write(writeReq);
-		req.setAttribute("newBno", newBno);
-		
-		return "/view/board/study/studySelect.jsp";
+		res.sendRedirect("/study/read.do?no=" + newBno);
+		return null;
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

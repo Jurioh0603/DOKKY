@@ -1,3 +1,4 @@
+
 package lunch.dao;
 
 import java.sql.Connection;
@@ -42,13 +43,17 @@ public class LcontentDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"SELECT * FROM Lcontent WHERE bno = ?");
+					  "select * "
+					+ "from (select L.*, I.filerealname "
+					+ "            from Lcontent L join image I "
+					+ "            on L.bno=I.bno) "
+					+ "where bno = ?");
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			Lcontent lcontent = null;
 			if(rs.next()) {
 				lcontent = new Lcontent(
-						rs.getInt("bno"),rs.getString("content"));
+						rs.getInt("bno"),rs.getString("content"),rs.getString("filerealname"));
 			}
 			return lcontent;
 		}finally {
@@ -59,24 +64,39 @@ public class LcontentDao {
 	
 	//update메서드 p.665
 	public int update(Connection conn, int no, String content) throws SQLException {
-		try (PreparedStatement pstmt =
-				conn.prepareStatement(
-					"update Lcontent set content = ? "+ 
-					"where bno = ?")){
-		pstmt.setString(1, content);
-		pstmt.setInt(2, no);
-		return pstmt.executeUpdate();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("update Lcontent set content = ? where bno = ?");
+			pstmt.setString(1, content);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	
 	//delete메서드 구현시도
-	public int delete(Connection conn, int scontentNo) throws SQLException {
-		try (PreparedStatement pstmt = 
-				conn.prepareStatement(
-						"delete from Lcontent " +  
-						"where bno = ?")) {
-			pstmt.setInt(1, scontentNo);
+   public int imageDelete(Connection conn, int imageNo) throws SQLException {
+	   PreparedStatement pstmt = null;
+	   
+	   try {
+		   String imageSql = "delete from image where bno = ?";
+		   pstmt = conn.prepareStatement(imageSql);
+		   pstmt.setInt(1, imageNo);
+		   return pstmt.executeUpdate();
+	   } finally {
+		   JdbcUtil.close(pstmt);
+	   }
+   }
+
+	public int delete(Connection conn, int lcontentNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("delete from Lcontent where bno = ?");
+			pstmt.setInt(1, lcontentNo);
 			return pstmt.executeUpdate();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	

@@ -5,10 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../../css/dokkyCss/lunchDetailStyle.css"> <!-- 스타일 시트 링크 -->
-  	  	  	  	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="../../../css/dokkyCss/lunchDetailStyle.css"> <!-- 스타일 시트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   	  	
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
@@ -76,10 +77,12 @@
 	</script>
 	
 	<main class="main">
+		<div style="text-align: center; padding: 30px;">
+		<img src="${pageContext.request.contextPath}/upload/${lunchData.filerealname}" alt="${lunchData.filerealname}" width="70%" height="70%" >
+		</div>
 		<div class="post" >
 			<p class="post-content" style="white-space:pre;">${lunchData.content}</p>
 		</div>
-		<img src="/tmp/" alt="Image">
 		<br>
 		<br>
 		<br>

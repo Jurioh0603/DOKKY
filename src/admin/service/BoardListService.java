@@ -6,6 +6,7 @@ import java.util.List;
 
 import board.model.Board;
 import board.model.BoardDao;
+import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class BoardListService {
@@ -14,14 +15,23 @@ public class BoardListService {
 	private int size = 10;
 	
 	public void deleteBoard(String board, String deleteList) {
-		try(Connection conn = ConnectionProvider.getConnection()) {
+		Connection conn = null;
+		try {
+            conn = ConnectionProvider.getConnection();
+            conn.setAutoCommit(false);
+            
 			String[] deleteBno = deleteList.split(",");
 			for(String bno : deleteBno) {
 				boardDao.delete(conn, board, bno);
 			}
-		} catch(SQLException e) {
-			throw new RuntimeException(e);
-		}
+			
+			conn.commit();
+		} catch (SQLException e) {
+            JdbcUtil.rollback(conn);
+            throw new RuntimeException(e);
+        } finally {
+            JdbcUtil.close(conn);
+        }
 	}
 	
 	public BoardPage getBoardPage(int pageNum, String board) {

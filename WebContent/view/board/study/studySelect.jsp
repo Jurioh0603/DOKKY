@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +32,12 @@
 
 	<!-- 글작성버튼 -->
 	<div class="button-container">
-		<button class="custom-button">
+		<button class="custom-button" onclick="location.href='/study/write.do'">
 			<span><img src="<%=request.getContextPath() %>/imgs/write-icon.png" alt="write-icon"></span>
 			<span>작성하기</span>
 		</button>
 	</div>
+
 
 	<!-- 정렬바 -->
 	<div class="dropdown" style="float:right;">
@@ -44,7 +46,6 @@
 		</button>
 		<div class="dropdown-content">
    			<a href="#">최신순</a>
-   			<a href="#">추천순</a>
    			<a href="#">조회순</a>
    			<a href="#">댓글순</a>
 		</div>
@@ -61,44 +62,44 @@
     
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
+		<c:if test="${studyPage.hasNoContents()}">
+			<li>게시글을 작성해 주세요.</li>
+		</c:if>
+		<c:forEach var="studyItem" items="${studyPage.studyList }">
+			<li>
+	  			<div class="content">
+	    			<div class="user">${studyItem.memId}</div>
+	    			<div class="title"><a href="/study/read.do?no=${studyItem.bno}">${studyItem.title}</a></div>
+	    			<div class="date">${studyItem.regDate}</div>
+	  			</div>
+			</li>
+		</c:forEach>
 	</ul>
 
 	<hr>
 
 	<!-- 페이지네이션 -->
-	<div class="pagination-container">
-		<div class="pagination" style="margin-top:-20px">
-			<a href="#">&laquo;</a>
-			<a href="#">1</a>
-			<a href="#" class="active">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a>
-			<a href="#">&raquo;</a>
+	<c:if test="${studyPage.hasContents()}">
+		<div class="pagination-container">
+  			<div class="pagination">
+  				<c:if test="${studyPage.startPage > 5}">
+     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}">&laquo;</a>
+     			</c:if>
+     			
+     			<c:forEach var="pNo" begin="${studyPage.startPage}" end="${studyPage.endPage}">
+     				<c:if test="${pNo eq studyPage.getCurrentPage()}">
+     					<a href="/study/list.do?&pageNo=${pNo}" class="active">${pNo}</a>
+      				</c:if>
+     				<c:if test="${pNo ne studyPage.getCurrentPage()}">
+     					<a href="/study/list.do?&pageNo=${pNo}">${pNo}</a>
+      				</c:if>
+		       </c:forEach>
+		       <c:if test="${studyPage.endPage < studyPage.totalPages}">
+		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}">&raquo;</a>
+		       </c:if>
+ 			</div>
 		</div>
-	</div>
+	</c:if>
 </div>
 <br>
 <br>

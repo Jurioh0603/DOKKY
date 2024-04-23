@@ -1,34 +1,36 @@
-package member.board;
+package study.service;
 
 import java.util.List;
+
+import study.model.Study;
 
 public class StudyPage {
 	private int total;
 	private int currentPage;
-	private List<Study> content;
+	private List<Study> studyList;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
 	
-	public StudyPage(int total, int currentPage, int size, List<Study> content) {
+	public StudyPage(int total, int currentPage, int size, List<Study> studyList) {
 		this.total = total;
 		this.currentPage = currentPage;
-		this.content = content;
+		this.studyList = studyList;
 		if(total == 0) {
 			totalPages = 0;
 			startPage = 0;
 			endPage = 0;
-		}else {
+		} else {
 			totalPages = total / size;
 			if(total % size > 0) {
 				totalPages++;
 			}
 			int modVal = currentPage % 5;
 			startPage = currentPage / 5 * 5 + 1;
-			if(modVal == 0) startPage -=5;
+			if(modVal == 0) startPage -= 5;
 			
 			endPage = startPage + 4;
-			if(endPage > totalPages)endPage = totalPages;
+			if(endPage > totalPages) endPage = totalPages;
 		}
 	}
 	
@@ -36,11 +38,11 @@ public class StudyPage {
 		return total;
 	}
 	
-	public boolean hasNoStudy() {
+	public boolean hasNoContents() {
 		return total == 0;
 	}
 	
-	public boolean hasStudy() {
+	public boolean hasContents() {
 		return total > 0;
 	}
 	
@@ -52,8 +54,8 @@ public class StudyPage {
 		return totalPages;
 	}
 	
-	public List<Study> getContent(){
-		return content;
+	public List<Study> getStudyList() {
+		return studyList;
 	}
 	
 	public int getStartPage() {
