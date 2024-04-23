@@ -16,6 +16,27 @@
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 스터디게시판 글목록</title>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function(){
+		var sort = '<%= request.getParameter("sort") %>';
+		var dropdownText = document.getElementById('dropdownText');
+		
+		switch(sort) {
+			case 'bno':
+				dropdownText.textContent = '최신순';
+				break;
+			case 'hit':
+				dropdownText.textContent = '조회순';
+				break;
+			case 'replyCount':
+				dropdownText.textContent = '댓글순';
+				break;
+			default:
+				dropdownText.textContent = '최신순'; //기본값설정
+		}
+	});
+</script>
 </head>
 <body>
 <!-- 헤더 -->
@@ -47,9 +68,9 @@
 			<img src="<%=request.getContextPath() %>/imgs/select-icon.png" alt="select-icon">최신순
 		</button>
 		<div class="dropdown-content">
-   			<a href="#">최신순</a>
-   			<a href="#">조회순</a>
-   			<a href="#">댓글순</a>
+   			<a href="/study/list.do?&pageNo=${studyPage.getCurrentPage()}&search=${search}&sort=bno">최신순</a>
+   			<a href="/study/list.do?&pageNo=${studyPage.getCurrentPage()}&search=${search}&sort=hit">조회순</a>
+   			<a href="/study/list.do?&pageNo=${studyPage.getCurrentPage()}&search=${search}&sort=replyCount">댓글순</a>
 		</div>
 	</div>
 

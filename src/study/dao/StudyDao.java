@@ -144,15 +144,16 @@ public class StudyDao {
 		}
 	}
     
-	public List<Study> select(Connection conn, int startRow, int endRow) throws SQLException {
+	public List<Study> select(Connection conn, String sort, int startRow, int endRow) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by regdate desc) A ) " 
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by ? desc) A ) " 
 					   + "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, sort);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			List<Study> result = new ArrayList<>();
 			while(rs.next()) {
@@ -186,12 +187,12 @@ public class StudyDao {
 	}
 	
 	
-	public List<Study> selectSearch(Connection conn, String search,int startRow, int endRow) throws SQLException {
+	public List<Study> selectSearch(Connection conn, String search, String sort, int startRow, int endRow) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
 	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM study A JOIN scontent B "
-	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY a.bno DESC) S) "
+	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY A.bno DESC) S) "
 	        		+ "WHERE Rnum >= ? AND Rnum <= ? ";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, search);
@@ -208,6 +209,34 @@ public class StudyDao {
 	        JdbcUtil.close(rs);
 	        JdbcUtil.close(pstmt);
 	    }
+	}
+	
+	public List<Study> selectSearchReplyCount(Connection conn, String search, int startRow, int endRow) throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+				String sql = "select * from (select D.*, Rownum Rnum "
+						+ "from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount, C.content "
+						+ "ON A.bno = B.bno JOIN ccontent C ON A.bno = C.bno and "
+						+ "(A.title like '%' || ? || '%' or C.content like '%' || ? || '%') "
+						+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content "
+						+ "order by replyCount desc, A.bno desc) D)"
+						+ "where Rnum >= ? and Rnum <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				rs = pstmt.executeQuery();
+				List<Study> result = new ArrayList<>();
+				while(rs.next()) {
+						result.add(convertStudy(rs));
+				}
+				return result;
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
 	}
 
 
