@@ -223,6 +223,6 @@ public class LunchDao {
 			   rs.getDate(3),
 			   rs.getInt(4),
 			   rs.getString(5),
-			   rs.getString(6));
+			   rs.getString("filerealname"));
    }
 }
