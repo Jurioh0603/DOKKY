@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jdbc.JdbcUtil;
@@ -34,6 +37,16 @@ public class StudyDao {
 			   Study study = null;
 			   if(rs.next()) {
 				   study = convertStudy(rs); //p648. convertStudy() 게시글 목록 조회 기능구현에서 생성한 메서드
+				   //regDate formatting
+				   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				   String regDatestr = dateFormat.format(study.getRegDate());
+				   Date regDate = null;
+				   try {
+					   regDate = dateFormat.parse(regDatestr);
+				   } catch (ParseException e) {
+					   e.printStackTrace();
+				   }
+				   study.setRegDate(regDate);
 			   }
 			   return study;
 		   }finally {
@@ -156,8 +169,8 @@ public class StudyDao {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT COUNT(*) FROM study A JOIN scontent B"
-	        		+ "ON A.sno = B.sno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%')";
+	        String sql = "SELECT COUNT(*) FROM study A JOIN scontent B " 
+	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, search);
 	        pstmt.setString(2, search);
@@ -177,9 +190,9 @@ public class StudyDao {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM study A JOIN scontent B"
-	        		+ "ON A.bno = B.sno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY A.bno DESC) S) "
-	        		+ "WHERE Rnum >= ? AND Rnum <= ?";
+	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM study A JOIN scontent B "
+	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY a.bno DESC) S) "
+	        		+ "WHERE Rnum >= ? AND Rnum <= ? ";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, search);
 	        pstmt.setString(2, search);

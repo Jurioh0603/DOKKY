@@ -52,7 +52,8 @@
 	  var currentDate = new Date();
 	  
 	  // 작성된 시간을 Date 객체로 변환
-	  var postDate = new Date(regDate);
+	  var regDateWithoutTZ = regDate.replace('KST', '');
+	  var postDate = new Date(regDateWithoutTZ);
 	  
 	  // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
 	  var timeDiff = currentDate - postDate;

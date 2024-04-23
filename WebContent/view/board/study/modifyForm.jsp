@@ -54,7 +54,7 @@
 		<div class="col-sm-10">
 			<div class="button-container">
 				<button type="submit" class="custom-button" style="margin-right:10px;">수정</button>
-				<button type="button" class="custom-button">취소</button>
+				<button type="button" class="custom-button" onclick="history.back()">취소</button>
 			</div>
 		</div>
 	</div>

@@ -18,12 +18,14 @@ public class ListStudyController implements CommandHandler{
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
+			
 			StudyPage studyPage = listService.getStudyPage(pageNo);
 			if(search == null)
 				studyPage = listService.getStudyPage(pageNo);
 			else
 				studyPage = listService.getSearchStudyPage(pageNo, search);
 			req.setAttribute("studyPage", studyPage);
+			req.setAttribute("search", search);
 			return "/view/board/study/studySelect.jsp";
 		}
 }

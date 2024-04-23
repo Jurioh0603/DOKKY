@@ -53,9 +53,9 @@
 
 	<!-- 검색창 -->
 	   <div style="display: grid; place-items: center; text-align: center;">
-      <form class="search-box" action="" method="get" >
-            <input class="search-txt" type="text" name="searchword" placeholder="검색어를 입력하세요."/>
-            <button class="search-btn" type="submit" title="검색" style="background-color: transparent;">
+      <form class="search-box" action="/study/list.do" method="get" >
+            <input class="search-txt" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
+            <button class="search-btn" type="submit" title="검색">
               <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
           </button>
          </form>
@@ -85,19 +85,19 @@
 		<div class="pagination-container">
   			<div class="pagination">
   				<c:if test="${studyPage.startPage > 5}">
-     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}">&laquo;</a>
+     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}&search=${search}">&laquo;</a>
      			</c:if>
      			
      			<c:forEach var="pNo" begin="${studyPage.startPage}" end="${studyPage.endPage}">
      				<c:if test="${pNo eq studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}" class="active">${pNo}</a>
+     					<a href="/study/list.do?&pageNo=${pNo}&search=${search}" class="active">${pNo}</a>
       				</c:if>
      				<c:if test="${pNo ne studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}">${pNo}</a>
+     					<a href="/study/list.do?&pageNo=${pNo}&search=${search}">${pNo}</a>
       				</c:if>
 		       </c:forEach>
 		       <c:if test="${studyPage.endPage < studyPage.totalPages}">
-		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}">&raquo;</a>
+		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}&search=${search}">&raquo;</a>
 		       </c:if>
  			</div>
 		</div>
