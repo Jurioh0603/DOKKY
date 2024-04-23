@@ -61,6 +61,13 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
+			if(board.equals("lunch")) {
+				String imageSql = "delete from image where bno=?";
+				pstmt = conn.prepareStatement(imageSql);
+				pstmt.setInt(1, Integer.parseInt(bno));
+				pstmt.executeUpdate();
+			}
+			
 			String bbsSql = "delete from " + board + " where bno=?";
 			pstmt = conn.prepareStatement(bbsSql);
 			pstmt.setInt(1, Integer.parseInt(bno));
