@@ -61,9 +61,9 @@
 		<!-- 검색창 -->
 		<div style="display: grid; place-items: center; text-align: center;">
 			<form class="search-box" action="/lunch/list.do" method="get" >
-			    <input class="search-txt" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
+			    <input class="search-txt" style="width:150px" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
 			<button class="search-btn" type="submit" title="검색">
-			    <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
+			    <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px; background-color:white; border-color: white;" />
 			    </button>
 			</form>
     	</div>

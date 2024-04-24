@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,7 +13,7 @@
 
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
-<title>DOKKY - 점심메뉴추천 글작성</title>
+<title>DOKKY - 스터디 글수정</title>
 </head>
 <body>
 <!-- 헤더 -->
@@ -30,41 +31,43 @@
 		<br>
 		<br>
 	</div>
-
-	<!-- 글쓰기 -->
-	<form id="writeForm" action="/lunch/write.do" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-		<div class="form-group row">
-			<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-			<div class="col-sm-10">
-				<input type="text" name="title" class="form-text" id="inputTitle" />
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-			<div class="col-sm-10">
-				<textarea name="content" class="form-text1" id="inputContent"></textarea>
-			</div>
-		</div>
 	
-		<!-- 글 등록과 취소 -->
-		<div class="form-group row">
-			<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
-			<div class="col-sm-10">
-				<div class="button-container">
-					<button type="button" onclick="submitForm()" class="custom-button" style="margin-right:10px;">취소</button>
-					<button type="submit" class="custom-button">등록</button>
-				</div>
+	<form action="/lunch/modify.do" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="no" value="${modReq.lunchNumber}">
+	<!-- 글쓰기 -->
+	<div class="form-group row">
+		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+		<div class="col-sm-10">
+			<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}"/>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+		<div class="col-sm-10">
+			<textarea type="text" name="content" class="form-text1" id="inputContent" >${modReq.content}</textarea>
+		</div>
+	</div>
+
+	<!-- 글 등록과 취소 -->
+	<div class="form-group row">
+		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
+		<div class="col-sm-10">
+			<div class="button-container">
+				<button type="submit" class="custom-button" style="margin-right:10px;">수정</button>
+				<button type="button" class="custom-button" onclick="history.back()">취소</button>
 			</div>
 		</div>
-		
+	</div>
+	
 	<!-- 첨부파일 -->
-		<input type="file" name="file" />
+	<input type="file" name="file" />
 	</form>
 </div>
 <br>
 <br>
 <br>
 <br>
+
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
@@ -92,7 +95,6 @@
         return true;
     }
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
