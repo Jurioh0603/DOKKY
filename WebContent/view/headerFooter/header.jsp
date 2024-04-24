@@ -58,23 +58,27 @@ background-color: #f5f5f5;
 <!-- 상단바 영역 -->
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-white nav-container fixed-top">
-	  <div class="container">
+	  <div class="container"> <!-- 컨테이너 추가 -->
 	    <a href="/main.do" class="navbar-brand"> <!-- 로고 클릭 시 메인페이지 이동 -->
-		<!-- 로고 이미지 경로 설정 주의하기! -->
+	      <!-- 로고 이미지 경로 설정 주의하기! -->
 	      <img src="<%=request.getContextPath() %>/imgs/dokkyLogo.png" alt="DOKKY Logo" width="100" height="auto">
 	    </a>
 		
+		<!-- 토글메뉴 추가 -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+		
 		<!-- nav-bar에 게시판 메뉴명 클릭 시 각 게시판으로 이동 -->
-	    <div class="collapse navbar-collapse justify-content-center" id="navbarNav" role="header">
+	    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent" role="header">
 	      <ul class="navbar-nav">
 	        <li class="nav-item"><a href="/qna/list.do" class="nav-link px-4 text-black">Q&A</a></li>
 	        <li class="nav-item"><a href="/community/list.do" class="nav-link px-4 text-black">자유게시판</a></li>
 	        <li class="nav-item"><a href="/study/list.do" class="nav-link px-4 text-black">스터디모집</a></li>
 	        <li class="nav-item"><a href="/lunch/list.do" class="nav-link px-4 text-black">점메추</a></li>
 	      </ul>
-	    </div>
-        
-        <!-- 검색창 -->
+	    
+                <!-- 검색창 -->
 		<form class="d-flex">
 		  <div class="position-relative">
 		    <!-- search SVG 아이콘 클릭시 버튼 활성화 -->
@@ -111,7 +115,19 @@ background-color: #f5f5f5;
 	  </div>	
     </nav>
 </header>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.navbar-toggler').addEventListener('click', function() {
+    let navbarCollapse = document.querySelector('#navbarSupportedContent');
+    if (navbarCollapse.classList.contains('show')) {
+      navbarCollapse.classList.remove('show');
+    } else {
+      navbarCollapse.classList.add('show');
+    }
+  });
+
   let query = document.querySelector('.query');
   let searchButton = document.querySelector('.searchButton');
 
@@ -119,7 +135,7 @@ background-color: #f5f5f5;
     let url = 'https://www.google.com/search?q='+query.value;
     window.open(url);
   }
+});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
