@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
+import lunch.dao.ImageDao;
 import lunch.dao.LcontentDao;
 import lunch.dao.LunchDao;
 
@@ -12,6 +13,7 @@ public class DeleteLunchService {
     
     private LunchDao lunchDao = new LunchDao();
     private LcontentDao lcontentDao = new LcontentDao();
+    private ImageDao imageDao = new ImageDao();
     
     public void delete(DeleteRequest deleteReq) {
         Connection conn = null;
@@ -19,11 +21,11 @@ public class DeleteLunchService {
             conn = ConnectionProvider.getConnection();
             conn.setAutoCommit(false);
             
-            int lunchNo = lunchDao.delete(conn, deleteReq.getLunchNumber()); // DeleteRequest로부터 게시글 번호 가져오기
-            int lcontentNo = lcontentDao.delete(conn, deleteReq.getLunchNumber()); // DeleteRequest로부터 게시글 번호 가져오기
+            int bno = deleteReq.getLunchNumber();
             
-            lunchDao.delete(conn, lunchNo); // Study 삭제
-            lcontentDao.delete(conn, lcontentNo); // Scontent 삭제
+            imageDao.delete(conn, bno); // Study 삭제
+            lunchDao.delete(conn, bno); // Study 삭제
+            lcontentDao.delete(conn, bno); // Scontent 삭제
             
             conn.commit();
         } catch (SQLException e) {

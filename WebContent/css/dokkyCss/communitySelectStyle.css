@@ -101,7 +101,8 @@ hr {
 .search-btn {
   width: 20px;
   height: auto;
-  margin-right: 18px;
+  margin-top: 18px;
+  margin-right: 5px;
   float: right;
   position: relative;
   top: -50%;

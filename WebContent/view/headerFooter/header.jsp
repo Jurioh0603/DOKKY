@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let query = document.querySelector('.query');
   let searchButton = document.querySelector('.searchButton');
-
+  
   searchButton.onclick = function(){
     let url = 'https://www.google.com/search?q='+query.value;
     window.open(url);

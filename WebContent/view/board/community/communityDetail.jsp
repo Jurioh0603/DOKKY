@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-  	  	
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 자유게시판 글보기</title>
@@ -46,12 +47,13 @@
 	  
 	  // 작성된 시간 가져오기
 	  var regDate = regDateElement.textContent.trim();
-	  
+	 
 	  // 현재 시간
 	  var currentDate = new Date();
 	  
 	  // 작성된 시간을 Date 객체로 변환
-	  var postDate = new Date(regDate);
+	  var regDateWithoutTZ = regDate.replace('KST', '');
+	  var postDate = new Date(regDateWithoutTZ);
 	  
 	  // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
 	  var timeDiff = currentDate - postDate;
@@ -76,6 +78,8 @@
 	  regDateElement.textContent = displayText;
 	  
 	</script>
+	
+	<div id="output"></div>
 	
 	<main class="main">
 		<div class="post" >
