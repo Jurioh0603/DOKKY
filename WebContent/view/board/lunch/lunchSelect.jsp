@@ -19,6 +19,27 @@
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 점심메뉴추천</title>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var sort = '<%= request.getParameter("sort") %>';
+        var dropdownText = document.getElementById('dropdownText');
+
+        switch(sort) {
+            case 'bno':
+                dropdownText.textContent = '최신순';
+                break;
+            case 'hit':
+                dropdownText.textContent = '조회순';
+                break;
+            case 'replyCount':
+                dropdownText.textContent = '댓글순';
+                break;
+            default:
+                dropdownText.textContent = '최신순'; // 기본값 설정
+        }
+    });
+</script>
+
 </head>
 <body>
 <%@ include file="../../headerFooter/header.jsp" %>
@@ -51,10 +72,9 @@
 				<img src="<%=request.getContextPath() %>/imgs/selectIcon.png" alt="select-icon">최신순
 			</button>
 	  		<div class="dropdown-content">
-	  			<a href="#">최신순</a>
-	  			<a href="#">추천순</a>
-	  			<a href="#">조회순</a>
-	  			<a href="#">댓글순</a>
+	  			<a href="/lunch/list.do?&search=${search}&sort=bno">최신순</a>
+	        	<a href="/lunch/list.do?&search=${search}&sort=hit">조회순</a>
+	        	<a href="/lunch/list.do?&search=${search}&sort=replyCount">댓글순</a>
 	  		</div>
 		</div>
 		
@@ -62,7 +82,8 @@
 		<div style="display: grid; place-items: center; text-align: center;">
 			<form class="search-box" action="/lunch/list.do" method="get" >
 			    <input class="search-txt" style="width:150px" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
-			<button class="search-btn" type="submit" title="검색">
+				<input type="hidden" name="sort" value="${sort}"/>
+				<button class="search-btn" type="submit" title="검색">
 			    <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px; background-color:white; border-color: white;" />
 			    </button>
 			</form>
@@ -107,18 +128,18 @@
 			<div class="pagination-container">
 	  			<div class="pagination">
 	  				<c:if test="${lunchPage.startPage > 5}">
-	     				<a href="/community/list.do?pageNo=${lunchPage.startPage - 5}&search=${search}">&laquo;</a>
+	     				<a href="/lunch/list.do?pageNo=${lunchPage.startPage - 5}&search=${search}&sort=${sort}">&laquo;</a>
 	     			</c:if>
 	     			<c:forEach var="pNo" begin="${lunchPage.startPage}" end="${lunchPage.endPage}">
 	     				<c:if test="${pNo eq lunchPage.getCurrentPage()}">
-	     					<a href="/community/list.do?&pageNo=${pNo}&search=${search}" class="active">${pNo}</a>
+	     					<a href="/lunch/list.do?&pageNo=${pNo}&search=${search}&sort=${sort}" class="active">${pNo}</a>
 	      				</c:if>
 	     				<c:if test="${pNo ne lunchPage.getCurrentPage()}">
-	     					<a href="/community/list.do?&pageNo=${pNo}&search=${search}">${pNo}</a>
+	     					<a href="/lunch/list.do?&pageNo=${pNo}&search=${search}&sort=${sort}">${pNo}</a>
 	      				</c:if>
 			       </c:forEach>
 			       <c:if test="${lunchPage.endPage < lunchPage.totalPages}">
-			       	<a href="/community/list.do?pageNo=${lunchPage.startPage + 5}&search=${search}">&raquo;</a>
+			       	<a href="/lunch/list.do?pageNo=${lunchPage.startPage + 5}&search=${search}&sort=${sort}">&raquo;</a>
 			       </c:if>
 	 			</div>
 			</div>
