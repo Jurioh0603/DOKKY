@@ -10,6 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>header</title>
 <style>
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}  
+
 .navbar{
 	border-bottom: 1px solid #ccc;}
 /*nav-bar 게시판 메뉴 마우스 올리면 파란색으로 변하는 hover적용*/
@@ -79,6 +87,8 @@ background-color: #f5f5f5;
 		    <input type="search" class="form-control rounded-pill pl-6 query" placeholder="검색" aria-label="Search" style="padding-left: 25px; font-weight: 300;">
 		  </div>
 		</form>
+		
+		<div id="admin-btn" class="d-flex justify-content-between">
 	     <c:if test="${ empty authUser }">
 		<button type="button" class="login-btn rounded-pill d-flex justify-content-center align-items-center border border-gray-500 bg-white text-center text-sm px-4 " style="margin-left: 30px;"  onclick="location.href='/login.do'">
 		  로그인
@@ -97,6 +107,8 @@ background-color: #f5f5f5;
 		  마이페이지
 		</button>
 		</c:if>
+		</div>
+	  </div>	
     </nav>
 </header>
 <script type="text/javascript">

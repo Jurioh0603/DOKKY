@@ -88,7 +88,7 @@ public class ModifyStudyController implements CommandHandler{
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			
 			 //에러페이지 설정
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/deleteBoardPage.jsp");
+		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/404Page.jsp");
 		    dispatcher.forward(req, res);
 			return null;
 		}catch(PermissionDeniedException e) {
