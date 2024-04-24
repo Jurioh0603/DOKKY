@@ -64,23 +64,25 @@
 
 	<!-- 정렬바 -->
 	<div class="dropdown" style="float:right;">
-		<button class="dropbtn">
-			<img src="<%=request.getContextPath() %>/imgs/select-icon.png" alt="select-icon">최신순
+		<button class="dropbtn" id="dopdownButton">
+			<img src="<%=request.getContextPath() %>/imgs/select-icon.png" alt="select-icon">
+			<span id="dropdown-Text"></span>
 		</button>
 		<div class="dropdown-content">
-   			<a href="/study/list.do?&pageNo=${studyPage.getCurrentPage()}&search=${search}&sort=bno">최신순</a>
-   			<a href="/study/list.do?&pageNo=${studyPage.getCurrentPage()}&search=${search}&sort=hit">조회순</a>
-   			<a href="/study/list.do?&pageNo=${studyPage.getCurrentPage()}&search=${search}&sort=replyCount">댓글순</a>
+   			<a href="/study/list.do?&search=${search}&sort=bno">최신순</a>
+   			<a href="/study/list.do?&p&search=${search}&sort=hit">조회순</a>
+   			<a href="/study/list.do?&&search=${search}&sort=replyCount">댓글순</a>
 		</div>
 	</div>
 
 	<!-- 검색창 -->
 	   <div style="display: grid; place-items: center; text-align: center;">
-      <form class="search-box" action="/study/list.do" method="get" >
+         <form class="search-box" action="/study/list.do" method="get" >
             <input class="search-txt" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
+            <input type="hidden" name="sort" value="${sort}"/>
             <button class="search-btn" type="submit" title="검색">
               <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
-          </button>
+            </button>
          </form>
    </div>
    <div style="clear:both;"></div>
