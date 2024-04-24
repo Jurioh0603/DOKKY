@@ -89,7 +89,7 @@
 	</main>
 	<hr style="clear:both;"/>
 	<!-- 글목록 버튼 -->
-	<form action="#" method="post">
+	<form action="/lunch/list.do" method="post">
 		<button class="next">목록</button>
 	</form>
 	
@@ -105,7 +105,7 @@
                 </form>
             </c:if>
             <!-- 모달 버튼 -->
-            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
+            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
         </div>
     </div>
 </c:if>

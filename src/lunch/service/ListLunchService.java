@@ -15,7 +15,7 @@ public class ListLunchService {
 	private LunchDao lunchDao = new LunchDao();
 	private int size = 8;
 	
-	public LunchPage getLunchPage(int pageNum) {
+	public LunchPage getLunchPage(int pageNum, String sort) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			int total = lunchDao.selectCount(conn);
 			List<ListRequest> lunchList = lunchDao.select(conn, (pageNum - 1) * size + 1, pageNum * size);
@@ -25,10 +25,14 @@ public class ListLunchService {
 		}
 	}
 	
-	public LunchPage getSearchLunchPage(int pageNum, String search) {
+	public LunchPage getSearchLunchPage(int pageNum, String search, String sort) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			int total = lunchDao.selectSearchCount(conn, search);
-			List<ListRequest> lunchList = lunchDao.selectSearch(conn, search, (pageNum - 1) * size + 1, pageNum * size);
+			List<ListRequest> lunchList = null;
+			if(sort.equals("replyCount"))
+				lunchList = lunchDao.selectSearchReplyCount(conn, search, (pageNum - 1) * size + 1, pageNum * size);
+			else
+				lunchList = lunchDao.selectSearch(conn, search, sort, (pageNum - 1) * size + 1, pageNum * size);
 			return new LunchPage(total, pageNum, size, lunchList);
 		} catch(SQLException e) {
 			throw new RuntimeException(e);

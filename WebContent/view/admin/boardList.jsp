@@ -142,7 +142,7 @@
 							<th scope="col">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
-							<th scope="col">선택 <input class="form-check-input" id="selectAll" type="checkbox"></th>
+							<th scope="col">선택&nbsp;&nbsp;<input id="selectAll" type="checkbox" style="transform: scale(1.3);"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -156,7 +156,7 @@
 								<td><a href="/${board}/read.do?no=${boardItem.bno}">${boardItem.title }</a></td>
 								<td>${boardItem.memid }</td>
 								<td style="white-space: nowrap;">${boardItem.regdate }</td>
-								<td><input class="form-check-input" type="checkbox"></td>
+								<td><input type="checkbox" style="transform: scale(1.3);"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
