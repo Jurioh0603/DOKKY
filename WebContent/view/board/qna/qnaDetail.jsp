@@ -107,15 +107,15 @@
 		<br/>
 		<br/>
 		
-		<div class="modal" tabindex="-1" id="deleteModal">
+		<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 		<div class="modal-content">
 		<div class="modal-header">
-			<h5 class="modal-title">글 삭제</h5>
+			<h5 class="modal-title" id="deleteModalLabel">글 삭제</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<p>정말로 삭제하시겠습니까?</p>
+			정말로 삭제하시겠습니까?
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -134,15 +134,27 @@
     <div class="form-group row">
         <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
         <div class="col-sm-10">
+        <c:if test="${authUser != null}">
             <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
+        </c:if>
+        <c:if test="${authUser == null}">
+            <textarea name="rcontent" class="form-text1" id="rcontent" readonly="readonly">작성하려면 로그인이 필요합니다.</textarea>
+        </c:if>
         </div>
     </div>
+    
     <div class="form-group row">
         <div class="col-sm-10 offset-sm-2">
+        <c:if test="${authUser != null}">
             <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
+        </c:if>
+        <c:if test="${authUser == null}">
+        	<button id="addReplyButton" class="btn btn-primary float-end" disabled=>댓글 등록</button>
+        </c:if>
         </div>
+        </div>
+    </form>
     </div>
-</form>
 
 <div class="comments-container">
     <div class="comments-list">
@@ -155,26 +167,23 @@
                 <div class="comment-content">
                     ${replyItem.rcontent}
                 </div>
+                </div>
+                
                 <div class="comment-buttons">
-  
-
-<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
+                <c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
     <button class="btn btn-warning edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
     <button type="submit" class="btn btn-danger delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
 </c:if>
-
+</div>
+</c:forEach>
 				</div>
                 </div>
-        </c:forEach>
     </div>
-</div>
-</div>
-</div>
+<br>
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
-<br>
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

@@ -90,28 +90,32 @@
 	</main>
 	<hr style="clear:both;"/>
 	<!-- 글목록 버튼 -->
-	<form action="/lunch/list.do" method="post">
-		<button class="next">목록</button>
-	</form>
-	
-<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
-<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == lunchData.lunch.memId)}">
-    <div class="form-group row">
-        <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-            <c:if test="${authUser.id == lunchData.lunch.memId}">
-                <!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
-                <form id="editForm" action="/lunch/modify.do" method="get">
-                    <input type="hidden" name="no" value="${lunchData.lunch.bno}">
-                    <button type="submit" class="custom-button">글수정</button>
-                </form>
-            </c:if>
-            <!-- 모달 버튼 -->
-            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
-        </div>
-    </div>
-</c:if>
-<br/>
-<br/>
+	<div class="item">
+		<form action="/lunch/list.do" method="post">
+			<button class="next">목록</button>
+		</form>
+		
+		<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
+		<div style="margin-left: auto;">
+			<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == lunchData.lunch.memId)}">
+		    	<div class="form-group row">
+		        	<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+		            	<c:if test="${authUser.id == lunchData.lunch.memId}">
+		                	<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+		                	<form id="editForm" action="/lunch/modify.do" method="get">
+		                    	<input type="hidden" name="no" value="${lunchData.lunch.bno}">
+		                    	<button type="submit" class="custom-button">글수정</button>
+		                	</form>
+		            	</c:if>
+		            	<!-- 모달 버튼 -->
+		            	<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
+		        	</div>
+		    	</div>
+			</c:if>
+		</div>
+	</div>
+	<br/>
+	<br/>
 
 <!-- 모달 창 -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -147,32 +151,45 @@
 		    <div class="form-group row">
 		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
 		        <div class="col-sm-10">
-		            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
-		        </div>
-		    </div>
-		    <div class="form-group row">
-		        <div class="col-sm-10 offset-sm-2">
-		            <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
+		        <c:if test="${authUser != null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content} style="width: 120%;"></textarea>
+		        </c:if>
+		        <c:if test="${authUser == null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" readonly="readonly" style="width: 120%;">작성하려면 로그인이 필요합니다.</textarea>
+		        </c:if>
 		        </div>
 		    </div>
 		</form>
-
+	    <div class="form-group row">
+	        <div class="col-sm-10 offset-sm-2">
+	        <c:if test="${authUser != null}">
+	            <button id="addReplyButton" class="custom-button float-end">댓글 등록</button>
+	        </c:if>
+	        <c:if test="${authUser == null}">
+	            <button id="addReplyButton" class="custom-button float-end" disabled>댓글 등록</button>
+	        </c:if>
+	        </div>
+	    </div>
+		<br/>
 		<div class="comments-container">
 	   		<div class="comments-list">
 	        	<c:forEach var="replyItem" items="${lunchData.reply}">
 	            	<div class="comment-item">
-	                	<div class="comment-info">
-	                    	<span class="comment-author">${replyItem.memid}</span>
-	                    	<span class="comment-date">${replyItem.date}</span>
-	                	</div>
-	                	<div class="comment-content">
-	                    	${replyItem.rcontent}
+		            	<div style="margin-top: 18px">
+		                	<div class="comment-info">
+		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
+		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.date}</span>
+		                	</div>
+		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
+		                    	${replyItem.rcontent}
+		                	</div>
 	                	</div>
 	                	<div class="comment-buttons">
 							<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
-	    						<button class="btn btn-warning edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
-	    						<button type="submit" class="btn btn-danger delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
+	    						<button class="btn-modify-delete edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
+	    						<button type="submit" class="btn-modify-delete delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
 							</c:if>
+							<hr style="border: none; height: 0.5px; margin-top: 25px;"/>
 						</div>
 	                </div>
 	        	</c:forEach>

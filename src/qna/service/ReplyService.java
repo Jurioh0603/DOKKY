@@ -1,18 +1,18 @@
-package reply.service;
+package qna.service;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import reply.dao.ReplyDAO;
-import reply.model.ReplyDTO;
+import qna.dao.ReplyDao;
+import qna.model.ReplyDTO;
 
 public class ReplyService {
-    private ReplyDAO replyDAO;
+    private ReplyDao replyDAO;
 
     public ReplyService() {
         try {
-            replyDAO = new ReplyDAO();
+            replyDAO = new ReplyDao();
         } catch (SQLException e) {
             e.printStackTrace();
         }

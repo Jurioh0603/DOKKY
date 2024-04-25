@@ -54,15 +54,16 @@
 		<filter-name>LoginCheckFilter</filter-name>
 		<url-pattern>/study/modify.do</url-pattern>
 		<url-pattern>/study/write.do</url-pattern>
-		<url-pattern>/qna/qnaWrite.do</url-pattern>
+		<url-pattern>/qna/write.do</url-pattern>
+		<url-pattern>/qna/modify.do</url-pattern>
+		<url-pattern>/qna/delete.do</url-pattern>
 		<url-pattern>/community/write.do</url-pattern>
 		<url-pattern>/community/modify.do</url-pattern>
 		<url-pattern>/community/delete.do</url-pattern>
 		<url-pattern>/lunch/write.do</url-pattern>
 		<url-pattern>/lunch/modify.do</url-pattern>
 		<url-pattern>/lunch/delete.do</url-pattern>
-		<url-pattern>/view/member/myPage.jsp</url-pattern>
-		<url-pattern>/view/member/myPostList.jsp</url-pattern>
+		<url-pattern>/myPage.do</url-pattern>
 	</filter-mapping>
 	
 	
@@ -110,12 +111,12 @@
 	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/view/errorPage/404Page.jsp</location>
+		<location>/view/errorPage/notFoundPage.jsp</location>
 	</error-page>
 
 	<error-page>
 		<error-code>403</error-code>
-		<location>/view/errorPage/403Page.jsp</location>
+		<location>/view/errorPage/forbiddenPage.jsp</location>
 	</error-page>
 
 </web-app>

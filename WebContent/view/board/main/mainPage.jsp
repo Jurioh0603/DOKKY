@@ -99,7 +99,7 @@
 	                 <c:if test="${authUser.grade eq 1111 || authUser.grade eq 2222}">
 	                 <div>
 			              <p class="card-text">
-			                <a href="../view/member/myPage.jsp">내 정보</a> /
+			                <a href="/myPage.do">내 정보</a> /
 			                <a href="../view/member/myPostList.jsp">내 글 목록</a> /
 			                <a href="/changePassword.do">비밀번호 변경</a>
 			              </p>
@@ -125,7 +125,7 @@
 	      <div class="col-md-6">
 			<!-- top-banner영역 -->
 			<div class="container">
-			  <a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="main-square-box">
+			  <a href="/qna/list.do" class="main-square-box">
 			    <div class="main-text">
 			      <span>Q&A</span>
 			    </div>

@@ -1,4 +1,4 @@
-package reply.model;
+package qna.model;
 
 import java.util.Date;
 

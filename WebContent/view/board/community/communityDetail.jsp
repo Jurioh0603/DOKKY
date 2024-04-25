@@ -76,11 +76,7 @@
 	    displayText = seconds + '초 전';
 	  }
 	  regDateElement.textContent = displayText;
-	  
 	</script>
-	
-	<div id="output"></div>
-	
 	<main class="main">
 		<div class="post" >
 			<p class="post-content" style="white-space:pre;">${communityData.content}</p>
