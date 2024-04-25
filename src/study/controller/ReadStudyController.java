@@ -27,7 +27,7 @@ public class ReadStudyController implements CommandHandler{
 		    req.getServletContext().log("no study", e);
 		    
 		    //에러페이지 설정
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/deleteBoardPage.jsp");
+		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/notFoundPage.jsp");
 		    dispatcher.forward(req, res);
 		    return null;
 		}

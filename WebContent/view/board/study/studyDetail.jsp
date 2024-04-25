@@ -112,26 +112,29 @@
 	<br/>
 	<br/>
 	
-	<div class="modal" tabindex="-1" id="deleteModal">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">글 삭제</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body">
-	        <p>정말로 삭제하시겠습니까?</p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        <form id="deleteForm" action="/study/delete.do" method="post">
-	        	<input type="hidden" name="no" value="${param.no}">
-	        	<button type="submit" class="btn btn-primary">삭제</button>
-	        </form>
-	      </div>
+	<!-- 모달 창 -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="deleteModalLabel">글 삭제</h5>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body">
+	                정말로 삭제하시겠습니까?
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	                <!-- 삭제 버튼 클릭 시 폼 제출 -->
+	                <form id="deleteForm" action="/study/delete.do" method="post">
+	                    <input type="hidden" name="no" value="${param.no}">
+	                    <button type="submit" class="btn btn-danger">삭제</button>
+	                </form>
+	            </div>
+	        </div>
 	    </div>
-	  </div>
 	</div>
+	<!-- 모달 창 끝 -->
 
     <!-- 댓글 -->
    <div class="comment-form">
@@ -150,10 +153,6 @@
    <br/>
    <br/>
    <br/>
-   <div>
-      <button class="next">이전글</button>
-      <button class="next" style="float: right;">다음글</button>
-   </div>
 </div>  
      
 <br>
