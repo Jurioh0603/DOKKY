@@ -58,30 +58,22 @@
    		</form>
 	</div>
 	<div style="clear:both;"></div>
-    
+	<c:if test="${qnaPage.hasNoContents()}">
+		<tr>
+			<td colspan="4">게시글이 없습니다.</td>
+		</tr>
+    </c:if>
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
+		<c:forEach var="qna" items="${qnaPage.qnaList}">
 		<li>
   			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
+    			<div class="user">${qna.memId}사용자 이름</div>
+    			<div class="title"><a href="/qna/qread.do?no=${qna.bno}" class="title">${qna.title}</a></div>
+    			<div class="date">${qna.regDate}날짜</div>
   			</div>
 		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
-		<li>
-  			<div class="content">
-    			<div class="user">사용자 이름</div>
-    			<div class="title">글 제목</div>
-    			<div class="date">날짜</div>
-  			</div>
-		</li>
+		</c:forEach>
 	</ul>
 
 	<hr>
@@ -110,7 +102,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
     function goToWritePage() {
-        window.location.href = "/view/board/qna/qnaWrite.jsp"; // 적절한 경로를 지정해야 합니다.
+        window.location.href = "/view/board/qna/qnaWrite.jsp"; 
     }
 </script>
 

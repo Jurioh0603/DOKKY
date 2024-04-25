@@ -1,4 +1,4 @@
-package qna.command;
+package qna.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ import member.model.Member;
 import mvc.command.CommandHandler;
 
 
-public class WriteQnaHandler implements CommandHandler {
+public class WriteQnaController implements CommandHandler {
 	private static final String FORM_VIEW = "/view/board/qna/qnaWrite.jsp";
 	private WriteQnaService writeService = new WriteQnaService();
 	
