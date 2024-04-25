@@ -8,14 +8,14 @@ import lunch.dao.LcontentDao;
 import lunch.dao.LunchDao;
 import lunch.model.Lcontent;
 import lunch.model.Lunch;
-import lunch.dao.ReplyDAO;
-import lunch.model.ReplyDTO;
+import lunch.dao.LreplyDao;
+import lunch.model.Lreply;
 
 public class ReadLunchService {
 	
 	private LunchDao lunchDao = new LunchDao();
 	private LcontentDao LcontentDao = new LcontentDao();
-	private ReplyDAO replyDao = null;
+	private LreplyDao replyDao = null;
 	
 	public LunchData getLunch(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()){
@@ -25,9 +25,9 @@ public class ReadLunchService {
 			}
 			Lcontent lcontent = LcontentDao.selectById(conn, bno);
 			
-			replyDao = new ReplyDAO();
+			replyDao = new LreplyDao();
 			
-			List<ReplyDTO> replyList = replyDao.getRepliesByBno(bno);
+			List<Lreply> replyList = replyDao.getRepliesByBno(bno);
 			
 			if(lcontent == null) {
 				throw new LcontentNotFoundException();

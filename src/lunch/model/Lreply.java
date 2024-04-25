@@ -2,7 +2,7 @@ package lunch.model;
 
 import java.util.Date;
 
-public class ReplyDTO {
+public class Lreply {
 	private int rno;
 	private int bno;
 	private String memid;

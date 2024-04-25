@@ -4,15 +4,15 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import qna.dao.ReplyDAO;
+import qna.dao.ReplyDao;
 import qna.model.ReplyDTO;
 
 public class ReplyService {
-    private ReplyDAO replyDAO;
+    private ReplyDao replyDAO;
 
     public ReplyService() {
         try {
-            replyDAO = new ReplyDAO();
+            replyDAO = new ReplyDao();
         } catch (SQLException e) {
             e.printStackTrace();
         }

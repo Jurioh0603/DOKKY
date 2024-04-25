@@ -24,7 +24,6 @@ public class DeleteCommunityService {
             
             communityDao.delete(conn, communityNo); // Community 삭제
             ccontentDao.delete(conn, ccontentNo); // Ccontent 삭제
-            
             conn.commit();
         } catch (SQLException e) {
             JdbcUtil.rollback(conn);

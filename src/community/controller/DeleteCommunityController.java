@@ -1,4 +1,4 @@
-package community.command;
+package community.controller;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -105,12 +105,12 @@
 	               			<img src="${pageContext.request.contextPath}/upload/${lunchItem.filerealname}" alt="${lunchItem.title}" style="object-fit: cover;">
 	            		</a>
 	        		</div>
-	        		<div class="gallery-title">
+	        		<div class="gallery-title" style="margin-top:3px;">
 	            		<a style="text-decoration:none; color:black;" href="/lunch/read.do?no=${lunchItem.bno}" title="${lunchItem.title}">
 	                		<span>${lunchItem.title}</span>
 	            		</a>
 	        		</div>
-	        		<div class="gallery-date">
+	        		<div class="gallery-date" style="margin-top:2px;">
 	            		<span>${lunchItem.regdate}</span> | <span>${lunchItem.hit}</span>
 	        		</div>
 	        		<div class="gallery-name">

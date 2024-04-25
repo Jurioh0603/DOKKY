@@ -76,11 +76,7 @@
 	    displayText = seconds + '초 전';
 	  }
 	  regDateElement.textContent = displayText;
-	  
 	</script>
-	
-	<div id="output"></div>
-	
 	<main class="main">
 		<div class="post" >
 			<p class="post-content" style="white-space:pre;">${communityData.content}</p>
@@ -157,15 +153,7 @@
    <br/>
    <br/>
    <br/>
-   <div>
-      <button class="next">이전글</button>
-      <button class="next" style="float: right;">다음글</button>
-   </div>
-</div>  
-     
-<br>
-<br>
-<br>
+   
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
