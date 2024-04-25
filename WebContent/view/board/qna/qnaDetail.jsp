@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="auth.service.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - Q&A 글보기</title>
+
 </head>	
 <body>
 <!-- 헤더 -->
@@ -30,10 +32,52 @@
 	<hr style="clear:both;"/>
 	
 	<!-- 글 보기 -->
-	<h1 class="logo">게시글 제목</h1>
+	<p style="margin-bottom: 5px;">작성자: ${qnaData.qna.memId}</p>
+	<!--  p태그에 id값 부여해서 JS 실행 -->
+	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${qnaData.qna.regDate}</span>
+	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaData.qna.hit}</span></p>
+	<br>
+	<h2 class="logo">${qnaData.qna.title}</h2>
+	
+	<!--  JS 코드(글 작성 시간 ~시간 전 표시) -->
+	<script>
+	//작성된 시간을 표시할 요소 선택
+	var regDateElement = document.getElementById('regDate');
+	
+	//작성된 시간 가져오기
+	var regDate = regDateElement.textContent.trim();
+	
+	//현재 시간
+	var currentDate = new Date();
+	
+	//작성된 시간을 Date 객체로 변환
+	var postDate = new Date(regDate);
+	
+	//현재 시간과 작성된 시간의 차이 계산(밀리초 단위)
+	var timeDiff = currentDate - postDate;
+	
+	//밀리초를 시간으로 변환
+	var seconds = Math.floor(timeDiff / 1000);
+	var minutes = Math.floor(seconds / 60);
+	var hours = Math.floor(minutes / 60);
+	var days = Math.floor(hours / 24);
+	
+	//시간 전에 대한 표시를 작성된 시간 요소에 추가
+	var displayText = '';
+	if(days > 0) {
+		displayText = days + '일 전';
+	}else if (hours > 0) {
+		displayText = hours + '시간 전';
+	}else if (minutes > 0) {
+		displayText = minutes + '분 전';
+	}else {
+		dispalyText = seconds + '초 전';
+	}
+	regDateElement.textContent = displayText;
+	</script>
 	<main class="main">
 		<div class="post">
-			<p class="post-content">게시글 내용이 여기에 들어갑니다.</p>
+			<p class="post-content" style="white-space:pre;">${qnaData.content}</p>
 		</div>
 		<br>
 		<br>
@@ -41,28 +85,92 @@
 	</main>
 	<hr style="clear:both;"/>
     
-    
-   <!-- 댓글 입력 폼 추가 -->
-<form id="addReplyForm"  action="/reply/reply.do" method="post">
-    <input type="hidden" name="command" value="addReply">
-    <input type="hidden" name="bno" value="${param.bno}">
+	<form action="/qna/list.do" method="post">
+		<button class="next">목록</button>
+		</form>    
+		
+	<!-- 글 수정, 삭제버튼(해당 글 작성자만 보이도록) -->
+	<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == qnaData.qna.memId)}">
+		<div class="form-group row">
+		<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+		<c:if test="${authUser.id == qnaData.qna.memId}">
+		<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+		<form id="editForm" action="/qna/modify.do" method="get">
+			<input type="hidden" name="no" value="${qnaData.qna.bno}">
+			<button type="submit" class="custom-button">글 수정</button>
+		</form>
+		</c:if>
+		<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글 삭제</button>
+		</div>
+		</div>
+		</c:if>
+		<br/>
+		<br/>
+		
+		<div class="modal" tabindex="-1" id="deleteModal">
+		<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">글 삭제</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<p>정말로 삭제하시겠습니까?</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+			<form id="deleteForm" action="/qna/delete.do" method="post">
+				<input type="hidden" name="no" value="${param.no}">
+				<button type="submit" class="btn btn-primary">삭제</button>
+			</form>
+		</div>
+		</div>
+		</div>
+		</div>
+   <div class="comment-form">
+<form id="addReplyForm" action="/reply/reply.do" method="post">
+    <input type="hidden" name="command" value="addReply"> 
+    <input type="hidden" name="no" value="${param.no }"> 
     <div class="form-group row">
         <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
         <div class="col-sm-10">
-            <textarea name="rcontent" class="form-text1" id="rcontent"></textarea>
+            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-10 offset-sm-2">
-            <button type="submit" class="btn btn-primary float-end">댓글 등록</button>
+            <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
         </div>
     </div>
 </form>
 
-<!-- 댓글 목록 표시 영역 -->
-<div id="replyList"></div>
+<div class="comments-container">
+    <div class="comments-list">
+        <c:forEach var="replyItem" items="${qnaData.reply}">
+            <div class="comment-item">
+                <div class="comment-info">
+                    <span class="comment-author">${replyItem.memid}</span>
+                    <span class="comment-date">${replyItem.date}</span>
+                </div>
+                <div class="comment-content">
+                    ${replyItem.rcontent}
+                </div>
+                <div class="comment-buttons">
+  
 
+<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
+    <button class="btn btn-warning edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
+    <button type="submit" class="btn btn-danger delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
+</c:if>
+
+				</div>
+                </div>
+        </c:forEach>
+    </div>
 </div>
+</div>
+</div>
+
 <br>
 <br>
 <br>
@@ -72,66 +180,104 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+	document.getElementById("addReplyButton").addEventListener("click", function() {
+	    // 댓글 등록 폼 가져오기
+	    var addReplyForm = document.getElementById("addReplyForm");
+	    
+	    // 폼을 submit하여 댓글 추가 기능 수행
+	    addReplyForm.submit();
+	});
 	
-<!-- 스크립트 -->
-<script>
-//댓글 추가 AJAX 요청
-// 댓글 추가 AJAX 요청
-$(document).on("submit", "#addReplyForm", function(e) {
-    e.preventDefault(); // 폼 기본 동작 방지
+	// 수정 버튼 클릭 시 이벤트 처리
+	// 수정 버튼 클릭 시 이벤트 처리
+document.addEventListener('click', function(event) {
+    // 수정 버튼인 경우
+    if (event.target.classList.contains('edit-reply-btn')) {
+        // 수정할 댓글의 번호
+        var replyNo = event.target.dataset.rno;
+        // 게시물 번호
+        var boardNo = event.target.dataset.bno;
+        
+        // 수정할 내용 입력 받기 (예시로 간단하게 prompt 사용)
+        var newContent = prompt('댓글을 수정하세요:');
+        
+        // 사용자가 입력한 내용이 있는 경우에만 수정 요청 보냄
+        if (newContent !== null) {
+            // 폼 생성
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/reply/reply.do?command=updateReply';
 
-    $.ajax({
-        type: "POST",
-        url: "/reply/reply.do?command=addReply", // Handler로 요청
-        data: {
-            bno: $("#bno").val(),
-            memid: '<%= session.getAttribute("memid") %>', // 세션에 저장된 사용자 아이디 사용
-            rcontent: $("#rcontent").val()
-        },
-        success: function() {
-            // 댓글 목록 새로고침
-            loadReplies();
-            // 입력 폼 초기화
-            $("#rcontent").val("");
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error("AJAX Error: " + textStatus, errorThrown);
+            // 파라미터 추가
+            var replyNoInput = document.createElement('input');
+            replyNoInput.type = 'hidden';
+            replyNoInput.name = 'rno';
+            replyNoInput.value = replyNo;
+            form.appendChild(replyNoInput);
+
+            var boardNoInput = document.createElement('input');
+            boardNoInput.type = 'hidden';
+            boardNoInput.name = 'bno';
+            boardNoInput.value = boardNo;
+            form.appendChild(boardNoInput);
+
+            var contentInput = document.createElement('input');
+            contentInput.type = 'hidden';
+            contentInput.name = 'rcontent';
+            contentInput.value = newContent;
+            form.appendChild(contentInput);
+
+            // 폼을 바디에 추가하고 서브밋
+            document.body.appendChild(form);
+            form.submit();
         }
-    });
+    }
 });
 
 
-function loadReplies() {
-    var bno = $("#bno").val(); // bno 파라미터 값 가져오기
+	
+//삭제 버튼 클릭 시 이벤트 처리
+document.addEventListener('click', function(event) {
+    // 삭제 버튼인 경우
+    if (event.target.classList.contains('delete-reply-btn')) {
+        // 삭제할 댓글의 번호
+        var replyNo = event.target.dataset.rno;
+        // 게시물 번호
+        var boardNo = event.target.dataset.bno;
+        
+        // 사용자에게 삭제 확인 메시지 표시
+        if (confirm('댓글을 삭제하시겠습니까?')) {
+            // 폼 생성
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/reply/reply.do?command=removeReply';
 
-    $.ajax({
-        type: "GET",
-        url: "/reply/reply.do?command=getRepliesByBno&bno=" + bno, // Handler로 요청
-        success: function(data) {
-            $("#replyList").html(data); // 댓글 목록 업데이트
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error("AJAX Error: " + textStatus, errorThrown);
-        }
-    });
-}
+            // 파라미터 추가
+           
+            var replyNoInput = document.createElement('input');
+            replyNoInput.type = 'hidden';
+            replyNoInput.name = 'rno';
+            replyNoInput.value = replyNo;
+            form.appendChild(replyNoInput);
 
-// 댓글 삭제 함수
-function removeReply(rno) {
-    $.ajax({
-        type: "POST",
-        url: "/reply/reply.do?command=removeReply", // Handler로 요청
-        data: {
-            rno: rno
-        },
-        success: function(data) {
-            loadReplies(); // 댓글 삭제 후 목록 다시 로드
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error("AJAX Error: " + textStatus, errorThrown);
+            var boardNoInput = document.createElement('input');
+            boardNoInput.type = 'hidden';
+            boardNoInput.name = 'bno';
+            boardNoInput.value = boardNo;
+            form.appendChild(boardNoInput);
+
+            // 폼을 바디에 추가하고 서브밋
+            document.body.appendChild(form);
+            form.submit();
         }
-    });
-}
-</script>
+    }
+});
+
+
+
+
+	</script>
+	
 </body>
 </html>
