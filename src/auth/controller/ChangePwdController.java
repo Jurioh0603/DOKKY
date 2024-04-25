@@ -18,7 +18,7 @@ public class ChangePwdController implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("GET")) {
-			return "/view/errorPage/invalidAccessPage.jsp";
+			return "/view/errorPage/forbiddenPage.jsp";
 		} else if(req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);
 		} else {

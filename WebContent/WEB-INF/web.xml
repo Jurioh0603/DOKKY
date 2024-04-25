@@ -109,12 +109,12 @@
 	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/view/errorPage/404Page.jsp</location>
+		<location>/view/errorPage/notFoundPage.jsp</location>
 	</error-page>
 
 	<error-page>
 		<error-code>403</error-code>
-		<location>/view/errorPage/403Page.jsp</location>
+		<location>/view/errorPage/forbiddenPage.jsp</location>
 	</error-page>
 
 </web-app>
