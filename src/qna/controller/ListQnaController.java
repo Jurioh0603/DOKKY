@@ -1,6 +1,5 @@
 package qna.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +8,7 @@ import qna.service.ListQnaService;
 import qna.service.QnaPage;
 
 public class ListQnaController implements CommandHandler {
+	
 	private ListQnaService listService = new ListQnaService();
 	
 	@Override
@@ -21,6 +21,7 @@ public class ListQnaController implements CommandHandler {
 		if(pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
+		
 		if(sort == null) {
 			sort = "bno";
 		}
@@ -30,6 +31,7 @@ public class ListQnaController implements CommandHandler {
 			qnaPage = listService.getQnaPage(pageNo, sort);
 		else
 			qnaPage = listService.getSearchQnaPage(pageNo, search, sort);
+		
 		req.setAttribute("qnaPage", qnaPage);
 		req.setAttribute("search", search);
 		req.setAttribute("sort", sort);
