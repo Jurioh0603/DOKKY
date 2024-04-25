@@ -19,7 +19,7 @@
 		<param-name>poolConfig</param-name>
 		<param-value>
 			jdbcdriver=oracle.jdbc.driver.OracleDriver
-			jdbcUrl=jdbc:oracle:thin:@localhost:1521:xe
+			jdbcUrl=jdbc:oracle:thin:@172.30.1.99:1521:xe
 			dbUser=DOKKY
 			dbPass=1234
 			validationQuery=select 1 from dual
@@ -61,8 +61,7 @@
 		<url-pattern>/lunch/write.do</url-pattern>
 		<url-pattern>/lunch/modify.do</url-pattern>
 		<url-pattern>/lunch/delete.do</url-pattern>
-		<url-pattern>/view/member/myPage.jsp</url-pattern>
-		<url-pattern>/view/member/myPostList.jsp</url-pattern>
+		<url-pattern>/myPage.do</url-pattern>
 	</filter-mapping>
 	
 	

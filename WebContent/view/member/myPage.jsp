@@ -22,7 +22,7 @@
 
 <script>
 	function openPopup(){
-		var url = "../member/changePassword.jsp";
+		var url = "/changePassword.do";
 		var width = 570; // 팝업 창의 너비
         var height = 420; // 팝업 창의 높이
         var left = (screen.width - width) / 2; // 스크린의 가로 중앙 좌표
