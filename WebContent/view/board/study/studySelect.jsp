@@ -97,7 +97,7 @@
 	  			<div class="content">
 	    			<div class="user">${studyItem.memId}</div>
 	    			<div class="title"><a href="/study/read.do?no=${studyItem.bno}">${studyItem.title}</a></div>
-	    			<div class="dateHit">${studyItem.regDate}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${studyItem.hit}</div>
+	    			<div class="dateHit">${studyItem.formattedRegDateSel}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${studyItem.hit}</div>
 	  			</div>
 			</li>
 		</c:forEach>
