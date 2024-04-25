@@ -236,11 +236,11 @@ public class LunchDao {
 		ResultSet rs = null;
 		try {
 			String sql = "select * from (select D.*, Rownum Rnum "
-					+ "from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount, C.content "
+					+ "from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount, C.content, I.filerealname "
 					+ "FROM lunch A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM lreply GROUP BY bno) B "
-					+ "ON A.bno = B.bno JOIN lcontent C ON A.bno = C.bno and "
+					+ "ON A.bno = B.bno JOIN lcontent C ON A.bno = C.bno JOIN image I on A.bno = I.bno and "
 					+ "(A.title like '%' || ? || '%' or C.content like '%' || ? || '%') "
-					+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content "
+					+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content, I.filerealname "
 					+ "order by replyCount desc, A.bno desc) D) "
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);

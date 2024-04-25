@@ -141,49 +141,46 @@
     
     <!-- 댓글 -->
    <div class="comment-form">
-	<form id="addReplyForm" action="/lunch/reply.do" method="post">
-	    <input type="hidden" name="command" value="addReply"> 
-	    <input type="hidden" name="no" value="${param.no }"> 
-	    <div class="form-group row">
-	        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
-	        <div class="col-sm-10">
-	            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
-	        </div>
-	    </div>
-	    <div class="form-group row">
-	        <div class="col-sm-10 offset-sm-2">
-	            <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
-	        </div>
-	    </div>
-	</form>
+		<form id="addReplyForm" action="/lunch/reply.do" method="post">
+		    <input type="hidden" name="command" value="addReply"> 
+		    <input type="hidden" name="no" value="${param.no }"> 
+		    <div class="form-group row">
+		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
+		        <div class="col-sm-10">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
+		        </div>
+		    </div>
+		    <div class="form-group row">
+		        <div class="col-sm-10 offset-sm-2">
+		            <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
+		        </div>
+		    </div>
+		</form>
 
-	<div class="comments-container">
-   		<div class="comments-list">
-        	<c:forEach var="replyItem" items="${lunchData.reply}">
-            	<div class="comment-item">
-                	<div class="comment-info">
-                    	<span class="comment-author">${replyItem.memid}</span>
-                    	<span class="comment-date">${replyItem.date}</span>
-                	</div>
-                	<div class="comment-content">
-                    	${replyItem.rcontent}
-                	</div>
-                	<div class="comment-buttons">
-						<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
-    						<button class="btn btn-warning edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
-    						<button type="submit" class="btn btn-danger delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
-						</c:if>
-					</div>
-                </div>
-        	</c:forEach>
-    	</div>
-	</div>
-	<br/>
-	<br/>
-	<br/>
-	<div>
-		<button class="next">이전글</button>
-		<button class="next" style="float: right;">다음글</button>
+		<div class="comments-container">
+	   		<div class="comments-list">
+	        	<c:forEach var="replyItem" items="${lunchData.reply}">
+	            	<div class="comment-item">
+	                	<div class="comment-info">
+	                    	<span class="comment-author">${replyItem.memid}</span>
+	                    	<span class="comment-date">${replyItem.date}</span>
+	                	</div>
+	                	<div class="comment-content">
+	                    	${replyItem.rcontent}
+	                	</div>
+	                	<div class="comment-buttons">
+							<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
+	    						<button class="btn btn-warning edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
+	    						<button type="submit" class="btn btn-danger delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
+							</c:if>
+						</div>
+	                </div>
+	        	</c:forEach>
+	    	</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
 	</div>
 </div>  
      
