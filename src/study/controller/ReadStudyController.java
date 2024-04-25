@@ -25,11 +25,8 @@ public class ReadStudyController implements CommandHandler{
 			return "/view/board/study/studyDetail.jsp";
 		}catch (StudyNotFoundException | ScontentNotFoundException e) {
 		    req.getServletContext().log("no study", e);
-		    
-		    //에러페이지 설정
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/deleteBoardPage.jsp");
-		    dispatcher.forward(req, res);
-		    return null;
+		    res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return null;
 		}
 
 	}

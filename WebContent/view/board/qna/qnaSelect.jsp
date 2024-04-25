@@ -66,7 +66,7 @@
 	<div class="dropdown" style="float:right;">
 		<button class="dropbtn" id="dopdownButton">
 			<img src="<%=request.getContextPath() %>/imgs/select-icon.png" alt="select-icon">
-			<span id="dropdown-Text"></span>
+			<span id="dropdownText"></span>
 		</button>
 		<div class="dropdown-content">
    			<a href="/qna/list.do?&search=${search}&sort=bno">최신순</a>
@@ -97,7 +97,7 @@
 	  			<div class="content">
 	    			<div class="user">${qnaItem.memId}</div>
 	    			<div class="title"><a href="/qna/read.do?no=${qnaItem.bno}">${qnaItem.title}</a></div>
-	    			<div class="dateHit">${qnaItem.regDate}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaItem.hit}</div>
+	    			<div class="dateHit">${qnaItem.formattedRegDateSel}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaItem.hit}</div>
 	  			</div>
 			</li>
 		</c:forEach>
