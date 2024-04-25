@@ -1,4 +1,5 @@
 package qna.model;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import member.model.Member;
 
@@ -10,7 +11,6 @@ public class Qna {
 	private Date regDate;
 	private int hit;
 	
-	//Qna��ü ���� �� ������ �ڸ��� ���� �Ű�������(������)
 	public Qna(int bno, String memid, String title, Date regDate, int hit) {
 		this.bno = bno;
 		this.memId = memid;
@@ -19,25 +19,49 @@ public class Qna {
 		this.hit = hit;
 	}
 
-	//�Һ��� ������ ���� getter �޼��常 ����. ��ü�� ���°� ������� �����Ƿ� �ٸ� �κп��� ��ü�� ���� ���� ������ ���� �Һ� ��ü.
 	public int getBno() {
 		return bno;
+	}
+
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
 
 	public String getMemId() {
 		return memId;
 	}
 
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
 	public String getTitle() {
 		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Date getRegDate() {
 		return regDate;
 	}
 
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+
 	public int getHit() {
 		return hit;
 	}
-	
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+
+	//시간까지 포함된 문자열로 변환하여 반환하는 메서드
+	public String getFormattedRegDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(regDate);
+	}
 }

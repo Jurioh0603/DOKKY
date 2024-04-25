@@ -13,9 +13,10 @@
 
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
-<title>DOKKY - 스터디 글수정</title>
+<title>DOKKY - Q&A 글수정</title>
 </head>
 <body>
+<form action="qmodify.do" method="post">
 <!-- 헤더 -->
 <%@ include file="../../headerFooter/header.jsp" %>
 <br>
@@ -32,8 +33,8 @@
 		<br>
 	</div>
 	
-	<form action="/study/modify.do" method="POST">
-	<input type="hidden" name="no" value="${modReq.studyNumber}">
+	<form action="/qna/modify.do" method="POST">
+	<input type="hidden" name="no" value="${modReq.qnaNumber}">
 	<!-- 글쓰기 -->
 	<div class="form-group row">
 		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
@@ -54,7 +55,7 @@
 		<div class="col-sm-10">
 			<div class="button-container">
 				<button type="submit" class="custom-button" style="margin-right:10px;">수정</button>
-				<button type="button" class="custom-button" onclick="history.back()">취소</button>
+				<button type="button" class="custom-button">취소</button>
 			</div>
 		</div>
 	</div>
@@ -69,6 +70,7 @@
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
 
+</form>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>

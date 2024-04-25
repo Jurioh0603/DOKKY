@@ -14,9 +14,20 @@ public class Qcontent {
 		return bno;
 	}
 
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
+
 	public String getContent() {
 		return content;
 	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	
 	
 	
 }

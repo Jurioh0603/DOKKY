@@ -11,9 +11,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
 <title>DOKKY - 스터디게시판 글목록</title>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function(){
+		var sort = '<%= request.getParameter("sort") %>';
+		var dropdownText = document.getElementById('dropdownText');
+		
+		switch(sort) {
+			case 'bno':
+				dropdownText.textContent = '최신순';
+				break;
+			case 'hit':
+				dropdownText.textContent = '조회순';
+				break;
+			case 'replyCount':
+				dropdownText.textContent = '댓글순';
+				break;
+			default:
+				dropdownText.textContent = '최신순'; //기본값설정
+		}
+	});
+</script>
 </head>
 <body>
 <!-- 헤더 -->
@@ -41,24 +64,28 @@
 
 	<!-- 정렬바 -->
 	<div class="dropdown" style="float:right;">
-		<button class="dropbtn">
-			<img src="<%=request.getContextPath() %>/imgs/select-icon.png" alt="select-icon">최신순
+		<button class="dropbtn" id="dopdownButton">
+			<img src="<%=request.getContextPath() %>/imgs/select-icon.png" alt="select-icon">
+			<span id="dropdown-Text"></span>
 		</button>
 		<div class="dropdown-content">
-   			<a href="#">최신순</a>
-   			<a href="#">조회순</a>
-   			<a href="#">댓글순</a>
+   			<a href="/study/list.do?&search=${search}&sort=bno">최신순</a>
+   			<a href="/study/list.do?&p&search=${search}&sort=hit">조회순</a>
+   			<a href="/study/list.do?&&search=${search}&sort=replyCount">댓글순</a>
 		</div>
 	</div>
 
 	<!-- 검색창 -->
-	<div style="display: grid; place-items: center; text-align: center;">
-		<form class="search-box" action="" method="get" >
-   			<input class="search-txt" type="text" name="" placeholder="검색어를 입력하세요."/>
-   			<input class="search-btn" type="image" src="<%=request.getContextPath() %>/imgs/search-icon.png" title="search-icon"/>
-   		</form>
-	</div>
-	<div style="clear:both;"></div>
+	   <div style="display: grid; place-items: center; text-align: center;">
+         <form class="search-box" action="/study/list.do" method="get" >
+            <input class="search-txt" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
+            <input type="hidden" name="sort" value="${sort}"/>
+            <button class="search-btn" type="submit" title="검색">
+              <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
+            </button>
+         </form>
+   </div>
+   <div style="clear:both;"></div>
     
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
@@ -70,7 +97,7 @@
 	  			<div class="content">
 	    			<div class="user">${studyItem.memId}</div>
 	    			<div class="title"><a href="/study/read.do?no=${studyItem.bno}">${studyItem.title}</a></div>
-	    			<div class="date">${studyItem.regDate}</div>
+	    			<div class="dateHit">${studyItem.regDate}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${studyItem.hit}</div>
 	  			</div>
 			</li>
 		</c:forEach>
@@ -83,19 +110,19 @@
 		<div class="pagination-container">
   			<div class="pagination">
   				<c:if test="${studyPage.startPage > 5}">
-     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}">&laquo;</a>
+     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}&search=${search}">&laquo;</a>
      			</c:if>
      			
      			<c:forEach var="pNo" begin="${studyPage.startPage}" end="${studyPage.endPage}">
      				<c:if test="${pNo eq studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}" class="active">${pNo}</a>
+     					<a href="/study/list.do?&pageNo=${pNo}&search=${search}" class="active">${pNo}</a>
       				</c:if>
      				<c:if test="${pNo ne studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}">${pNo}</a>
+     					<a href="/study/list.do?&pageNo=${pNo}&search=${search}">${pNo}</a>
       				</c:if>
 		       </c:forEach>
 		       <c:if test="${studyPage.endPage < studyPage.totalPages}">
-		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}">&raquo;</a>
+		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}&search=${search}">&raquo;</a>
 		       </c:if>
  			</div>
 		</div>
