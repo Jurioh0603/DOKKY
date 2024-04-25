@@ -1,19 +1,19 @@
 package lunch.controller;
 
 import mvc.command.CommandHandler;
-import lunch.model.ReplyDTO;
-import lunch.service.ReplyService;
+import lunch.model.Lreply;
+import lunch.service.LreplyService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import auth.service.User;
 import java.util.List;
 
-public class ReplyController implements CommandHandler {
+public class LreplyController implements CommandHandler {
 
-    private ReplyService replyService;
+    private LreplyService replyService;
 
-    public ReplyController() {
-        replyService = new ReplyService();
+    public LreplyController() {
+        replyService = new LreplyService();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ReplyController implements CommandHandler {
         } else if ("updateReply".equals(command)) {
             return updateReply(req, res);
         } else {
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -44,21 +44,21 @@ public class ReplyController implements CommandHandler {
             int bno = Integer.parseInt(req.getParameter("no"));
             String rcontent = req.getParameter("rcontent");
             
-            ReplyDTO reply = new ReplyDTO();
+            Lreply reply = new Lreply();
             reply.setBno(bno);
             reply.setMemid(memid);
             reply.setRcontent(rcontent);
 
             replyService.addReply(reply);
             
-            List<ReplyDTO> replies = replyService.getRepliesByBno(bno);
+            List<Lreply> replies = replyService.getRepliesByBno(bno);
             req.setAttribute("replies", replies);
             
             res.sendRedirect("/lunch/read.do?no=" + bno);
             return null;
             } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -66,7 +66,7 @@ public class ReplyController implements CommandHandler {
         try {
             int bno = Integer.parseInt(req.getParameter("no"));
 
-            List<ReplyDTO> replies = replyService.getRepliesByBno(bno);
+            List<Lreply> replies = replyService.getRepliesByBno(bno);
 
             req.setAttribute("replies", replies);
 
@@ -114,7 +114,7 @@ public class ReplyController implements CommandHandler {
             replyService.updateReply(rno, rcontent);
 
             // 수정된 댓글 목록을 다시 가져옴
-            List<ReplyDTO> updatedReplies = replyService.getUpdatedReplies(bno);
+            List<Lreply> updatedReplies = replyService.getUpdatedReplies(bno);
             
             res.sendRedirect("/lunch/read.do?no=" + bno);
             return null;

@@ -4,15 +4,15 @@ import java.util.List;
 
 import lunch.model.Lcontent;
 import lunch.model.Lunch;
-import lunch.model.ReplyDTO;
+import lunch.model.Lreply;
 
 public class LunchData {
 	
 	private Lunch lunch;
 	private Lcontent content;
-	private List<ReplyDTO> reply;
+	private List<Lreply> reply;
 	
-	public LunchData(Lunch lunch, Lcontent content, List<ReplyDTO> reply) {
+	public LunchData(Lunch lunch, Lcontent content, List<Lreply> reply) {
 		this.lunch = lunch;
 		this.content = content;
 		this.setReply(reply);
@@ -30,11 +30,11 @@ public class LunchData {
         return content.getFilerealname();
     }
 
-	public List<ReplyDTO> getReply() {
+	public List<Lreply> getReply() {
 		return reply;
 	}
 
-	public void setReply(List<ReplyDTO> reply) {
+	public void setReply(List<Lreply> reply) {
 		this.reply = reply;
 	}
 
