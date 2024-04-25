@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jdbc.JdbcUtil;
@@ -33,6 +37,16 @@ public class StudyDao {
 			   Study study = null;
 			   if(rs.next()) {
 				   study = convertStudy(rs); //p648. convertStudy() 게시글 목록 조회 기능구현에서 생성한 메서드
+				   //regDate formatting
+				   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				   String regDatestr = dateFormat.format(study.getRegDate());
+				   Date regDate = null;
+				   try {
+					   regDate = dateFormat.parse(regDatestr);
+				   } catch (ParseException e) {
+					   e.printStackTrace();
+				   }
+				   study.setRegDate(regDate);
 			   }
 			   return study;
 		   }finally {
@@ -100,7 +114,7 @@ public class StudyDao {
 	       }
 	   }
 	   
-	   //게시글 삭제 부분 구현시도
+	   //게시글 삭제 
 		public int delete(Connection conn, int studyNo) throws SQLException {
 			PreparedStatement pstmt = null;
 			   
@@ -115,51 +129,52 @@ public class StudyDao {
         
 	 //글목록
     public int selectCount(Connection conn) throws SQLException {
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select count(*) from study";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return rs.getInt(1);
-			}
-			return 0;
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select count(*) from study");
+				if(rs.next()) {
+					return rs.getInt(1);
+				}
+				return 0;
 		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
+				JdbcUtil.close(rs);
+				JdbcUtil.close(stmt);
 		}
 	}
     
-	public List<Study> select(Connection conn, int startRow, int endRow) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by regdate desc) A ) " 
-					   + "where Rnum >= ? and Rnum <= ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			rs = pstmt.executeQuery();
-			List<Study> result = new ArrayList<>();
-			while(rs.next()) {
-				result.add(convertStudy(rs));
+	public List<Study> select(Connection conn, String sort, int startRow, int endRow) throws SQLException {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by ? desc, bno desc) A ) " 
+						   + "where Rnum >= ? and Rnum <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, sort);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs = pstmt.executeQuery();
+				List<Study> result = new ArrayList<>();
+				while(rs.next()) {
+					result.add(convertStudy(rs));
+				}
+				return result;
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
 			}
-			return result;
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
 	}
-	
-	public int selectSearchCount(Connection conn, String searchKeyword) throws SQLException {
+	//검색기능
+	public int selectSearchCount(Connection conn, String search) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT COUNT(*) FROM study s JOIN scontent sc ON s.sno = sc.sno WHERE s.title LIKE '%' || ? || '%' OR sc.content LIKE '%' || ? || '%'";
+	        String sql = "SELECT COUNT(*) FROM study A JOIN scontent B " 
+	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, searchKeyword);
-	        pstmt.setString(2, searchKeyword);
+	        pstmt.setString(1, search);
+	        pstmt.setString(2, search);
 	        rs = pstmt.executeQuery();
 	        if (rs.next()) {
 	            return rs.getInt(1);
@@ -171,15 +186,17 @@ public class StudyDao {
 	    }
 	}
 	
-	//검색기능
-	public List<Study> selectSearch(Connection conn, int startRow, int endRow, String keyword) throws SQLException {
+	
+	public List<Study> selectSearch(Connection conn, String search, String sort, int startRow, int endRow) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT * FROM (SELECT s.*, Rownum Rnum FROM (SELECT * FROM study s JOIN scontent sc ON s.sno = sc.sno WHERE s.title LIKE '%' || ? || '%' OR sc.content LIKE '%' || ? || '%' ORDER BY s.regdate DESC) s) WHERE Rnum >= ? AND Rnum <= ?";
+	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM study A JOIN scontent B "
+	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY A." + sort +" desc, a.bno DESC) S) "
+	        		+ "WHERE Rnum >= ? AND Rnum <= ? ";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, keyword);
-	        pstmt.setString(2, keyword);
+	        pstmt.setString(1, search);
+	        pstmt.setString(2, search);
 	        pstmt.setInt(3, startRow);
 	        pstmt.setInt(4, endRow);
 	        rs = pstmt.executeQuery();
@@ -192,6 +209,35 @@ public class StudyDao {
 	        JdbcUtil.close(rs);
 	        JdbcUtil.close(pstmt);
 	    }
+	}
+	
+	public List<Study> selectSearchReplyCount(Connection conn, String search, int startRow, int endRow) throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+				String sql = "select * from (select D.*, Rownum Rnum "
+						+ "from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount, C.content "
+						+ "FROM study A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM sreply GROUP BY bno) B "
+						+ "ON A.bno = B.bno JOIN scontent C ON A.bno = C.bno and "
+						+ "(A.title like '%' || ? || '%' or C.content like '%' || ? || '%') "
+						+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content "
+						+ "order by replyCount desc, A.bno desc) D) "
+						+ "where Rnum >= ? and Rnum <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				rs = pstmt.executeQuery();
+				List<Study> result = new ArrayList<>();
+				while(rs.next()) {
+						result.add(convertStudy(rs));
+				}
+				return result;
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
 	}
 
 

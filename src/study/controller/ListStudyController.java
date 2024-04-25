@@ -12,13 +12,26 @@ public class ListStudyController implements CommandHandler{
 		
 		@Override
 		public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+			String search = req.getParameter("search");
 			String pageNoVal = req.getParameter("pageNo");
+			String sort = req.getParameter("sort");
+			
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
-			StudyPage studyPage = listService.getStudyPage(pageNo);
+			if(sort == null) {
+				sort = "bno";
+			}
+			
+			StudyPage studyPage = null;
+			if(search == null)
+				studyPage = listService.getStudyPage(pageNo, sort);
+			else
+				studyPage = listService.getSearchStudyPage(pageNo, search, sort);
 			req.setAttribute("studyPage", studyPage);
+			req.setAttribute("search", search);
+			req.setAttribute("sort", sort);
 			return "/view/board/study/studySelect.jsp";
 		}
 }

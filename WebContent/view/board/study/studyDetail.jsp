@@ -52,7 +52,8 @@
 	  var currentDate = new Date();
 	  
 	  // 작성된 시간을 Date 객체로 변환
-	  var postDate = new Date(regDate);
+	  var regDateWithoutTZ = regDate.replace('KST', '');
+	  var postDate = new Date(regDateWithoutTZ);
 	  
 	  // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
 	  var timeDiff = currentDate - postDate;
@@ -92,45 +93,45 @@
 		<button class="next" >목록</button>
 	</form>
 	
-<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
-<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == studyData.study.memId)}">
-    <div class="form-group row">
-        <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-            <c:if test="${authUser.id == studyData.study.memId}">
-                <!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
-                <form id="editForm" action="/study/modify.do" method="get">
-                    <input type="hidden" name="no" value="${studyData.study.bno}">
-                    <button type="submit" class="custom-button">글수정</button>
-                </form>
-            </c:if>
-            <!-- 모달 버튼 -->
-            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
-        </div>
-    </div>
-</c:if>
-<br/>
-<br/>
-
-<div class="modal" tabindex="-1" id="deleteModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">글 삭제</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>정말로 삭제하시겠습니까?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <form id="deleteForm" action="/study/delete.do" method="post">
-        	<input type="hidden" name="no" value="${param.no}">
-        	<button type="submit" class="btn btn-primary">삭제</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+	<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
+	<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == studyData.study.memId)}">
+	    <div class="form-group row">
+	        <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+	            <c:if test="${authUser.id == studyData.study.memId}">
+	                <!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+	                <form id="editForm" action="/study/modify.do" method="get">
+	                    <input type="hidden" name="no" value="${studyData.study.bno}">
+	                    <button type="submit" class="custom-button">글수정</button>
+	                </form>
+	            </c:if>
+	            <!-- 모달 버튼 -->
+	            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
+	        </div>
+	    </div>
+	</c:if>
+	<br/>
+	<br/>
+	
+	<div class="modal" tabindex="-1" id="deleteModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">글 삭제</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <p>정말로 삭제하시겠습니까?</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <form id="deleteForm" action="/study/delete.do" method="post">
+	        	<input type="hidden" name="no" value="${param.no}">
+	        	<button type="submit" class="btn btn-primary">삭제</button>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
     <!-- 댓글 -->
    <div class="comment-form">
