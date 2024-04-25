@@ -1,11 +1,11 @@
-package reply.service;
+package qna.service;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import reply.dao.ReplyDAO;
-import reply.model.ReplyDTO;
+import qna.dao.ReplyDAO;
+import qna.model.ReplyDTO;
 
 public class ReplyService {
     private ReplyDAO replyDAO;

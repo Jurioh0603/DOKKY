@@ -10,8 +10,8 @@ import qna.dao.QcontentDao;
 import qna.dao.QnaDao;
 import qna.model.Qcontent;
 import qna.model.Qna;
-import reply.dao.ReplyDAO;
-import reply.model.ReplyDTO;
+import qna.dao.ReplyDAO;
+import qna.model.ReplyDTO;
 
 public class ReadQnaService {
 
