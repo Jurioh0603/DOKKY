@@ -10,6 +10,38 @@
   justify-content: center;
 }
 
+.item {
+  display: flex;
+ }
+
+#addReplyForm {
+    margin-bottom: 20px; /* 하단 여백 조정 */
+}
+
+/* 댓글 입력 폼 내부 요소의 스타일 */
+#addReplyForm .form-group {
+    margin-bottom: 10px; /* 각 입력 요소의 하단 여백 조정 */
+}
+
+#addReplyForm textarea {
+    height: 100px; /* 텍스트 입력 영역의 높이 조정 */
+}
+
+.btn-modify-delete {
+  margin-top: 7px;
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 13px;
+  color: gray;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-modify-delete:hover {
+  background-color: #e3e3e3;
+}
 
 .main {
     background-color: #fff;
@@ -35,8 +67,7 @@ input[type="text"],
 textarea {
     width: 100%; 
     padding: 8px; 
-        border: 1px solid #ccc;
-    box-sizing: border-box; 
+    border: 1px solid #ccc; 
 }
 .form-group {
 	margin-bottom: 1px;
@@ -65,15 +96,19 @@ textarea {
   display: flex;
   align-items: center;
   margin-right: 5px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .custom-button {
   display: flex;
   padding: 8px 13px;
+  margin-bottom: -59px;
+  margin-left: 3px;
   border: 1px solid;
   border-radius: 8px;
   background-color: #0090F9;
-  font-size: 13px;
+  font-size: 15px;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -83,7 +118,7 @@ textarea {
   border-bottom: none; 
 }
 
-.button-container .custom-button:hover {
+.custom-button:hover {
   background-color: #0174DF;
 }
 
@@ -91,10 +126,12 @@ textarea {
 	border: 1px solid #D8D8D8; 
 	border-radius: 8px;
 	padding: 8px;
+	border-radius: 6px;
+	padding: 7px;
 	padding-left: 15px;
 	padding-right: 15px;
+	transition: background-color 0.2s ease;
 }
-
 
 .next:hover {
   background-color: #ddd;
