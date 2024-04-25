@@ -47,11 +47,11 @@ public class DeleteLunchController implements CommandHandler {
             // 글 삭제 서비스 호출
             deleteService.delete(deleteReq);
             // 삭제 성공 시 성공 페이지로 이동
-            return "/view/board/lunch/deleteSuccess.jsp";
+            return "/view/board/lunch/lunchDeleteSuccess.jsp";
         } catch (Exception e) {
             // 삭제 실패 시 실패 페이지로 이동
             errors.put("deleteFailed", true);
-            return "/view/board/lunch/deleteFail.jsp";
+            return "/view/board/lunch/lunchDeleteFail.jsp";
         }
     }
 
