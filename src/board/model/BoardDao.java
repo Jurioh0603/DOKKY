@@ -162,4 +162,46 @@ public class BoardDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public int selectSearchCountById(Connection conn, String board, String search, String userId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select count(*) from " + board + " where memid=? and title like '%' || ? || '%'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, search);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<Board> selectSearchById(Connection conn, String board, String search, String userId, int startRow, int endRow) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from (select A.*, Rownum Rnum from (select * from " + board + " where memid=? and title like '%' || ? || '%' order by bno desc) A)"
+					+ "where Rnum >= ? and Rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, search);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			rs = pstmt.executeQuery();
+			List<Board> result = new ArrayList<>();
+			while(rs.next()) {
+				result.add(convertBoard(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
 }
