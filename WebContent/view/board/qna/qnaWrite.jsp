@@ -33,7 +33,7 @@
 	</div>
 
 	<!-- 글쓰기 -->
-<form id="writeForm" action="/qna/qnaWrite.do" method="post">
+<form id="writeForm" action="/qna/write.do" method="post">
         <div class="form-group row">
             <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
             <div class="col-sm-10">

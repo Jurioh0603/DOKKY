@@ -4,12 +4,12 @@
 <html>
 <head>
 <c:set var="pageNo" value="${empty modReq.pageNumber ? '1' : modReq.pageNumber}" />
-<meta http-equiv="refresh" content="0; url=/board/qna/qlist.do?pageNo=${pageNo}"></meta>
+<meta http-equiv="refresh" content="0; url=/board/qna/list.do?pageNo=${pageNo}"></meta>
 <title>글 삭제</title>
 <script>
 	alert('글 삭제 실패.');
 	// 확인을 클릭하면 목록 페이지로 바로 이동
-    window.location.href = '/qna/qlist.do';
+    window.location.href = '/qna/list.do';
 </script>
 </head>
 <body>

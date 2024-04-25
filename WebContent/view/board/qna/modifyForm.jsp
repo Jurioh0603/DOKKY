@@ -33,7 +33,7 @@
 		<br>
 	</div>
 	
-	<form action="/qna/qmodify.do" method="POST">
+	<form action="/qna/modify.do" method="POST">
 	<input type="hidden" name="no" value="${modReq.qnaNumber}">
 	<!-- 글쓰기 -->
 	<div class="form-group row">

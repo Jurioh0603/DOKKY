@@ -11,7 +11,7 @@
 게시글을 수정했습니다
 <br>
 ${ctxPath=pageContext.request.contextPath;}
-<a href="${ctxPath}/qna/qlist.do">[게시글목록보기]</a>
-<a href="${ctxPath}/qna/qread.do?no=${modReq.qnaNumber}">[게시글내용보기]</a>
+<a href="${ctxPath}/qna/list.do">[게시글목록보기]</a>
+<a href="${ctxPath}/qna/read.do?no=${modReq.qnaNumber}">[게시글내용보기]</a>
 </body>
 </html>
