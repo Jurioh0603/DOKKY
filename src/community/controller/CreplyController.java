@@ -29,7 +29,7 @@ public class CreplyController implements CommandHandler {
         } else if ("updateReply".equals(command)) {
             return updateReply(req, res);
         } else {
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -58,7 +58,7 @@ public class CreplyController implements CommandHandler {
             return null;
             } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -74,7 +74,7 @@ public class CreplyController implements CommandHandler {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -94,7 +94,7 @@ public class CreplyController implements CommandHandler {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -117,7 +117,7 @@ public class CreplyController implements CommandHandler {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 }

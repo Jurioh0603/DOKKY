@@ -33,11 +33,8 @@ public class ReadQnaController implements CommandHandler{
 	        return "/view/board/qna/qnaDetail.jsp";
 	    } catch (QnaNotFoundException | QnaContentNotFoundException e) {
 	        req.getServletContext().log("no qna", e);
-	        
-	        // 오류 페이지로 이동
-	        RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/deleteBoardPage.jsp");
-	        dispatcher.forward(req, res);
-	        return null;
+	        res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return null;
 	    }
 	}
 

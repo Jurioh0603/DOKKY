@@ -48,9 +48,15 @@ public class Study {
    public void setHit(int hit) {
       this.hit = hit;
    }
- //시간까지 포함된 문자열로 변환하여 반환하는 메서드
+   //시간까지 포함된 문자열로 변환하여 반환하는 메서드
    public String getFormattedRegDate() {
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
       return dateFormat.format(regDate);
    }
+   
+   //글목록 시간 메서드
+   public String getFormattedRegDateSel() {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd / HH시 mm분");
+	    return dateFormat.format(regDate);
+	}
 }
