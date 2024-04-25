@@ -55,7 +55,7 @@
 
 	<!-- 글작성버튼 -->
 	<div class="button-container">
-		<button class="custom-button" onclick="location.href='/study/write.do'">
+		<button class="custom-button" onclick="location.href='/qna/write.do'">
 			<span><img src="<%=request.getContextPath() %>/imgs/write-icon.png" alt="write-icon"></span>
 			<span>작성하기</span>
 		</button>
@@ -69,15 +69,15 @@
 			<span id="dropdown-Text"></span>
 		</button>
 		<div class="dropdown-content">
-   			<a href="/study/list.do?&search=${search}&sort=bno">최신순</a>
-   			<a href="/study/list.do?&p&search=${search}&sort=hit">조회순</a>
-   			<a href="/study/list.do?&&search=${search}&sort=replyCount">댓글순</a>
+   			<a href="/qna/list.do?&search=${search}&sort=bno">최신순</a>
+   			<a href="/qna/list.do?&p&search=${search}&sort=hit">조회순</a>
+   			<a href="/qna/list.do?&&search=${search}&sort=replyCount">댓글순</a>
 		</div>
 	</div>
 
 	<!-- 검색창 -->
 	   <div style="display: grid; place-items: center; text-align: center;">
-         <form class="search-box" action="/study/list.do" method="get" >
+         <form class="search-box" action="/qna/list.do" method="get" >
             <input class="search-txt" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
             <input type="hidden" name="sort" value="${sort}"/>
             <button class="search-btn" type="submit" title="검색">
@@ -89,15 +89,15 @@
     
 	<!-- 글 목록 -->
 	<ul class="bordered-list">
-		<c:if test="${studyPage.hasNoContents()}">
+		<c:if test="${qnaPage.hasNoContents()}">
 			<li>게시글을 작성해 주세요.</li>
 		</c:if>
-		<c:forEach var="studyItem" items="${studyPage.studyList }">
+		<c:forEach var="qnaItem" items="${qnaPage.qnaList }">
 			<li>
 	  			<div class="content">
-	    			<div class="user">${studyItem.memId}</div>
-	    			<div class="title"><a href="/study/read.do?no=${studyItem.bno}">${studyItem.title}</a></div>
-	    			<div class="dateHit">${studyItem.regDate}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${studyItem.hit}</div>
+	    			<div class="user">${qnaItem.memId}</div>
+	    			<div class="title"><a href="/qna/read.do?no=${qnaItem.bno}">${qnaItem.title}</a></div>
+	    			<div class="dateHit">${qnaItem.regDate}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaItem.hit}</div>
 	  			</div>
 			</li>
 		</c:forEach>
@@ -106,23 +106,23 @@
 	<hr>
 
 	<!-- 페이지네이션 -->
-	<c:if test="${studyPage.hasContents()}">
+	<c:if test="${qnaPage.hasContents()}">
 		<div class="pagination-container">
   			<div class="pagination">
-  				<c:if test="${studyPage.startPage > 5}">
-     				<a href="/study/list.do?pageNo=${studyPage.startPage - 5}&search=${search}">&laquo;</a>
+  				<c:if test="${qnaPage.startPage > 5}">
+     				<a href="/qna/list.do?pageNo=${qnaPage.startPage - 5}&search=${search}">&laquo;</a>
      			</c:if>
      			
-     			<c:forEach var="pNo" begin="${studyPage.startPage}" end="${studyPage.endPage}">
-     				<c:if test="${pNo eq studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}&search=${search}" class="active">${pNo}</a>
+     			<c:forEach var="pNo" begin="${qnaPage.startPage}" end="${qnaPage.endPage}">
+     				<c:if test="${pNo eq qnaPage.getCurrentPage()}">
+     					<a href="/qna/list.do?&pageNo=${pNo}&search=${search}" class="active">${pNo}</a>
       				</c:if>
-     				<c:if test="${pNo ne studyPage.getCurrentPage()}">
-     					<a href="/study/list.do?&pageNo=${pNo}&search=${search}">${pNo}</a>
+     				<c:if test="${pNo ne qnaPage.getCurrentPage()}">
+     					<a href="/qna/list.do?&pageNo=${pNo}&search=${search}">${pNo}</a>
       				</c:if>
 		       </c:forEach>
-		       <c:if test="${studyPage.endPage < studyPage.totalPages}">
-		       	<a href="/study/list.do?pageNo=${studyPage.startPage + 5}&search=${search}">&raquo;</a>
+		       <c:if test="${qnaPage.endPage < qnaPage.totalPages}">
+		       	<a href="/qna/list.do?pageNo=${qnaPage.startPage + 5}&search=${search}">&raquo;</a>
 		       </c:if>
  			</div>
 		</div>

@@ -4,7 +4,7 @@ import java.util.List;
 
 import qna.model.Qcontent;
 import qna.model.Qna;
-import reply.model.ReplyDTO;
+import qna.model.ReplyDTO;
 
 public class QnaData {
 	

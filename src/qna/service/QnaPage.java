@@ -14,7 +14,7 @@ public class QnaPage {
 	private int startPage;
 	private int endPage;
 	
-	public QnaPage(int total, int currentPage, int size, List<Qna> qnalist) {
+	public QnaPage(int total, int currentPage, int size, List<Qna> qnaList) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.qnaList = qnaList;

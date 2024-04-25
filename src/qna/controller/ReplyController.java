@@ -1,8 +1,8 @@
-package reply.controller;
+package qna.controller;
 
 import mvc.command.CommandHandler;
-import reply.model.ReplyDTO;
-import reply.service.ReplyService;
+import qna.model.ReplyDTO;
+import qna.service.ReplyService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

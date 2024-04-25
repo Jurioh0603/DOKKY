@@ -1,4 +1,4 @@
-package reply.dao;
+package qna.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import jdbc.connection.ConnectionProvider;
 import member.model.Member;
-import reply.model.ReplyDTO;
+import qna.model.ReplyDTO;
 
 public class ReplyDAO {
     private Connection conn;

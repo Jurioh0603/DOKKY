@@ -1,20 +1,14 @@
 package qna.controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import auth.service.User;
-import qna.model.Qna;
 import qna.service.WriteQnaService;
 import qna.service.WriteRequest;
-import member.model.Member;
 import mvc.command.CommandHandler;
 
 
@@ -23,7 +17,7 @@ public class WriteQnaController implements CommandHandler {
 	private WriteQnaService writeService = new WriteQnaService();
 	
 	@Override
-	public String process(HttpServletRequest req, HttpServletResponse res) {
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req, res);
 		} else if (req.getMethod().equalsIgnoreCase("POST")) {
@@ -39,7 +33,7 @@ public class WriteQnaController implements CommandHandler {
 	}
 	
 	
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
@@ -53,9 +47,9 @@ public class WriteQnaController implements CommandHandler {
 			return FORM_VIEW;
 		}
 		int newBno = writeService.write(writeReq);
-		req.setAttribute("newBno", newBno);
-		
-		return "/view/board/qna/qnaSelect.jsp";
+		res.sendRedirect("/qna/read.do?no=" + newBno);
+		return null;
+		  
 		}
 	
 		private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

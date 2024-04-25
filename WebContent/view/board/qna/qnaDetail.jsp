@@ -137,11 +137,14 @@
             <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
         </div>
     </div>
+    
+    <c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == qnaData.qna.memId)}">
     <div class="form-group row">
         <div class="col-sm-10 offset-sm-2">
             <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
         </div>
     </div>
+    </c:if>
 </form>
 
 <div class="comments-container">

@@ -125,7 +125,7 @@
 	      <div class="col-md-6">
 			<!-- top-banner영역 -->
 			<div class="container">
-			  <a href="<%=request.getContextPath() %>/view/board/qna/qnaSelect.jsp" class="main-square-box">
+			  <a href="/qna/list.do" class="main-square-box">
 			    <div class="main-text">
 			      <span>Q&A</span>
 			    </div>
