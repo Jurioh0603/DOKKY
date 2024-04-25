@@ -97,21 +97,21 @@
 		
 		<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
 		<div style="margin-left: auto;">
-		<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == lunchData.lunch.memId)}">
-	    	<div class="form-group row">
-	        	<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-	            	<c:if test="${authUser.id == lunchData.lunch.memId}">
-	                	<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
-	                	<form id="editForm" action="/lunch/modify.do" method="get">
-	                    	<input type="hidden" name="no" value="${lunchData.lunch.bno}">
-	                    	<button type="submit" class="custom-button">글수정</button>
-	                	</form>
-	            	</c:if>
-	            	<!-- 모달 버튼 -->
-	            	<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
-	        	</div>
-	    	</div>
-		</c:if>
+			<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == lunchData.lunch.memId)}">
+		    	<div class="form-group row">
+		        	<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+		            	<c:if test="${authUser.id == lunchData.lunch.memId}">
+		                	<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+		                	<form id="editForm" action="/lunch/modify.do" method="get">
+		                    	<input type="hidden" name="no" value="${lunchData.lunch.bno}">
+		                    	<button type="submit" class="custom-button">글수정</button>
+		                	</form>
+		            	</c:if>
+		            	<!-- 모달 버튼 -->
+		            	<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
+		        	</div>
+		    	</div>
+			</c:if>
 		</div>
 	</div>
 	<br/>
@@ -151,13 +151,23 @@
 		    <div class="form-group row">
 		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
 		        <div class="col-sm-10">
+		        <c:if test="${authUser != null}">
 		            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content} style="width: 120%;"></textarea>
+		        </c:if>
+		        <c:if test="${authUser == null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" readonly="readonly" style="width: 120%;">작성하려면 로그인이 필요합니다.</textarea>
+		        </c:if>
 		        </div>
 		    </div>
 		</form>
 	    <div class="form-group row">
 	        <div class="col-sm-10 offset-sm-2">
+	        <c:if test="${authUser != null}">
 	            <button id="addReplyButton" class="custom-button float-end">댓글 등록</button>
+	        </c:if>
+	        <c:if test="${authUser == null}">
+	            <button id="addReplyButton" class="custom-button float-end" disabled>댓글 등록</button>
+	        </c:if>
 	        </div>
 	    </div>
 		<br/>
