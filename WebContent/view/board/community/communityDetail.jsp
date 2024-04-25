@@ -87,28 +87,32 @@
 	</main>
 	<hr style="clear:both;"/>
 	<!-- 글목록 버튼 -->
-	<form action="/community/list.do" method="post">
-		<button class="next">목록</button>
-	</form>
-	
-<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
-<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == communityData.community.memId)}">
-    <div class="form-group row">
-        <div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-            <c:if test="${authUser.id == communityData.community.memId}">
-                <!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
-                <form id="editForm" action="/community/modify.do" method="get">
-                    <input type="hidden" name="no" value="${communityData.community.bno}">
-                    <button type="submit" class="custom-button">글수정</button>
-                </form>
-            </c:if>
-            <!-- 모달 버튼 -->
-            <button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글삭제</button>
-        </div>
-    </div>
-</c:if>
-<br/>
-<br/>
+		<div class="item">
+		<form action="/community/list.do" method="post">
+			<button class="next">목록</button>
+		</form>
+
+		<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->
+		<div style="margin-left: auto;">
+		<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == communityData.community.memId)}">
+	    	<div class="form-group row">
+	        	<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+	            	<c:if test="${authUser.id == communityData.community.memId}">
+	                	<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+	                	<form id="editForm" action="/community/modify.do" method="get">
+	                    	<input type="hidden" name="no" value="${communityData.community.bno}">
+	                    	<button type="submit" class="custom-button">글수정</button>
+	                	</form>
+	            	</c:if>
+	            	<!-- 모달 버튼 -->
+	            	<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
+	        	</div>
+	    	</div>
+		</c:if>
+		</div>
+	</div>
+	<br/>
+	<br/>
 
 <!-- 모달 창 -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -134,29 +138,166 @@
 </div>
 <!-- 모달 창 끝 -->
 
-   
-    
-    <!-- 댓글 -->
+ <!-- 댓글 -->
    <div class="comment-form">
-      <form action="#" method="POST">
-         <div class="form-group">
-            <label for="comment">댓글</label>
-            <textarea id="comment" name="comment" rows="4" required></textarea>
-         </div>
-         <div class="form-group row">
-            <div class="button-container" style="margin-bottom:15px;">
-               <button type="button" class="custom-button">댓글작성</button>
-            </div>
-         </div>
-      </form>
-   </div>
-   <br/>
-   <br/>
-   <br/>
-   
+		<form id="addReplyForm" action="/community/reply.do" method="post">
+		    <input type="hidden" name="command" value="addReply"> 
+		    <input type="hidden" name="no" value="${param.no }"> 
+		    <div class="form-group row">
+		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
+		        <div class="col-sm-10">
+		        <c:if test="${authUser != null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;">${param.content}</textarea>
+		        </c:if>
+		        <c:if test="${authUser == null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;" readonly="readonly">작성하려면 로그인이 필요합니다.</textarea>
+		        </c:if>
+		        </div>
+		    </div>
+		    
+			    <div class="form-group row">
+			        <div class="col-sm-10 offset-sm-2">
+			    	<c:if test="${authUser != null}">
+			            <button id="addReplyButton" class="custom-button float-end">댓글 등록</button>
+					</c:if>
+			    	<c:if test="${authUser == null}">
+			            <button id="addReplyButton" class="custom-button float-end" disabled>댓글 등록</button>
+					</c:if>
+			        </div>
+			    </div>
+		</form>
+
+		<div class="comments-container">
+	   		<div class="comments-list">
+	        	<c:forEach var="replyItem" items="${communityData.reply}">
+	            	<div class="comment-item">
+	                	<div style="margin-top: 18px">
+		                	<div class="comment-info">
+		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
+		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.date}</span>
+		                	</div>
+		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
+		                    	${replyItem.rcontent}
+		                	</div>
+	                	</div>
+	                	<div class="comment-buttons">
+							<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
+	    						<button class="btn-modify-delete edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
+	    						<button type="submit" class="btn-modify-delete delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
+							</c:if>
+							<hr style="border: none; height: 0.5px; margin-top: 25px;"/>
+						</div>
+	                </div>
+	        	</c:forEach>
+	    	</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+	</div>
+</div>   
+     
+<br>
+<br>
+<br>
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
+
+<script>
+	document.getElementById("addReplyButton").addEventListener("click", function() {
+	    // 댓글 등록 폼 가져오기
+	    var addReplyForm = document.getElementById("addReplyForm");
+	    
+	    // 폼을 submit하여 댓글 추가 기능 수행
+	    addReplyForm.submit();
+	});
+	
+	// 수정 버튼 클릭 시 이벤트 처리
+	// 수정 버튼 클릭 시 이벤트 처리
+	document.addEventListener('click', function(event) {
+    // 수정 버튼인 경우
+    if (event.target.classList.contains('edit-reply-btn')) {
+        // 수정할 댓글의 번호
+        var replyNo = event.target.dataset.rno;
+        // 게시물 번호
+        var boardNo = event.target.dataset.bno;
+        
+        // 수정할 내용 입력 받기 (예시로 간단하게 prompt 사용)
+        var newContent = prompt('댓글을 수정하세요:');
+        
+        // 사용자가 입력한 내용이 있는 경우에만 수정 요청 보냄
+        if (newContent !== null) {
+            // 폼 생성
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/community/reply.do?command=updateReply';
+
+            // 파라미터 추가
+            var replyNoInput = document.createElement('input');
+            replyNoInput.type = 'hidden';
+            replyNoInput.name = 'rno';
+            replyNoInput.value = replyNo;
+            form.appendChild(replyNoInput);
+
+            var boardNoInput = document.createElement('input');
+            boardNoInput.type = 'hidden';
+            boardNoInput.name = 'bno';
+            boardNoInput.value = boardNo;
+            form.appendChild(boardNoInput);
+
+            var contentInput = document.createElement('input');
+            contentInput.type = 'hidden';
+            contentInput.name = 'rcontent';
+            contentInput.value = newContent;
+            form.appendChild(contentInput);
+
+            // 폼을 바디에 추가하고 서브밋
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+});
+
+
+	
+	//삭제 버튼 클릭 시 이벤트 처리
+	document.addEventListener('click', function(event) {
+    // 삭제 버튼인 경우
+    if (event.target.classList.contains('delete-reply-btn')) {
+        // 삭제할 댓글의 번호
+        var replyNo = event.target.dataset.rno;
+        // 게시물 번호
+        var boardNo = event.target.dataset.bno;
+        
+        // 사용자에게 삭제 확인 메시지 표시
+        if (confirm('댓글을 삭제하시겠습니까?')) {
+            // 폼 생성
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/community/reply.do?command=removeReply';
+
+            // 파라미터 추가
+           
+            var replyNoInput = document.createElement('input');
+            replyNoInput.type = 'hidden';
+            replyNoInput.name = 'rno';
+            replyNoInput.value = replyNo;
+            form.appendChild(replyNoInput);
+
+            var boardNoInput = document.createElement('input');
+            boardNoInput.type = 'hidden';
+            boardNoInput.name = 'bno';
+            boardNoInput.value = boardNo;
+            form.appendChild(boardNoInput);
+
+            // 폼을 바디에 추가하고 서브밋
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
