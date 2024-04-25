@@ -61,6 +61,8 @@
 		<url-pattern>/lunch/write.do</url-pattern>
 		<url-pattern>/lunch/modify.do</url-pattern>
 		<url-pattern>/lunch/delete.do</url-pattern>
+		<url-pattern>/view/member/myPage.jsp</url-pattern>
+		<url-pattern>/view/member/myPostList.jsp</url-pattern>
 	</filter-mapping>
 	
 	

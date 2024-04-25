@@ -72,4 +72,7 @@ public class Member {
 		return mempw.equals(pwd);
 	}
 	
+	public void changePassword(String newPwd) {
+		this.mempw = newPwd;
+	}
 }
