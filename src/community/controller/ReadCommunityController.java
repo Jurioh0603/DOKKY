@@ -1,4 +1,4 @@
-package community.command;
+package community.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
