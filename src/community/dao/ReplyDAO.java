@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 import community.model.ReplyDTO;
 
@@ -27,13 +28,15 @@ public class ReplyDAO {
     public void addReply(ReplyDTO replyDTO) throws SQLException {
     	
         String sql = "INSERT INTO CREPLY (RNO, BNO, MEMID, RCONTENT, RDATE) VALUES (creply_seq.nextval, ?, ?, ?, SYSDATE)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        PreparedStatement pstmt = null;
+        try {
+        	pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, replyDTO.getBno());
             pstmt.setString(2, replyDTO.getMemid());
             pstmt.setString(3, replyDTO.getRcontent());
             pstmt.executeUpdate();
-            
-            
+        } finally {
+        	JdbcUtil.close(pstmt);
         }
     }
 
@@ -41,7 +44,9 @@ public class ReplyDAO {
     public List<ReplyDTO> getRepliesByBno(int bno) throws SQLException {
         String sql = "SELECT * FROM CREPLY WHERE BNO = ?";
         List<ReplyDTO> replies = new ArrayList<>();
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        PreparedStatement pstmt = null;
+        try {
+        	pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, bno);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -54,6 +59,8 @@ public class ReplyDAO {
                     replies.add(replyDTO);
                 }
             }
+        } finally {
+        	JdbcUtil.close(pstmt);
         }
         return replies;
     }
@@ -62,19 +69,40 @@ public class ReplyDAO {
     // 댓글 수정 메서드
     public void updateReply(ReplyDTO replyDTO) throws SQLException {
         String sql = "UPDATE CREPLY SET RCONTENT = ? WHERE RNO = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        PreparedStatement pstmt = null;
+        try {
+        	pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, replyDTO.getRcontent());
             pstmt.setInt(2, replyDTO.getRno());
             pstmt.executeUpdate();
+        } finally {
+        	JdbcUtil.close(pstmt);
         }
     }
 
     // 댓글 삭제 메서드
     public void deleteReply(int rno) throws SQLException {
         String sql = "DELETE FROM CREPLY WHERE RNO = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        PreparedStatement pstmt = null;
+        try {
+        	pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, rno);
             pstmt.executeUpdate();
+        } finally {
+        	JdbcUtil.close(pstmt);
+        }
+    }
+    
+    // 게시글 삭제시 사용하는 메서드
+    public void delete(int bno) throws SQLException {
+        String sql = "DELETE FROM CREPLY WHERE BNO = ?";
+        PreparedStatement pstmt = null;
+        try {
+        	pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bno);
+            pstmt.executeUpdate();
+        } finally {
+        	JdbcUtil.close(pstmt);
         }
     }
 }
