@@ -1,6 +1,5 @@
 package lunch.controller;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,11 +24,8 @@ public class ReadLunchController implements CommandHandler{
 			return "/view/board/lunch/lunchDetail.jsp";
 		}catch (LunchNotFoundException | LcontentNotFoundException e) {
 		    req.getServletContext().log("no lunch", e);
-		    
-		    //에러페이지 설정
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/deleteBoardPage.jsp");
-		    dispatcher.forward(req, res);
-		    return null;
+		    res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return null;
 		}
 
 	}
