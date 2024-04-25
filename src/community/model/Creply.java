@@ -2,7 +2,7 @@ package community.model;
 
 import java.util.Date;
 
-public class ReplyDTO {
+public class Creply {
 	private int rno;
 	private int bno;
 	private String memid;

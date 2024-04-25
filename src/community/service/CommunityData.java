@@ -4,15 +4,15 @@ import java.util.List;
 
 import community.model.Ccontent;
 import community.model.Community;
-import community.model.ReplyDTO;
+import community.model.Creply;
 
 public class CommunityData {
 	
 	private Community community;
 	private Ccontent content;
-	private List<ReplyDTO> reply;
+	private List<Creply> reply;
 	
-	public CommunityData(Community community, Ccontent content, List<ReplyDTO> reply) {
+	public CommunityData(Community community, Ccontent content, List<Creply> reply) {
 		this.community = community;
 		this.content = content;
 		this.setReply(reply);
@@ -26,11 +26,11 @@ public class CommunityData {
 		return content.getContent();
 	}
 	
-	public List<ReplyDTO> getReply() {
+	public List<Creply> getReply() {
 		return reply;
 	}
 
-	public void setReply(List<ReplyDTO> reply) {
+	public void setReply(List<Creply> reply) {
 		this.reply = reply;
 	}
 

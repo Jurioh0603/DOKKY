@@ -7,8 +7,8 @@ import java.util.List;
 import community.dao.CcontentDao;
 import community.dao.CommunityDao;
 import jdbc.connection.ConnectionProvider;
-import community.model.ReplyDTO;
-import community.dao.ReplyDAO;
+import community.model.Creply;
+import community.dao.CreplyDao;
 import community.model.Ccontent;
 import community.model.Community;
 
@@ -16,7 +16,7 @@ public class ReadCommunityService {
 	
 	private CommunityDao communityDao = new CommunityDao();
 	private CcontentDao ccontentDao = new CcontentDao();
-	private ReplyDAO replyDao = null;
+	private CreplyDao replyDao = null;
 	
 	public CommunityData getCommunity(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()){
@@ -26,9 +26,9 @@ public class ReadCommunityService {
 			}
 			Ccontent ccontent = ccontentDao.selectById(conn, bno);
 			
-			replyDao = new ReplyDAO();
+			replyDao = new CreplyDao();
 			
-			List<ReplyDTO> replyList = replyDao.getRepliesByBno(bno);
+			List<Creply> replyList = replyDao.getRepliesByBno(bno);
 			
 			if(ccontent == null) {
 				throw new CcontentNotFoundException();

@@ -9,13 +9,13 @@ import java.util.List;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import community.model.ReplyDTO;
+import community.model.Creply;
 
-public class ReplyDAO {
+public class CreplyDao {
     private Connection conn;
 
     // 생성자에서 Connection 초기화
-    public ReplyDAO() throws SQLException {
+    public CreplyDao() throws SQLException {
         try {
             conn = ConnectionProvider.getConnection();
         } catch (SQLException e) {
@@ -25,7 +25,7 @@ public class ReplyDAO {
         }
     }
     // 댓글 추가 메서드
-    public void addReply(ReplyDTO replyDTO) throws SQLException {
+    public void addReply(Creply replyDTO) throws SQLException {
     	
         String sql = "INSERT INTO CREPLY (RNO, BNO, MEMID, RCONTENT, RDATE) VALUES (creply_seq.nextval, ?, ?, ?, SYSDATE)";
         PreparedStatement pstmt = null;
@@ -41,16 +41,16 @@ public class ReplyDAO {
     }
 
     // 특정 글에 대한 댓글 조회 메서드
-    public List<ReplyDTO> getRepliesByBno(int bno) throws SQLException {
+    public List<Creply> getRepliesByBno(int bno) throws SQLException {
         String sql = "SELECT * FROM CREPLY WHERE BNO = ?";
-        List<ReplyDTO> replies = new ArrayList<>();
+        List<Creply> replies = new ArrayList<>();
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, bno);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    ReplyDTO replyDTO = new ReplyDTO();
+                    Creply replyDTO = new Creply();
                     replyDTO.setRno(rs.getInt("RNO"));
                     replyDTO.setBno(rs.getInt("BNO"));
                     replyDTO.setMemid(rs.getString("MEMID"));
@@ -67,7 +67,7 @@ public class ReplyDAO {
     
 
     // 댓글 수정 메서드
-    public void updateReply(ReplyDTO replyDTO) throws SQLException {
+    public void updateReply(Creply replyDTO) throws SQLException {
         String sql = "UPDATE CREPLY SET RCONTENT = ? WHERE RNO = ?";
         PreparedStatement pstmt = null;
         try {

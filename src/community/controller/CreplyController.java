@@ -1,19 +1,19 @@
 package community.controller;
 
 import mvc.command.CommandHandler;
-import community.model.ReplyDTO;
-import community.service.ReplyService;
+import community.model.Creply;
+import community.service.CreplyService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import auth.service.User;
 import java.util.List;
 
-public class ReplyController implements CommandHandler {
+public class CreplyController implements CommandHandler {
 
-    private ReplyService replyService;
+    private CreplyService replyService;
 
-    public ReplyController() {
-        replyService = new ReplyService();
+    public CreplyController() {
+        replyService = new CreplyService();
     }
 
     @Override
@@ -44,14 +44,14 @@ public class ReplyController implements CommandHandler {
             int bno = Integer.parseInt(req.getParameter("no"));
             String rcontent = req.getParameter("rcontent");
             
-            ReplyDTO reply = new ReplyDTO();
+            Creply reply = new Creply();
             reply.setBno(bno);
             reply.setMemid(memid);
             reply.setRcontent(rcontent);
 
             replyService.addReply(reply);
             
-            List<ReplyDTO> replies = replyService.getRepliesByBno(bno);
+            List<Creply> replies = replyService.getRepliesByBno(bno);
             req.setAttribute("replies", replies);
             
             res.sendRedirect("/community/read.do?no=" + bno);
@@ -66,7 +66,7 @@ public class ReplyController implements CommandHandler {
         try {
             int bno = Integer.parseInt(req.getParameter("no"));
 
-            List<ReplyDTO> replies = replyService.getRepliesByBno(bno);
+            List<Creply> replies = replyService.getRepliesByBno(bno);
 
             req.setAttribute("replies", replies);
 
