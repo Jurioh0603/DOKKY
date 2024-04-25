@@ -86,17 +86,10 @@ public class ModifyStudyController implements CommandHandler{
 			return "/study/read.do?no="+noVal;
 		}catch(StudyNotFoundException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
-			
-			 //에러페이지 설정
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/404Page.jsp");
-		    dispatcher.forward(req, res);
 			return null;
+			
 		}catch(PermissionDeniedException e) {
 			res.sendError(HttpServletResponse.SC_FORBIDDEN);
-			
-			 //에러페이지 설정
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("/view/errorPage/invalidAccessPage.jsp");
-		    dispatcher.forward(req, res);
 			return null;
 		}
 	}
