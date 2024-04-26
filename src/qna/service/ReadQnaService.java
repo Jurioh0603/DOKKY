@@ -10,14 +10,14 @@ import qna.dao.QcontentDao;
 import qna.dao.QnaDao;
 import qna.model.Qcontent;
 import qna.model.Qna;
-import qna.dao.ReplyDao;
-import qna.model.ReplyDTO;
+import qna.dao.QreplyDao;
+import qna.model.QreplyDTO;
 
 public class ReadQnaService {
 
 	private QnaDao qnaDao = new QnaDao();
 	private QcontentDao qcontentDao = new QcontentDao();
-	private ReplyDao replyDao = null;
+	private QreplyDao replyDao = null;
 	
 	public QnaData getQna(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()) {
@@ -26,9 +26,9 @@ public class ReadQnaService {
 				throw new QnaNotFoundException();
 			}
 			Qcontent qcontent = qcontentDao.selectById(conn, bno);
-			replyDao = new ReplyDao();
+			replyDao = new QreplyDao();
 			
-			List<ReplyDTO> replyList = replyDao.getRepliesByBno(bno);
+			List<QreplyDTO> replyList = replyDao.getRepliesByBno(bno);
 			
 			if(qcontent == null) {
 				throw new QnaContentNotFoundException();

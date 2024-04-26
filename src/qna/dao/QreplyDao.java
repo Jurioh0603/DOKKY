@@ -9,13 +9,13 @@ import java.util.List;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import qna.model.ReplyDTO;
+import qna.model.QreplyDTO;
 
-public class ReplyDao {
+public class QreplyDao {
     private Connection conn;
 
     // 생성자에서 Connection 초기화
-    public ReplyDao() throws SQLException {
+    public QreplyDao() throws SQLException {
         try {
             conn = ConnectionProvider.getConnection();
         } catch (SQLException e) {
@@ -25,9 +25,9 @@ public class ReplyDao {
         }
     }
     // 댓글 추가 메서드
-    public void addReply(ReplyDTO replyDTO) throws SQLException {
+    public void addReply(QreplyDTO replyDTO) throws SQLException {
     	
-        String sql = "INSERT INTO CREPLY (RNO, BNO, MEMID, RCONTENT, RDATE) VALUES (creply_seq.nextval, ?, ?, ?, SYSDATE)";
+        String sql = "INSERT INTO QREPLY (RNO, BNO, MEMID, RCONTENT, RDATE) VALUES (qreply_seq.nextval, ?, ?, ?, SYSDATE)";
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);
@@ -41,16 +41,16 @@ public class ReplyDao {
     }
 
     // 특정 글에 대한 댓글 조회 메서드
-    public List<ReplyDTO> getRepliesByBno(int bno) throws SQLException {
-        String sql = "SELECT * FROM CREPLY WHERE BNO = ?";
-        List<ReplyDTO> replies = new ArrayList<>();
+    public List<QreplyDTO> getRepliesByBno(int bno) throws SQLException {
+        String sql = "SELECT * FROM QREPLY WHERE BNO = ?";
+        List<QreplyDTO> replies = new ArrayList<>();
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, bno);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    ReplyDTO replyDTO = new ReplyDTO();
+                    QreplyDTO replyDTO = new QreplyDTO();
                     replyDTO.setRno(rs.getInt("RNO"));
                     replyDTO.setBno(rs.getInt("BNO"));
                     replyDTO.setMemid(rs.getString("MEMID"));
@@ -67,8 +67,8 @@ public class ReplyDao {
     
 
     // 댓글 수정 메서드
-    public void updateReply(ReplyDTO replyDTO) throws SQLException {
-        String sql = "UPDATE CREPLY SET RCONTENT = ? WHERE RNO = ?";
+    public void updateReply(QreplyDTO replyDTO) throws SQLException {
+        String sql = "UPDATE QREPLY SET RCONTENT = ? WHERE RNO = ?";
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class ReplyDao {
 
     // 댓글 삭제 메서드
     public void deleteReply(int rno) throws SQLException {
-        String sql = "DELETE FROM CREPLY WHERE RNO = ?";
+        String sql = "DELETE FROM QREPLY WHERE RNO = ?";
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);
@@ -95,7 +95,7 @@ public class ReplyDao {
     
     // 게시글 삭제시 사용하는 메서드
     public void delete(int bno) throws SQLException {
-        String sql = "DELETE FROM CREPLY WHERE BNO = ?";
+        String sql = "DELETE FROM QREPLY WHERE BNO = ?";
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);

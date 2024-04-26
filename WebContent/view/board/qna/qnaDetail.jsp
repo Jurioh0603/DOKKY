@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   	  	
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
@@ -51,7 +52,8 @@
 	var currentDate = new Date();
 	
 	//작성된 시간을 Date 객체로 변환
-	var postDate = new Date(regDate);
+	 var regDateWithoutTZ = regDate.replace('KST', '');
+	var postDate = new Date(regDateWithoutTZ);
 	
 	//현재 시간과 작성된 시간의 차이 계산(밀리초 단위)
 	var timeDiff = currentDate - postDate;
@@ -90,6 +92,7 @@
 		</form>    
 		
 	<!-- 글 수정, 삭제버튼(해당 글 작성자만 보이도록) -->
+	<div style="margin-left: auto;">
 	<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == qnaData.qna.memId)}">
 		<div class="form-group row">
 		<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
@@ -121,68 +124,73 @@
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 			<form id="deleteForm" action="/qna/delete.do" method="post">
 				<input type="hidden" name="no" value="${param.no}">
-				<button type="submit" class="btn btn-primary">삭제</button>
+				<button type="submit" class="btn btn-danger">삭제</button>
 			</form>
 		</div>
 		</div>
 		</div>
 		</div>
    <div class="comment-form">
-<form id="addReplyForm" action="/reply/reply.do" method="post">
-    <input type="hidden" name="command" value="addReply"> 
-    <input type="hidden" name="no" value="${param.no }"> 
-    <div class="form-group row">
-        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
-        <div class="col-sm-10">
-        <c:if test="${authUser != null}">
-            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content}></textarea>
-        </c:if>
-        <c:if test="${authUser == null}">
-            <textarea name="rcontent" class="form-text1" id="rcontent" readonly="readonly">작성하려면 로그인이 필요합니다.</textarea>
-        </c:if>
-        </div>
-    </div>
-    
-    <div class="form-group row">
-        <div class="col-sm-10 offset-sm-2">
-        <c:if test="${authUser != null}">
-            <button id="addReplyButton" class="btn btn-primary float-end">댓글 등록</button>
-        </c:if>
-        <c:if test="${authUser == null}">
-        	<button id="addReplyButton" class="btn btn-primary float-end" disabled=>댓글 등록</button>
-        </c:if>
-        </div>
-        </div>
-    </form>
-    </div>
+		<form id="addReplyForm" action="/qna/reply.do" method="post">
+		    <input type="hidden" name="command" value="addReply"> 
+		    <input type="hidden" name="no" value="${param.no }"> 
+		    <div class="form-group row">
+		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
+		        <div class="col-sm-10">
+		        <c:if test="${authUser != null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content} style="width: 120%;"></textarea>
+		        </c:if>
+		        <c:if test="${authUser == null}">
+		            <textarea name="rcontent" class="form-text1" id="rcontent" readonly="readonly" style="width: 120%;">작성하려면 로그인이 필요합니다.</textarea>
+		        </c:if>
+		        </div>
+		    </div>
+		
+	    <div class="form-group row">
+	        <div class="col-sm-10 offset-sm-2">
+	        <c:if test="${authUser != null}">
+	            <button id="addReplyButton" class="custom-button float-end">댓글 등록</button>
+	        </c:if>
+	        <c:if test="${authUser == null}">
+	            <button id="addReplyButton" class="custom-button float-end" disabled>댓글 등록</button>
+	        </c:if>
+	        </div>
+	    </div>
+	    </form>
+		<div class="comments-container">
+	   		<div class="comments-list">
+	        	<c:forEach var="replyItem" items="${qnaData.reply}">
+	            	<div class="comment-item">
+		            	<div style="margin-top: 18px">
+		                	<div class="comment-info">
+		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
+		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.date}</span>
+		                	</div>
+		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
+		                    	${replyItem.rcontent}
+		                	</div>
+	                	</div>
+	                	<div class="comment-buttons">
+							<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
+	    						<button class="btn-modify-delete edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
+	    						<button type="submit" class="btn-modify-delete delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
+							</c:if>
+							<hr style="border: none; height: 0.5px; margin-top: 25px;"/>
+						</div>
+	                </div>
+	        	</c:forEach>
+	    	</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+	</div>
+</div>  
+     
+<br>
+<br>
+<br>
 
-<div class="comments-container">
-    <div class="comments-list">
-        <c:forEach var="replyItem" items="${qnaData.reply}">
-            <div class="comment-item">
-                <div class="comment-info">
-                    <span class="comment-author">${replyItem.memid}</span>
-                    <span class="comment-date">${replyItem.date}</span>
-                </div>
-                <div class="comment-content">
-                    ${replyItem.rcontent}
-                </div>
-                </div>
-                
-                <div class="comment-buttons">
-                <c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
-    <button class="btn btn-warning edit-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">수정</button>
-    <button type="submit" class="btn btn-danger delete-reply-btn" data-bno="${replyItem.bno}" data-rno="${replyItem.rno}" data-memid="${replyItem.memid}">삭제</button>
-</c:if>
-</div>
-</c:forEach>
-				</div>
-                </div>
-    </div>
-<br>
-<br>
-<br>
-<br>
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
@@ -216,7 +224,7 @@ document.addEventListener('click', function(event) {
             // 폼 생성
             var form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/reply/reply.do?command=updateReply';
+            form.action = '/qna/reply.do?command=updateReply';
 
             // 파라미터 추가
             var replyNoInput = document.createElement('input');
@@ -260,7 +268,7 @@ document.addEventListener('click', function(event) {
             // 폼 생성
             var form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/reply/reply.do?command=removeReply';
+            form.action = '/qna/reply.do?command=removeReply';
 
             // 파라미터 추가
            

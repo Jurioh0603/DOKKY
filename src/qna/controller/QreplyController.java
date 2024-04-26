@@ -1,7 +1,7 @@
 package qna.controller;
 
 import mvc.command.CommandHandler;
-import qna.model.ReplyDTO;
+import qna.model.QreplyDTO;
 import qna.service.ReplyService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +17,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ReplyController implements CommandHandler {
+public class QreplyController implements CommandHandler {
 
     private ReplyService replyService;
 
-    public ReplyController() {
+    public QreplyController() {
         replyService = new ReplyService();
     }
 
@@ -38,7 +38,7 @@ public class ReplyController implements CommandHandler {
         } else if ("updateReply".equals(command)) {
             return updateReply(req, res);
         } else {
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -53,21 +53,21 @@ public class ReplyController implements CommandHandler {
             int bno = Integer.parseInt(req.getParameter("no"));
             String rcontent = req.getParameter("rcontent");
             
-            ReplyDTO reply = new ReplyDTO();
+            QreplyDTO reply = new QreplyDTO();
             reply.setBno(bno);
             reply.setMemid(memid);
             reply.setRcontent(rcontent);
 
             replyService.addReply(reply);
             
-            List<ReplyDTO> replies = replyService.getRepliesByBno(bno);
+            List<QreplyDTO> replies = replyService.getRepliesByBno(bno);
             req.setAttribute("replies", replies);
             
             res.sendRedirect("/qna/read.do?no=" + bno);
             return null;
             } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -75,7 +75,7 @@ public class ReplyController implements CommandHandler {
         try {
             int bno = Integer.parseInt(req.getParameter("no"));
 
-            List<ReplyDTO> replies = replyService.getRepliesByBno(bno);
+            List<QreplyDTO> replies = replyService.getRepliesByBno(bno);
 
             req.setAttribute("replies", replies);
 
@@ -83,7 +83,7 @@ public class ReplyController implements CommandHandler {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 
@@ -123,13 +123,13 @@ public class ReplyController implements CommandHandler {
             replyService.updateReply(rno, rcontent);
 
             // 수정된 댓글 목록을 다시 가져옴
-            List<ReplyDTO> updatedReplies = replyService.getUpdatedReplies(bno);
+            List<QreplyDTO> updatedReplies = replyService.getUpdatedReplies(bno);
             
             res.sendRedirect("/qna/read.do?no=" + bno);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
+            return "/view/board/errorPage/notFoundPage.jsp";
         }
     }
 }
