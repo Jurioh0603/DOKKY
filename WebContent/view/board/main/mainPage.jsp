@@ -41,17 +41,17 @@
 	            </div>
 	            <div class="carousel-inner">
 	              <div class="carousel-item active">
-	              <a href="#">
+	              <a href="https://www.choongang.co.kr/html/sub03_07_n.php#kangnam">
 	                <img src="<%=request.getContextPath() %>/imgs/banner1.jpg" class="d-block" alt="banner1">
 	              </a>
 	              </div>
 	              <div class="carousel-item">
-	              <a href="#">
+	              <a href="https://www.choongang.co.kr/html/sub03_01_n.php">
 	                <img src="<%=request.getContextPath() %>/imgs/banner2.jpg" class="d-block" alt="banner2">
 	              </a>
 	              </div>
 	              <div class="carousel-item">
-	              <a href="#">
+	              <a href="https://www.choongang.co.kr/html/sub03_07_n.php?#cjava">
 	                <img src="<%=request.getContextPath() %>/imgs/banner3.jpg" class="d-block" alt="banner3">
 	              </a>
 	              </div>
@@ -92,18 +92,9 @@
 	           <div class="login-box">
 	             <div class="card text-center">
 	               <div class="card-body">
-	               <h6 class="card-title"><a href="#">${authUser.name}</a>님, 어서오세요!</h6>
+	               <h6 class="card-title"><a href="/myPage.do">${authUser.name}</a>님, 어서오세요!</h6>
 	                 <c:if test="${authUser.grade eq 9999}">
 	                 	<a href="/admin/memberList.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9; margin-bottom: 0px">홈페이지 관리</a>
-	                 </c:if>
-	                 <c:if test="${authUser.grade eq 1111 || authUser.grade eq 2222}">
-	                 <div>
-			              <p class="card-text">
-			                <a href="/myPage.do">내 정보</a> /
-			                <a href="../view/member/myPostList.jsp">내 글 목록</a> /
-			                <a href="/changePassword.do">비밀번호 변경</a>
-			              </p>
-		             </div>
 	                 </c:if>
 	                 <a href="/logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	               </div>
