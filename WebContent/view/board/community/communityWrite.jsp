@@ -46,13 +46,13 @@
             </div>
         </div>
 
-        <!-- 글 등록과 취소 -->
+              <!-- 글 등록과 취소 -->
         <div class="form-group row">
             <label class="col-sm-2"></label>
             <div class="col-sm-10">
                 <div class="button-container">
-                    <button type="button" onclick="submitForm()" class="custom-button" style="margin-right:10px;">취소</button>
-                    <button type="submit" class="custom-button">등록</button>
+                    <button type="button" onclick="cancel()" class="custom-button" style="margin-right:10px;">취소</button>
+                    <button type="submit" onclick="submitForm()" class="custom-button">등록</button>
                 </div>
             </div>
         </div>
@@ -67,8 +67,24 @@
 <%@ include file="../../headerFooter/footer.jsp" %>
 <script>
     function submitForm() {
+        var title = document.getElementById('inputTitle').value;
+        var content = document.getElementById('inputContent').value;
+
+        // 제목 또는 내용 중 하나라도 입력되지 않은 경우
+        if (title.trim() === '' || content.trim() === '') {
+            alert('제목 또는 내용을 입력하세요.');
+            return false; // 제출을 막음
+        }
+
+        // 폼을 직접 제출
         document.getElementById('writeForm').submit();
     }
+    
+    function cancel() {
+        window.location.href = '/lunch/list.do'; // 목록 페이지의 URL로 리디렉션
+    }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
