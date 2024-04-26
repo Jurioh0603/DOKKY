@@ -162,7 +162,7 @@
             <div class="comment-item">
                 <div class="comment-info">
                     <span class="comment-author">${replyItem.memid}</span>
-                    <span class="comment-date">${replyItem.date}</span>
+                    <span class="comment-date">${replyItem.formattedRegDate}</span>
                 </div>
                 <div class="comment-content">
                     ${replyItem.rcontent}

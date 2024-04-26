@@ -178,7 +178,7 @@
 		            	<div style="margin-top: 18px">
 		                	<div class="comment-info">
 		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
-		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.date}</span>
+		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.formattedRegDate}</span>
 		                	</div>
 		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
 		                    	${replyItem.rcontent}
