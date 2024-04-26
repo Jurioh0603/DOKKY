@@ -10,14 +10,16 @@ public class ListRequest {
 	private int hit;
 	private String memid;
 	private String filerealname;
+	private int replyCount;
 	
-	public ListRequest(int bno, String title, Date regdate, int hit, String memid, String filerealname) {
+	public ListRequest(int bno, String title, Date regdate, int hit, String memid, String filerealname, int replyCount) {
 		this.bno = bno;
 		this.title = title;
 		this.regdate = regdate;
 		this.hit = hit;
 		this.memid = memid;
 		this.filerealname = filerealname;
+	    this.replyCount = replyCount;
 	}
 
 	public int getBno() {
@@ -67,5 +69,12 @@ public class ListRequest {
 	public void setFilerealname(String filerealname) {
 		this.filerealname = filerealname;
 	}
-	
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 }

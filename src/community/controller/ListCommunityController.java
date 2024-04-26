@@ -28,7 +28,7 @@ public class ListCommunityController implements CommandHandler {
 		
 		CommunityPage communityPage = null;
 		if(search == null)
-			communityPage = listService.getCommunityPage(pageNo, sort);
+			communityPage = listService.getCommunityPage(pageNo);
 		else
 			communityPage = listService.getSearchCommunityPage(pageNo, search, sort);
 		

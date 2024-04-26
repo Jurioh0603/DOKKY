@@ -21,7 +21,6 @@ public class CommunityDao {
 				   			rs.getString("title"),
 				   			rs.getDate("regDate"),
 				   			rs.getInt("hit"));
-				   					
 	   }
 	
 	   //게시판 글읽기(조회) 기능 구현. p655
@@ -133,20 +132,20 @@ public class CommunityDao {
 			}
 		}
 		
-		public List<CommunityList> select(Connection conn, String sort, int startRow, int endRow) throws SQLException {
+		public List<CommunityList> select(Connection conn, int startRow, int endRow) throws SQLException {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
 				String sql =  "select * from (select C.*, Rownum Rnum from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount "
 						+ "FROM community A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM creply GROUP BY bno) B "
-						+ "ON A.bno = B.bno GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt order by ? desc, bno desc) C) "
+						+ "ON A.bno = B.bno GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt order by bno desc) C) "
 						+ "where Rnum >= ? and Rnum <= ?";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,  sort);
-				pstmt.setInt(2,  startRow);
-				pstmt.setInt(3, endRow);
+				pstmt.setInt(1,  startRow);
+				pstmt.setInt(2, endRow);
 				rs = pstmt.executeQuery();
 				List<CommunityList> result = new ArrayList<>();
+				System.out.println("select");
 				while(rs.next()) {
 					result.add(convertCommunityList(rs));
 				}
@@ -196,6 +195,7 @@ public class CommunityDao {
 				pstmt.setInt(4, endRow);
 				rs = pstmt.executeQuery();
 				List<CommunityList> result = new ArrayList<>();
+				System.out.println("selectSearch");
 				while(rs.next()) {
 					result.add(convertCommunityList(rs));
 				}
@@ -213,7 +213,6 @@ public class CommunityDao {
 				   			rs.getDate("regDate"),
 				   			rs.getInt("hit"),
 				   			rs.getInt("replyCount"));
-				   					
 	   }
 		
 }

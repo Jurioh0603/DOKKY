@@ -20,7 +20,8 @@ public class LunchDao {
 				   rs.getDate(3),
 				   rs.getInt(4),
 				   rs.getString(5),
-				   rs.getString("filerealname"));
+				   rs.getString("filerealname"),
+				   rs.getInt("replyCount"));
 	   }
 
 	private Lunch convertLunch(ResultSet rs) throws SQLException {
@@ -151,8 +152,12 @@ public class LunchDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from (select A.*, Rownum Rnum from (select L.*, I.filerealname from lunch L join image I "
-					+ "on L.bno=I.bno order by L.bno desc) A) "
+			String sql = "select * from (select D.*, Rownum Rnum "
+					+ "from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount, I.filerealname "
+					+ "FROM lunch A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM lreply GROUP BY bno) B "
+					+ "ON A.bno = B.bno JOIN image I on A.bno = I.bno "
+					+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, I.filerealname "
+					+ "order by bno desc) D) "
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,  startRow);
@@ -188,37 +193,8 @@ public class LunchDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
-	
+		   
 	public List<ListRequest> selectSearch(Connection conn, String search, String sort, int startRow, int endRow) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			String sql = "select * from (select C.*, Rownum Rnum "
-					+ "					 from (select * "
-					+ "						   from lunch A join (select L.*, I.filerealname "
-					+ "						                      from lcontent L join image I "
-					+ "						                      on L.bno = I.bno) B "
-					+ "						   on A.bno = B.bno and (title like '%' || ? || '%' or content like '%' || ? || '%') "
-					+ "						   order by a." + sort + " desc, a.bno desc) C) "
-					+ "where Rnum >= ? and Rnum <= ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, search);
-			pstmt.setString(2, search);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
-			rs = pstmt.executeQuery();
-			List<ListRequest> result = new ArrayList<>();
-			while(rs.next()) {
-				result.add(convertListRequest(rs));
-			}
-			return result;
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-	}
-	   
-	public List<ListRequest> selectSearchReplyCount(Connection conn, String search, int startRow, int endRow) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -228,7 +204,7 @@ public class LunchDao {
 					+ "ON A.bno = B.bno JOIN lcontent C ON A.bno = C.bno JOIN image I on A.bno = I.bno and "
 					+ "(A.title like '%' || ? || '%' or C.content like '%' || ? || '%') "
 					+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content, I.filerealname "
-					+ "order by replyCount desc, A.bno desc) D) "
+					+ "order by " + sort +" desc, A.bno desc) D) "
 					+ "where Rnum >= ? and Rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, search);

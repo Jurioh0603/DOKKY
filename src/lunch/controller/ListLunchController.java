@@ -29,7 +29,7 @@ public class ListLunchController implements CommandHandler {
 		
 		LunchPage lunchPage = null;
 		if(search == null)
-			lunchPage = listService.getLunchPage(pageNo, sort);
+			lunchPage = listService.getLunchPage(pageNo);
 		else
 			lunchPage = listService.getSearchLunchPage(pageNo, search, sort);
 		
