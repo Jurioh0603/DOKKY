@@ -18,7 +18,7 @@ import qna.service.QnaNotFoundException;
 import qna.service.ReadQnaService;
 
 public class ModifyQnaController implements CommandHandler {
-	private static final String FORM_VIEW = "/view/board/qna/modifyForm.jsp";
+	private static final String FORM_VIEW = "/view/board/qna/qnaModifyForm.jsp";
 	
 	private ReadQnaService readService = new ReadQnaService();
 	private ModifyQnaService modifyService = new ModifyQnaService();

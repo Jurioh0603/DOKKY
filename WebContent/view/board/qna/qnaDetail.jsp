@@ -101,10 +101,10 @@
 					<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
 					<form id="editForm" action="/qna/modify.do" method="get">
 						<input type="hidden" name="no" value="${qnaData.qna.bno}">
-						<button type="submit" class="custom-button">글 수정</button>
+						<button type="submit" class="custom-button">글수정</button>
 					</form>
 				</c:if>
-					<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글 삭제</button>
+					<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글삭제</button>
 				</div>
 			</div>
 		</c:if>

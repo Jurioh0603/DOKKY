@@ -104,10 +104,11 @@ textarea {
   display: flex;
   padding: 8px 13px;
   margin-bottom: -59px;
+  margin-left: 3px;
   border: 1px solid;
   border-radius: 8px;
   background-color: #0090F9;
-  font-size: 13px;
+  font-size: 15px;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s ease;

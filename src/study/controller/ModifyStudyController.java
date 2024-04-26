@@ -18,7 +18,7 @@ import study.service.StudyData;
 import study.service.StudyNotFoundException;
 
 public class ModifyStudyController implements CommandHandler{
-	private static final String FORM_VIEW = "/view/board/study/modifyForm.jsp";
+	private static final String FORM_VIEW = "/view/board/study/studyModifyForm.jsp";
 	
 	
 	private ReadStudyService readService = new ReadStudyService();

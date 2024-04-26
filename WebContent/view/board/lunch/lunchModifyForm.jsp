@@ -53,8 +53,8 @@
 		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
 		<div class="col-sm-10">
 			<div class="button-container">
-				<button type="submit" class="custom-button" style="margin-right:10px;">수정</button>
-				<button type="button" class="custom-button" onclick="history.back()">취소</button>
+				<button type="submit" class="custom-button" >수정</button>
+				<button type="button" class="custom-button" style="margin-left:3px;" onclick="history.back()">취소</button>
 			</div>
 		</div>
 	</div>
