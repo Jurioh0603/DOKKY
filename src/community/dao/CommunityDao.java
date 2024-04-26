@@ -136,7 +136,7 @@ public class CommunityDao {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
-				String sql =  "select * from (select C.*, Rownum Rnum from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount "
+				String sql = "select * from (select C.*, Rownum Rnum from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount "
 						+ "FROM community A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM creply GROUP BY bno) B "
 						+ "ON A.bno = B.bno GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt order by bno desc) C) "
 						+ "where Rnum >= ? and Rnum <= ?";
@@ -145,7 +145,6 @@ public class CommunityDao {
 				pstmt.setInt(2, endRow);
 				rs = pstmt.executeQuery();
 				List<CommunityList> result = new ArrayList<>();
-				System.out.println("select");
 				while(rs.next()) {
 					result.add(convertCommunityList(rs));
 				}
@@ -195,7 +194,6 @@ public class CommunityDao {
 				pstmt.setInt(4, endRow);
 				rs = pstmt.executeQuery();
 				List<CommunityList> result = new ArrayList<>();
-				System.out.println("selectSearch");
 				while(rs.next()) {
 					result.add(convertCommunityList(rs));
 				}

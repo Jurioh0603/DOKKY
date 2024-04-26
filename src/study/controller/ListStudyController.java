@@ -26,7 +26,7 @@ public class ListStudyController implements CommandHandler{
 			
 			StudyPage studyPage = null;
 			if(search == null)
-				studyPage = listService.getStudyPage(pageNo, sort);
+				studyPage = listService.getStudyPage(pageNo);
 			else
 				studyPage = listService.getSearchStudyPage(pageNo, search, sort);
 			req.setAttribute("studyPage", studyPage);

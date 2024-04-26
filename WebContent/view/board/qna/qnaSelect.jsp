@@ -97,7 +97,8 @@
 	  			<div class="content">
 	    			<div class="user">${qnaItem.memId}</div>
 	    			<div class="title"><a href="/qna/read.do?no=${qnaItem.bno}">${qnaItem.title}</a></div>
-	    			<div class="dateHit">${qnaItem.formattedRegDateSel}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaItem.hit}</div>
+	    			<div class="dateHit">${qnaItem.formattedRegDateSel}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaItem.hit}
+	  				&nbsp;<i class="bi bi-chat-square-dots" style="font-size: 13px"></i>&nbsp;${qnaItem.replyCount}</div>
 	  			</div>
 			</li>
 		</c:forEach>
