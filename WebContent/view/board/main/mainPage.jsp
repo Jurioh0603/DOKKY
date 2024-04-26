@@ -46,7 +46,7 @@
 	              </a>
 	              </div>
 	              <div class="carousel-item">
-	              <a href="https://www.choongang.co.kr/html/sub03_01_n.php">
+	              <a href="https://www.choongang.co.kr/html/sub03_07_n.php">
 	                <img src="<%=request.getContextPath() %>/imgs/banner2.jpg" class="d-block" alt="banner2">
 	              </a>
 	              </div>
@@ -96,6 +96,10 @@
 	                 <c:if test="${authUser.grade eq 9999}">
 	                 	<a href="/admin/memberList.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9; margin-bottom: 0px">홈페이지 관리</a>
 	                 </c:if>
+<<<<<<< HEAD
+	                 
+=======
+>>>>>>> 51ba97805082c306041f6cc903405d0d20e9b771
 	                 <a href="/logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	               </div>
 	             </div>

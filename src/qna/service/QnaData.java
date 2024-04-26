@@ -4,15 +4,15 @@ import java.util.List;
 
 import qna.model.Qcontent;
 import qna.model.Qna;
-import qna.model.ReplyDTO;
+import qna.model.QreplyDTO;
 
 public class QnaData {
 	
 	private Qna qna;
 	private Qcontent content;
-	private List<ReplyDTO> reply;
+	private List<QreplyDTO> reply;
 	
-	public QnaData(Qna qna, Qcontent content, List<ReplyDTO> reply) {
+	public QnaData(Qna qna, Qcontent content, List<QreplyDTO> reply) {
 		this.qna = qna;
 		this.content = content;
 		this.reply = reply;
@@ -20,12 +20,12 @@ public class QnaData {
 	
 
 
-	public List<ReplyDTO> getReply() {
+	public List<QreplyDTO> getReply() {
 		return reply;
 	}
 
 
-	public void setReply(List<ReplyDTO> reply) {
+	public void setReply(List<QreplyDTO> reply) {
 		this.reply = reply;
 	}
 
