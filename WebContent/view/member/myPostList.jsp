@@ -56,7 +56,8 @@
                     var deleteList = [];
                     
                     $checked.each(function() {
-                        deleteList.push($(this).closest('tr').find('td:first').text());
+                    	var boardItemBno = $(this).closest('tr').find('.boardItemBno').val();
+                        deleteList.push(boardItemBno);
                     });
                     
                     $('input[name="deleteList"]').val(deleteList.join(','));
@@ -135,10 +136,11 @@
 						<c:set var="number" value="${(currentPage-1)*10+1 }"/>
 						<c:forEach var="boardItem" items="${postPage.postList}">
 							<tr>
-								<td>${number }</td>
+								<td>${number}</td>
 								<td><a href="/${board}/read.do?no=${boardItem.bno}">${boardItem.title }</a></td>
-								<td>${boardItem.regdate }</td>
+								<td>${boardItem.formattedRegDate }</td>
 								<td><input type="checkbox" style="transform: scale(1.3);"></td>
+								<input type="hidden" class="boardItemBno" value="${boardItem.bno}">
 							</tr>
 						<c:set var="number" value="${number+1}"/>
 						</c:forEach>

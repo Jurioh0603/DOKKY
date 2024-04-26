@@ -1,6 +1,7 @@
 package board.model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Board {
 	
@@ -56,6 +57,11 @@ public class Board {
 
 	public void setMemid(String memid) {
 		this.memid = memid;
+	}
+	
+    public String getFormattedRegDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(regdate);
 	}
 	
 }
