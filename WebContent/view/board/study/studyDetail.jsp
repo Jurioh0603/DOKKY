@@ -205,13 +205,23 @@
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
 <script>
-	document.getElementById("addReplyButton").addEventListener("click", function() {
-	    // 댓글 등록 폼 가져오기
-	    var addReplyForm = document.getElementById("addReplyForm");
-	    
-	    // 폼을 submit하여 댓글 추가 기능 수행
-	    addReplyForm.submit();
-	});
+document.getElementById("addReplyButton").addEventListener("click", function() {
+    // 댓글 등록 폼 가져오기
+    var addReplyForm = document.getElementById("addReplyForm");
+    
+    // 댓글 내용 가져오기
+    var replyContent = addReplyForm.querySelector("textarea[name='rcontent']").value.trim();
+    
+    // 댓글 내용이 비어 있는지 확인
+    if (replyContent.length === 0) {
+        // 사용자에게 알림
+        alert("최소 1자 이상의 댓글 내용을 입력해주세요.");
+        // 폼 제출을 중지
+        event.preventDefault();
+    }
+    // 폼을 submit하여 댓글 추가 기능 수행
+    //addReplyForm.submit();
+});
 	
 	// 수정 버튼 클릭 시 이벤트 처리
 	// 수정 버튼 클릭 시 이벤트 처리
@@ -232,7 +242,7 @@ document.addEventListener('click', function(event) {
             // 폼 생성
             var form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/qna/reply.do?command=updateReply';
+            form.action = '/study/reply.do?command=updateReply';
 
             // 파라미터 추가
             var replyNoInput = document.createElement('input');
