@@ -96,10 +96,6 @@
 	                 <c:if test="${authUser.grade eq 9999}">
 	                 	<a href="/admin/memberList.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9; margin-bottom: 0px">홈페이지 관리</a>
 	                 </c:if>
-<<<<<<< HEAD
-	                 
-=======
->>>>>>> 51ba97805082c306041f6cc903405d0d20e9b771
 	                 <a href="/logout.do" class="btn btn-primary login-button" style="background-color: #0090f9; border-color: #0090f9;"><span style="text">DOKKY</span> 로그아웃</a>
 	               </div>
 	             </div>

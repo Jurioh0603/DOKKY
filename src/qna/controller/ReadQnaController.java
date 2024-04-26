@@ -18,7 +18,6 @@ public class ReadQnaController implements CommandHandler{
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 	    // 게시글 번호 가져오기
 	    String noVal = req.getParameter("no");
-	    System.out.println("noVal = " + noVal);
 	    int bno = Integer.parseInt(noVal);
 	    
 	    try {

@@ -5,10 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import qna.model.Qna;
@@ -37,16 +34,6 @@ public class QnaDao {
 			   Qna qna = null;
 			   if(rs.next()) {
 				   qna = convertQna(rs); //p648. convertStudy() 게시글 목록 조회 기능구현에서 생성한 메서드
-				   //regDate formatting
-				   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				   String regDatestr = dateFormat.format(qna.getRegDate());
-				   Date regDate = null;
-				   try {
-					   regDate = dateFormat.parse(regDatestr);
-				   } catch (ParseException e) {
-					   e.printStackTrace();
-				   }
-				   qna.setRegDate(regDate);
 			   }
 			   return qna;
 		   }finally {
