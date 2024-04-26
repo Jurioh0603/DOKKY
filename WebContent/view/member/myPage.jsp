@@ -39,11 +39,19 @@
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a class="nav-link link-dark active">내 정보</a>
+      			<a href="/myPage.do" class="nav-link link-dark">계정 관리</a>
     		</li>
-    		<li class="nav-item l1">
-      			<a href="../member/myPostList.jsp" class="nav-link link-dark">내 글 목록</a>
-    		</li>
+    		<li class="l1">
+	  			<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+	  			내가 쓴 글
+	  			</a>
+	  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				    <li><a class="dropdown-item" id="qna-link" href="/postList.do?board=qna&pageNo=1">Q&A</a></li>
+				    <li><a class="dropdown-item" id="community-link" href="/postList.do?board=community&pageNo=1">자유게시판</a></li>
+				    <li><a class="dropdown-item" id="study-link" href="/postList.do?board=study&pageNo=1">스터디모집</a></li>
+				    <li><a class="dropdown-item" id="lunch-link" href="/postList.do?board=lunch&pageNo=1">점메추</a></li>
+	  			</ul>
+	  		</li>
   		</ul>
 	</div>
 

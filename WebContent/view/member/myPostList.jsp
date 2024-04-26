@@ -76,7 +76,7 @@
 	<div class="d-flex flex-column flex-shrink-0 ps-5 pt-5 side-bar ms-5" style="width: 280px;">
   		<ul class="nav nav-pills flex-column mb-auto">
     		<li class="nav-item l1">
-      			<a href="../member/myPage.jsp" class="nav-link link-dark">계정 관리</a>
+      			<a href="/myPage.do" class="nav-link link-dark">계정 관리</a>
     		</li>
     		<li class="l1">
 	  			<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
