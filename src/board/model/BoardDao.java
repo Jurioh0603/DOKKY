@@ -68,6 +68,11 @@ public class BoardDao {
 				pstmt.executeUpdate();
 			}
 			
+			String replySql = "delete from " + board.charAt(0) + "reply where bno=?";
+			pstmt = conn.prepareStatement(replySql);
+			pstmt.setInt(1, Integer.parseInt(bno));
+			pstmt.executeUpdate();
+			
 			String bbsSql = "delete from " + board + " where bno=?";
 			pstmt = conn.prepareStatement(bbsSql);
 			pstmt.setInt(1, Integer.parseInt(bno));

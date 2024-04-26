@@ -43,7 +43,6 @@ public class Sreply {
 	
 	//시간까지 포함된 문자열로 변환하여 반환하는 메서드
    public String getFormattedRegDate() {
-	   System.out.println(date);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
       return dateFormat.format(date);
    }

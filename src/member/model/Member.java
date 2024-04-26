@@ -1,5 +1,6 @@
 package member.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Member {
@@ -74,5 +75,10 @@ public class Member {
 	
 	public void changePassword(String newPwd) {
 		this.mempw = newPwd;
+	}
+	
+	public String getFormattedRegDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(regdate);
 	}
 }

@@ -104,7 +104,7 @@
 							<td>${member.memid }</td>
 							<td>${member.name }</td>
 							<td>${member.email }</td>
-							<td>${member.regdate }</td>
+							<td>${member.formattedRegDate }</td>
 							<td>
 								<c:choose>
 									<c:when test="${member.grade == 1111}">
