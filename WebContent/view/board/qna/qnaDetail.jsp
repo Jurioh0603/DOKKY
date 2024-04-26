@@ -35,7 +35,7 @@
 	<!-- 글 보기 -->
 	<p style="margin-bottom: 5px;">작성자: ${qnaData.qna.memId}</p>
 	<!--  p태그에 id값 부여해서 JS 실행 -->
-	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${qnaData.qna.regDate}</span>
+	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${qnaData.qna.formattedRegDate}</span>
 	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaData.qna.hit}</span></p>
 	<br>
 	<h2 class="logo">${qnaData.qna.title}</h2>
@@ -138,7 +138,7 @@
 		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
 		        <div class="col-sm-10">
 		        <c:if test="${authUser != null}">
-		            <textarea name="rcontent" class="form-text1" id="rcontent" ${param.content} style="width: 120%;"></textarea>
+		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;"></textarea>
 		        </c:if>
 		        <c:if test="${authUser == null}">
 		            <textarea name="rcontent" class="form-text1" id="rcontent" readonly="readonly" style="width: 120%;">작성하려면 로그인이 필요합니다.</textarea>
