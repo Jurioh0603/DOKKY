@@ -221,6 +221,7 @@ document.addEventListener('click', function(event) {
         
         // 사용자가 입력한 내용이 있는 경우에만 수정 요청 보냄
         if (newContent !== null) {
+        	 if (newContent.trim().length > 0) {
             // 폼 생성
             var form = document.createElement('form');
             form.method = 'POST';
@@ -248,7 +249,11 @@ document.addEventListener('click', function(event) {
             // 폼을 바디에 추가하고 서브밋
             document.body.appendChild(form);
             form.submit();
+        }else {
+            // 사용자가 내용을 입력하지 않았거나 최소 1자 이상이 아닌 경우 메시지 표시
+            alert("댓글을 최소 1자 이상 입력해주세요.");
         }
+      }
     }
 });
 
