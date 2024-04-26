@@ -95,7 +95,8 @@
 	  			<div class="content">
 	    			<div class="user">${communityItem.memId}</div>
 	    			<div class="title"><a href="/community/read.do?no=${communityItem.bno}">${communityItem.title}</a></div>
-	    			<div class="dateHit">${communityItem.formattedRegDateSel}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${communityItem.hit}</div>
+	    			<div class="dateHit">${communityItem.formattedRegDateSel}&nbsp;&nbsp;&nbsp;<i class="bi bi-eye" style="margin-right: 3px;"></i>${communityItem.hit}
+	    			&nbsp;<i class="bi bi-chat-square-dots" style="font-size: 13px"></i>&nbsp;${communityItem.replyCount}</div>
 	  			</div>
 			</li>
 		</c:forEach>
