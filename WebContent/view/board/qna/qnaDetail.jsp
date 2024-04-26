@@ -86,27 +86,30 @@
 		<br>
 	</main>
 	<hr style="clear:both;"/>
-    
+	
+    <div class="item">
 	<form action="/qna/list.do" method="post">
 		<button class="next">목록</button>
-		</form>    
+	</form>    
 		
 	<!-- 글 수정, 삭제버튼(해당 글 작성자만 보이도록) -->
 	<div style="margin-left: auto;">
 	<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == qnaData.qna.memId)}">
 		<div class="form-group row">
-		<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
-		<c:if test="${authUser.id == qnaData.qna.memId}">
-		<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
-		<form id="editForm" action="/qna/modify.do" method="get">
-			<input type="hidden" name="no" value="${qnaData.qna.bno}">
-			<button type="submit" class="custom-button">글 수정</button>
-		</form>
+			<div class="button-container" style="margin-bottom: 15px; justify-content: flex-end;">
+				<c:if test="${authUser.id == qnaData.qna.memId}">
+					<!-- 현재 로그인한 사용자가 글 작성자인 경우에만 수정 버튼이 나오도록 -->
+					<form id="editForm" action="/qna/modify.do" method="get">
+						<input type="hidden" name="no" value="${qnaData.qna.bno}">
+						<button type="submit" class="custom-button">글 수정</button>
+					</form>
+				</c:if>
+					<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal" style="margin-top:-20px;">글 삭제</button>
+				</div>
+			</div>
 		</c:if>
-		<button type="button" class="custom-button" id="deleteModalButton" data-bs-toggle="modal" data-bs-target="#deleteModal">글 삭제</button>
 		</div>
-		</div>
-		</c:if>
+	</div>
 		<br/>
 		<br/>
 		
