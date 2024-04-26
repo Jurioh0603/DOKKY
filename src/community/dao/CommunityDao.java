@@ -5,10 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import jdbc.JdbcUtil;
@@ -38,16 +35,6 @@ public class CommunityDao {
 			   Community community = null;
 			   if(rs.next()) {
 				   community = convertCommunity(rs); //p648. convertCommunity() 게시글 목록 조회 기능구현에서 생성한 메서드
-				   //regdate formatting
-				   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				   String regDateStr = dateFormat.format(community.getRegDate());
-				   Date regDate = null;
-				   try {
-					   regDate = dateFormat.parse(regDateStr);
-				   } catch (ParseException e) {
-					   e.printStackTrace();
-				   }
-				   community.setRegDate(regDate);
 			   }
 			   return community;
 		   }finally {

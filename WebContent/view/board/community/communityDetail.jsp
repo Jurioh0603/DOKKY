@@ -35,7 +35,7 @@
    <!-- 글 보기 -->
    <p style="margin-bottom: 5px;">작성자: ${communityData.community.memId}</p>
    <!-- p태그에 id값 부여해서 자바스크립트 실행 -->
-   <p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${communityData.community.regDate}</span>
+   <p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${communityData.community.formattedRegDate}</span>
    <span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${communityData.community.hit}</span></p>
    <br>
    <h2 class="logo">${communityData.community.title}</h2>
@@ -174,7 +174,7 @@
 	                	<div style="margin-top: 18px">
 		                	<div class="comment-info">
 		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
-		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.date}</span>
+		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.formattedRegDate}</span>
 		                	</div>
 		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
 		                    	${replyItem.rcontent}

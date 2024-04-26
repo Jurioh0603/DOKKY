@@ -1,5 +1,6 @@
 package community.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Creply {
@@ -39,6 +40,11 @@ public class Creply {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	//시간까지 포함된 문자열로 변환하여 반환하는 메서드
+    public String getFormattedRegDate() {
+       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       return dateFormat.format(date);
+    }
 	@Override
 	public String toString() {
 		return "ReplyDTO [rno=" + rno + ", bno=" + bno + ", memid=" + memid + ", rcontent=" + rcontent + ", date=" + date + "]";
