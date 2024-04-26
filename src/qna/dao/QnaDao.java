@@ -191,7 +191,7 @@ public class QnaDao {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM qna A JOIN scontent B "
+	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM qna A JOIN qcontent B "
 	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY A." + sort +" desc, a.bno DESC) S) "
 	        		+ "WHERE Rnum >= ? AND Rnum <= ? ";
 	        pstmt = conn.prepareStatement(sql);

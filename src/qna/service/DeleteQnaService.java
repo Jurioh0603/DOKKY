@@ -7,13 +7,13 @@ import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 import qna.dao.QcontentDao;
 import qna.dao.QnaDao;
-import qna.dao.ReplyDao;
+import qna.dao.QreplyDao;
 
 public class DeleteQnaService {
 	
 	private QnaDao qnaDao = new QnaDao();
 	private QcontentDao qcontentDao = new QcontentDao();
-	private ReplyDao replyDao;
+	private QreplyDao replyDao;
 	
 	public void delete(DeleteRequest deleteReq) {
 		Connection conn = null;
@@ -21,8 +21,9 @@ public class DeleteQnaService {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
 			
-			replyDao = new ReplyDao();
+			replyDao = new QreplyDao();
 			replyDao.delete(deleteReq.getQnaNumber());
+			
 			qnaDao.delete(conn, deleteReq.getQnaNumber());
 			qcontentDao.delete(conn, deleteReq.getQnaNumber());
 			
