@@ -202,8 +202,18 @@
 	    // 댓글 등록 폼 가져오기
 	    var addReplyForm = document.getElementById("addReplyForm");
 	    
+	    // 댓글 내용 가져오기
+	    var replyContent = addReplyForm.querySelector("textarea[name='rcontent']").value.trim();
+	    
+	    // 댓글 내용이 비어 있는지 확인
+	    if (replyContent.length === 0) {
+	        // 사용자에게 알림
+	        alert("최소 1자 이상의 댓글 내용을 입력해주세요.");
+	        // 폼 제출을 중지
+	        event.preventDefault();
+	    }
 	    // 폼을 submit하여 댓글 추가 기능 수행
-	    addReplyForm.submit();
+	    //addReplyForm.submit();
 	});
 	
 	// 수정 버튼 클릭 시 이벤트 처리
