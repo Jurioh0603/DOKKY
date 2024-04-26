@@ -85,7 +85,7 @@
 			    <input class="search-txt" style="width:150px" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
 				<input type="hidden" name="sort" value="${sort}"/>
 				<button class="search-btn" type="submit" title="검색">
-			    <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px; background-color:white; border-color: white;" />
+			    <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
 			    </button>
 			</form>
     	</div>
