@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <meta charset="UTF-8">
 <style>
 * {
@@ -111,7 +112,7 @@
 	            		</a>
 	        		</div>
 	        		<div class="gallery-date" style="margin-top:2px;">
-	            		<span>${lunchItem.regdate}</span> | <span>${lunchItem.hit}</span>
+	            		<span>${lunchItem.regdate}</span> | <span><i class="bi bi-eye" style="margin-right: 3px;"></i>${lunchItem.hit}</span>
 	        		</div>
 	        		<div class="gallery-name">
 	            		<span>${lunchItem.memid}</span>

@@ -56,7 +56,7 @@ public class Study {
    
    //글목록 시간 메서드
    public String getFormattedRegDateSel() {
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd / HH시 mm분");
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd | HH시 mm분");
 	    return dateFormat.format(regDate);
 	}
 }

@@ -148,7 +148,7 @@
 		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
 		        <div class="col-sm-10">
 		        <c:if test="${authUser != null}">
-		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;">${param.content}</textarea>
+		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;"></textarea>
 		        </c:if>
 		        <c:if test="${authUser == null}">
 		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;" readonly="readonly">작성하려면 로그인이 필요합니다.</textarea>
@@ -175,7 +175,7 @@
 	                	<div style="margin-top: 18px">
 		                	<div class="comment-info">
 		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
-		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.date}</span>
+		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.formattedRegDate}</span>
 		                	</div>
 		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
 		                    	${replyItem.rcontent}
