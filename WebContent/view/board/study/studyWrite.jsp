@@ -22,7 +22,7 @@
 <br>
 
 <!-- 페이지소개 -->
-<div class="container" style="margin-left:360px;">
+<div class="container" >
 	<div class="content">
 		<h1 class="title">스터디 모집하기</h1>
 		<h2 class="user">DOKKY에서 당신의 스터디원을 구해보세요.</h2>     

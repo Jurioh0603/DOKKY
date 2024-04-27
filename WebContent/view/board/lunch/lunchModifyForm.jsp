@@ -23,7 +23,7 @@
 <br>
 
 <!-- 페이지소개 -->
-<div class="container" style="margin-left:360px;">
+<div class="container">
 	<div class="content">
 		<h1 class="title">점메추</h1>
 		<h2 class="user">학원 근처 맛집을 소개해주세요.</h2>     
