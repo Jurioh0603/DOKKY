@@ -1,29 +1,17 @@
 package qna.controller;
 
 import mvc.command.CommandHandler;
-import qna.model.QreplyDTO;
-import qna.service.ReplyService;
+import qna.model.Qreply;
+import qna.service.QreplyService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import auth.service.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 public class QreplyController implements CommandHandler {
 
-    private ReplyService replyService;
-
-    public QreplyController() {
-        replyService = new ReplyService();
-    }
+    private QreplyService replyService = new QreplyService();
 
     @Override
     public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -31,8 +19,6 @@ public class QreplyController implements CommandHandler {
 
         if ("addReply".equals(command)) {
             return addReply(req, res);
-        } else if ("getReplies".equals(command)) {
-            return getReplies(req, res);
         } else if ("removeReply".equals(command)) {
             return removeReply(req, res);
         } else if ("updateReply".equals(command)) {
@@ -53,35 +39,16 @@ public class QreplyController implements CommandHandler {
             int bno = Integer.parseInt(req.getParameter("no"));
             String rcontent = req.getParameter("rcontent");
             
-            QreplyDTO reply = new QreplyDTO();
+            Qreply reply = new Qreply();
             reply.setBno(bno);
             reply.setMemid(memid);
             reply.setRcontent(rcontent);
 
             replyService.addReply(reply);
             
-            List<QreplyDTO> replies = replyService.getRepliesByBno(bno);
-            req.setAttribute("replies", replies);
-            
             res.sendRedirect("/qna/read.do?no=" + bno);
             return null;
             } catch (Exception e) {
-            e.printStackTrace();
-            return "/view/board/errorPage/notFoundPage.jsp";
-        }
-    }
-
-    private String getReplies(HttpServletRequest req, HttpServletResponse res) {
-        try {
-            int bno = Integer.parseInt(req.getParameter("no"));
-
-            List<QreplyDTO> replies = replyService.getRepliesByBno(bno);
-
-            req.setAttribute("replies", replies);
-
-            res.sendRedirect("/qna/read.do?no=" + bno);
-            return null;
-        } catch (Exception e) {
             e.printStackTrace();
             return "/view/board/errorPage/notFoundPage.jsp";
         }
@@ -121,9 +88,6 @@ public class QreplyController implements CommandHandler {
 
             // 수정된 댓글을 업데이트
             replyService.updateReply(rno, rcontent);
-
-            // 수정된 댓글 목록을 다시 가져옴
-            List<QreplyDTO> updatedReplies = replyService.getUpdatedReplies(bno);
             
             res.sendRedirect("/qna/read.do?no=" + bno);
             return null;

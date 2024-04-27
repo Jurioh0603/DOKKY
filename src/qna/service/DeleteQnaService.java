@@ -13,7 +13,7 @@ public class DeleteQnaService {
 	
 	private QnaDao qnaDao = new QnaDao();
 	private QcontentDao qcontentDao = new QcontentDao();
-	private QreplyDao replyDao;
+	private QreplyDao replyDao = new QreplyDao();;
 	
 	public void delete(DeleteRequest deleteReq) {
 		Connection conn = null;
@@ -21,11 +21,11 @@ public class DeleteQnaService {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
 			
-			replyDao = new QreplyDao();
-			replyDao.delete(deleteReq.getQnaNumber());
+			int bno = deleteReq.getQnaNumber();
 			
-			qnaDao.delete(conn, deleteReq.getQnaNumber());
-			qcontentDao.delete(conn, deleteReq.getQnaNumber());
+			replyDao.delete(conn, bno);
+			qnaDao.delete(conn, bno);
+			qcontentDao.delete(conn, bno);
 			
 			conn.commit();
 		} catch (SQLException e) {

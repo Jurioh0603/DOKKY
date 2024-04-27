@@ -2,7 +2,6 @@ package qna.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.connection.ConnectionProvider;
@@ -11,13 +10,13 @@ import qna.dao.QnaDao;
 import qna.model.Qcontent;
 import qna.model.Qna;
 import qna.dao.QreplyDao;
-import qna.model.QreplyDTO;
+import qna.model.Qreply;
 
 public class ReadQnaService {
 
 	private QnaDao qnaDao = new QnaDao();
 	private QcontentDao qcontentDao = new QcontentDao();
-	private QreplyDao replyDao = null;
+	private QreplyDao replyDao = new QreplyDao();
 	
 	public QnaData getQna(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()) {
@@ -26,9 +25,8 @@ public class ReadQnaService {
 				throw new QnaNotFoundException();
 			}
 			Qcontent qcontent = qcontentDao.selectById(conn, bno);
-			replyDao = new QreplyDao();
 			
-			List<QreplyDTO> replyList = replyDao.getRepliesByBno(bno);
+			List<Qreply> replyList = replyDao.getRepliesByBno(conn, bno);
 			
 			if(qcontent == null) {
 				throw new QnaContentNotFoundException();
