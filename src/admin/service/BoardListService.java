@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import board.dao.BoardDao;
 import board.model.Board;
-import board.model.BoardDao;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 
