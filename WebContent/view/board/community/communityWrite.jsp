@@ -36,13 +36,13 @@
         <div class="form-group row">
             <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
             <div class="col-sm-10">
-                <input type="text" name="title" class="form-text" id="inputTitle" />
+                <input type="text" name="title" class="form-text" id="inputTitle" onKeyUp="javascript:fnChkByte(this,'250')"/>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
             <div class="col-sm-10" style="white-space:pre;">
-                <textarea name="content" class="form-text1" id="inputContent"></textarea>
+                <textarea name="content" class="form-text1" id="inputContent" onKeyUp="javascript:fnChkByte(this,'3500')"></textarea>
             </div>
         </div>
 
@@ -81,7 +81,44 @@
     }
     
     function cancel() {
-        window.location.href = '/lunch/list.do'; // 목록 페이지의 URL로 리디렉션
+        window.location.href = '/community/list.do'; // 목록 페이지의 URL로 리디렉션
+    }
+    
+    function fnChkByte(obj, maxByte)
+    {
+        var str = obj.value;
+        var str_len = str.length;
+
+
+        var rbyte = 0;
+        var rlen = 0;
+        var one_char = "";
+        var str2 = "";
+
+
+        for(var i=0; i<str_len; i++)
+        {
+            one_char = str.charAt(i);
+            if(escape(one_char).length > 4) {
+                rbyte += 3;                                     
+            }else{
+                rbyte++;                                       
+            }
+            if(rbyte <= maxByte){
+                rlen = i+1;                                        
+            }
+         }
+         if(rbyte > maxByte)
+         {
+            alert("최대 " + maxByte + "byte를 초과할 수 없습니다.")
+            str2 = str.substr(0,rlen);                               
+            obj.value = str2;
+            fnChkByte(obj, maxByte);
+         }
+         else
+         {
+            document.getElementById('byteInfo').innerText = rbyte;
+         }
     }
 </script>
 

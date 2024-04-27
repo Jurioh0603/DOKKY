@@ -36,7 +36,7 @@
 	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${lunchData.lunch.formattedRegDate}</span>
 	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${lunchData.lunch.hit}</span></p>
 	<br>
-	<h2 class="logo">${lunchData.lunch.title}</h2>
+	<h2 class="logo" style="white-space: pre-wrap; overflow-wrap: break-word;">${lunchData.lunch.title}</h2>
 	
 	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
 	<script>
@@ -82,7 +82,7 @@
 		<img src="${pageContext.request.contextPath}/upload/${lunchData.filerealname}" alt="${lunchData.filerealname}" width="70%" height="70%" >
 		</div>
 		<div class="post" >
-			<p class="post-content" style="white-space:pre;">${lunchData.content}</p>
+			<p class="post-content" style="white-space: pre-wrap; overflow-wrap: break-word;">${lunchData.content}</p>
 		</div>
 		<br>
 		<br>

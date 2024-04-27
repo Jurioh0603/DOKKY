@@ -38,13 +38,13 @@
 	<div class="form-group row">
 		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
 		<div class="col-sm-10">
-			<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}"/>
+			<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}" onKeyUp="javascript:fnChkByte(this,'250')"/>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
 		<div class="col-sm-10">
-			<textarea type="text" name="content" class="form-text1" id="inputContent" >${modReq.content}</textarea>
+			<textarea name="content" class="form-text1" id="inputContent" onKeyUp="javascript:fnChkByte(this,'3500')">${modReq.content}</textarea>
 		</div>
 	</div>
 
@@ -68,7 +68,44 @@
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
-
+<script>
+	function fnChkByte(obj, maxByte)
+	{
+	    var str = obj.value;
+	    var str_len = str.length;
+	
+	
+	    var rbyte = 0;
+	    var rlen = 0;
+	    var one_char = "";
+	    var str2 = "";
+	
+	
+	    for(var i=0; i<str_len; i++)
+	    {
+	        one_char = str.charAt(i);
+	        if(escape(one_char).length > 4) {
+	            rbyte += 3;                                     
+	        }else{
+	            rbyte++;                                       
+	        }
+	        if(rbyte <= maxByte){
+	            rlen = i+1;                                        
+	        }
+	     }
+	     if(rbyte > maxByte)
+	     {
+	        alert("최대 " + maxByte + "byte를 초과할 수 없습니다.")
+	        str2 = str.substr(0,rlen);                               
+	        obj.value = str2;
+	        fnChkByte(obj, maxByte);
+	     }
+	     else
+	     {
+	        document.getElementById('byteInfo').innerText = rbyte;
+	     }
+	}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>

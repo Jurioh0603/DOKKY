@@ -38,7 +38,7 @@
 	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${studyData.study.formattedRegDate}</span>
 	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${studyData.study.hit}</span></p>
 	<br>
-	<h2 class="logo">${studyData.study.title}</h2>
+	<h2 class="logo" style="white-space: pre-wrap; overflow-wrap: break-word;">${studyData.study.title}</h2>
 	
 	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
 	<script>
@@ -80,8 +80,8 @@
 	</script>
 	
 	<main class="main">
-		<div class="post"  style="white-space:pre;">
-			<p class="post-content" >${studyData.content}</p>
+		<div class="post">
+			<p class="post-content" style="white-space: pre-wrap; overflow-wrap: break-word;">${studyData.content}</p>
 		</div>
 		<br>
 		<br>
@@ -91,7 +91,7 @@
 	<!-- 글목록 버튼 -->
 	<div class="item">
 	<form action="/study/list.do" method="post">
-		<button class="next" >목록</button>
+		<button class="next">목록</button>
 	</form>
 	
 	<!-- 글수정&글삭제 버튼(해당 글 작성자만 보이도록) -->

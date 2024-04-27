@@ -38,7 +38,7 @@
 	<p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${qnaData.qna.formattedRegDate}</span>
 	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaData.qna.hit}</span></p>
 	<br>
-	<h2 class="logo">${qnaData.qna.title}</h2>
+	<h2 class="logo" style="white-space: pre-wrap; overflow-wrap: break-word;">${qnaData.qna.title}</h2>
 	
 	<!--  JS 코드(글 작성 시간 ~시간 전 표시) -->
 	<script>
@@ -78,8 +78,8 @@
 	regDateElement.textContent = displayText;
 	</script>
 	<main class="main">
-		<div class="post" style="white-space:pre;">
-			<p class="post-content" >${qnaData.content}</p>
+		<div class="post">
+			<p class="post-content" style="white-space: pre-wrap; overflow-wrap: break-word;">${qnaData.content}</p>
 		</div>
 		<br>
 		<br>

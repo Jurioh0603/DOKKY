@@ -38,7 +38,7 @@
    <p><span id="regDate" style="margin-bottom: 5px; margin-right: 5px;">${communityData.community.formattedRegDate}</span>
    <span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${communityData.community.hit}</span></p>
    <br>
-   <h2 class="logo">${communityData.community.title}</h2>
+   <h2 class="logo" style="white-space: pre-wrap; overflow-wrap: break-word;">${communityData.community.title}</h2>
 	
 	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
 	<script>
@@ -79,7 +79,7 @@
 	</script>
 	<main class="main">
 		<div class="post" >
-			<p class="post-content" style="white-space:pre;">${communityData.content}</p>
+			<p class="post-content" style="white-space: pre-wrap; overflow-wrap: break-word;">${communityData.content}</p>
 		</div>
 		<br>
 		<br>
