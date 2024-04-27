@@ -3,7 +3,7 @@ package qna.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class QreplyDTO {
+public class Qreply {
 	private int rno;
 	private int bno;
 	private String memid;

@@ -1,17 +1,17 @@
-package study.service;
+package qna.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import jdbc.connection.ConnectionProvider;
-import study.dao.SreplyDao;
-import study.model.Sreply;
+import qna.dao.QreplyDao;
+import qna.model.Qreply;
 
-public class SreplyService {
+public class QreplyService {
     
-	private SreplyDao replyDAO = new SreplyDao();
+	private QreplyDao replyDAO = new QreplyDao();
 
-	public void addReply(Sreply reply) throws SQLException {
+    public void addReply(Qreply reply) throws SQLException {
 		try (Connection conn = ConnectionProvider.getConnection()) {        
 			replyDAO.addReply(conn, reply);
 		} catch(SQLException e) {

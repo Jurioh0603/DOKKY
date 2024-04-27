@@ -16,7 +16,7 @@ public class ReadCommunityService {
 	
 	private CommunityDao communityDao = new CommunityDao();
 	private CcontentDao ccontentDao = new CcontentDao();
-	private CreplyDao replyDao = null;
+	private CreplyDao replyDao = new CreplyDao();
 	
 	public CommunityData getCommunity(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()){
@@ -26,9 +26,7 @@ public class ReadCommunityService {
 			}
 			Ccontent ccontent = ccontentDao.selectById(conn, bno);
 			
-			replyDao = new CreplyDao();
-			
-			List<Creply> replyList = replyDao.getRepliesByBno(bno);
+			List<Creply> replyList = replyDao.getRepliesByBno(conn, bno);
 			
 			if(ccontent == null) {
 				throw new CcontentNotFoundException();

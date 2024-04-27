@@ -6,15 +6,10 @@ import lunch.service.LreplyService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import auth.service.User;
-import java.util.List;
 
 public class LreplyController implements CommandHandler {
 
-    private LreplyService replyService;
-
-    public LreplyController() {
-        replyService = new LreplyService();
-    }
+    private LreplyService replyService = new LreplyService();
 
     @Override
     public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -22,8 +17,6 @@ public class LreplyController implements CommandHandler {
 
         if ("addReply".equals(command)) {
             return addReply(req, res);
-        } else if ("getReplies".equals(command)) {
-            return getReplies(req, res);
         } else if ("removeReply".equals(command)) {
             return removeReply(req, res);
         } else if ("updateReply".equals(command)) {
@@ -51,30 +44,11 @@ public class LreplyController implements CommandHandler {
 
             replyService.addReply(reply);
             
-            List<Lreply> replies = replyService.getRepliesByBno(bno);
-            req.setAttribute("replies", replies);
-            
             res.sendRedirect("/lunch/read.do?no=" + bno);
             return null;
             } catch (Exception e) {
             e.printStackTrace();
             return "/view/board/errorPage/notFoundPage.jsp";
-        }
-    }
-
-    private String getReplies(HttpServletRequest req, HttpServletResponse res) {
-        try {
-            int bno = Integer.parseInt(req.getParameter("no"));
-
-            List<Lreply> replies = replyService.getRepliesByBno(bno);
-
-            req.setAttribute("replies", replies);
-
-            res.sendRedirect("/lunch/read.do?no=" + bno);
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "/view/board/errorPage/deleteBoardPage.jsp";
         }
     }
 
@@ -113,9 +87,6 @@ public class LreplyController implements CommandHandler {
             // 수정된 댓글을 업데이트
             replyService.updateReply(rno, rcontent);
 
-            // 수정된 댓글 목록을 다시 가져옴
-            List<Lreply> updatedReplies = replyService.getUpdatedReplies(bno);
-            
             res.sendRedirect("/lunch/read.do?no=" + bno);
             return null;
         } catch (Exception e) {

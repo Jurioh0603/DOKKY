@@ -2,7 +2,6 @@ package lunch.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jdbc.JdbcUtil;
@@ -38,12 +37,13 @@ public class ImageDao {
 	
 	//delete메서드 구현시도
 	public int delete(Connection conn, int imageNo) throws SQLException {
-		try (PreparedStatement pstmt = 
-				conn.prepareStatement(
-						"delete from image " +  
-						"where bno = ?")) {
+        PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("delete from image where bno = ?");
 			pstmt.setInt(1, imageNo);
 			return pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 }

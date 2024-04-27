@@ -1,4 +1,4 @@
-package board.model;
+package board.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import board.model.Board;
 import jdbc.JdbcUtil;
 
 public class BoardDao {

@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import community.service.CommunityList;
 import qna.model.Qna;
 import qna.service.QnaList;
 import jdbc.JdbcUtil;
@@ -46,12 +45,13 @@ public class QnaDao {
 	   
 	   //게시글 조회수 증가
 	   public void increaseHit(Connection conn, int no)throws SQLException{
-		   try(PreparedStatement pstmt =
-				   conn.prepareStatement(
-						   "UPDATE qna SET hit = hit+1" +
-						   "WHERE bno = ?")){
+		   PreparedStatement pstmt = null;
+		   try {
+			   pstmt = conn.prepareStatement("UPDATE qna SET hit = hit+1 WHERE bno = ?");
 			   pstmt.setInt(1, no);
 			   pstmt.executeUpdate();
+		   } finally {
+			   JdbcUtil.close(pstmt);
 		   }
 	   }
 	
@@ -84,7 +84,7 @@ public class QnaDao {
          throw e; 
      } finally {
      	JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
+		JdbcUtil.close(pstmt);
      }
      return null; 
    }

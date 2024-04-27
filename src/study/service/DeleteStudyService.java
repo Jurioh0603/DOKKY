@@ -13,7 +13,7 @@ public class DeleteStudyService {
     
     private StudyDao studyDao = new StudyDao();
     private ScontentDao scontentDao = new ScontentDao();
-    private SreplyDao replyDao;
+    private SreplyDao replyDao = new SreplyDao();
     
     public void delete(DeleteRequest deleteReq) {
         Connection conn = null;
@@ -21,13 +21,11 @@ public class DeleteStudyService {
             conn = ConnectionProvider.getConnection();
             conn.setAutoCommit(false);
             
-            replyDao = new SreplyDao();
-            replyDao.delete(deleteReq.getStudyNumber());
-            int studyNo = studyDao.delete(conn, deleteReq.getStudyNumber()); // DeleteRequest로부터 게시글 번호 가져오기
-            int scontentNo = scontentDao.delete(conn, deleteReq.getStudyNumber()); // DeleteRequest로부터 게시글 번호 가져오기
+            int bno = deleteReq.getStudyNumber();
             
-            studyDao.delete(conn, studyNo); // Study 삭제
-            scontentDao.delete(conn, scontentNo); // Scontent 삭제
+            replyDao.delete(conn, bno); // Sreply 삭제
+            studyDao.delete(conn, bno); // Study 삭제
+            scontentDao.delete(conn, bno); // Scontent 삭제
             
             conn.commit();
         } catch (SQLException e) {

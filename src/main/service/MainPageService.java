@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import board.dao.BoardDao;
 import board.model.Board;
-import board.model.BoardDao;
 import jdbc.connection.ConnectionProvider;
 
 public class MainPageService {

@@ -8,25 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.JdbcUtil;
-import jdbc.connection.ConnectionProvider;
 import community.model.Creply;
 
 public class CreplyDao {
-    private Connection conn;
 
-    // 생성자에서 Connection 초기화
-    public CreplyDao() throws SQLException {
-        try {
-            conn = ConnectionProvider.getConnection();
-        } catch (SQLException e) {
-            // 예외 처리
-            e.printStackTrace();
-            throw e;
-        }
-    }
     // 댓글 추가 메서드
-    public void addReply(Creply replyDTO) throws SQLException {
-    	
+    public void addReply(Connection conn, Creply replyDTO) throws SQLException {
         String sql = "INSERT INTO CREPLY (RNO, BNO, MEMID, RCONTENT, RDATE) VALUES (creply_seq.nextval, ?, ?, ?, SYSDATE)";
         PreparedStatement pstmt = null;
         try {
@@ -41,7 +28,7 @@ public class CreplyDao {
     }
 
     // 특정 글에 대한 댓글 조회 메서드
-    public List<Creply> getRepliesByBno(int bno) throws SQLException {
+    public List<Creply> getRepliesByBno(Connection conn, int bno) throws SQLException {
         String sql = "SELECT * FROM CREPLY WHERE BNO = ?";
         List<Creply> replies = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -67,13 +54,13 @@ public class CreplyDao {
     
 
     // 댓글 수정 메서드
-    public void updateReply(Creply replyDTO) throws SQLException {
+    public void updateReply(Connection conn, int rno, String rcontent) throws SQLException {
         String sql = "UPDATE CREPLY SET RCONTENT = ? WHERE RNO = ?";
         PreparedStatement pstmt = null;
         try {
         	pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, replyDTO.getRcontent());
-            pstmt.setInt(2, replyDTO.getRno());
+            pstmt.setString(1, rcontent);
+            pstmt.setInt(2, rno);
             pstmt.executeUpdate();
         } finally {
         	JdbcUtil.close(pstmt);
@@ -81,7 +68,7 @@ public class CreplyDao {
     }
 
     // 댓글 삭제 메서드
-    public void deleteReply(int rno) throws SQLException {
+    public void deleteReply(Connection conn, int rno) throws SQLException {
         String sql = "DELETE FROM CREPLY WHERE RNO = ?";
         PreparedStatement pstmt = null;
         try {
@@ -94,7 +81,7 @@ public class CreplyDao {
     }
     
     // 게시글 삭제시 사용하는 메서드
-    public void delete(int bno) throws SQLException {
+    public void delete(Connection conn, int bno) throws SQLException {
         String sql = "DELETE FROM CREPLY WHERE BNO = ?";
         PreparedStatement pstmt = null;
         try {
