@@ -41,7 +41,7 @@
         </div>
         <div class="form-group row">
             <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-            <div class="col-sm-10">
+            <div class="col-sm-10" style="white-space:pre;">
                 <textarea name="content" class="form-text1" id="inputContent"></textarea>
             </div>
         </div>
@@ -51,8 +51,8 @@
             <label class="col-sm-2"></label>
             <div class="col-sm-10">
                 <div class="button-container">
-                    <button type="button" onclick="cancel()" class="custom-button" style="margin-right:10px;">취소</button>
                     <button type="submit" onclick="submitForm()" class="custom-button">등록</button>
+                    <button type="button" onclick="cancel()" class="custom-button" style="margin-left:3px;">취소</button>
                 </div>
             </div>
         </div>
