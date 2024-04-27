@@ -16,7 +16,7 @@ public class ReadStudyService {
 	
 	private StudyDao studyDao = new StudyDao();
 	private ScontentDao scontentDao = new ScontentDao();
-	private SreplyDao replyDao = null;
+	private SreplyDao replyDao = new SreplyDao();
 	
 	public StudyData getStudy(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()){
@@ -26,9 +26,7 @@ public class ReadStudyService {
 			}
 			Scontent scontent = scontentDao.selectById(conn, bno);
 			
-			replyDao = new SreplyDao();
-			
-			List<Sreply> replyList = replyDao.getRepliesByBno(bno);
+			List<Sreply> replyList = replyDao.getRepliesByBno(conn, bno);
 			
 			if(scontent == null) {
 				throw new ScontentNotFoundException();
