@@ -7,12 +7,12 @@ import community.model.Community;
 public class CommunityPage {
 	private int total;
 	private int currentPage;
-	private List<Community> communityList;
+	private List<CommunityList> communityList;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
 	
-	public CommunityPage(int total, int currentPage, int size, List<Community> communityList) {
+	public CommunityPage(int total, int currentPage, int size, List<CommunityList> communityList) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.communityList = communityList;
@@ -54,7 +54,7 @@ public class CommunityPage {
 		return totalPages;
 	}
 	
-	public List<Community> getCommunityList() {
+	public List<CommunityList> getCommunityList() {
 		return communityList;
 	}
 	

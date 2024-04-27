@@ -2,19 +2,17 @@ package qna.service;
 
 import java.util.List;
 
-import qna.model.Qna;
-
 //게시글 목록을 제공하는 서비스 클래스
 public class QnaPage {
 	
 	private int total;
 	private int currentPage;
-	private List<Qna> qnaList;
+	private List<QnaList> qnaList;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
 	
-	public QnaPage(int total, int currentPage, int size, List<Qna> qnaList) {
+	public QnaPage(int total, int currentPage, int size, List<QnaList> qnaList) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.qnaList = qnaList;
@@ -53,7 +51,7 @@ public class QnaPage {
 		return currentPage;
 	}
 
-	public List<Qna> getQnaList() {
+	public List<QnaList> getQnaList() {
 		return qnaList;
 	}
 

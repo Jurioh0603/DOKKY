@@ -70,7 +70,8 @@
 		<!-- 정렬바 -->
 		<div class="dropdown" style="float:right;">
 	  		<button class="dropbtn">
-				<img src="<%=request.getContextPath() %>/imgs/selectIcon.png" alt="select-icon">최신순
+				<img src="<%=request.getContextPath() %>/imgs/selectIcon.png" alt="select-icon">
+				<span id="dropdownText"></span>
 			</button>
 	  		<div class="dropdown-content">
 	  			<a href="/lunch/list.do?&search=${search}&sort=bno">최신순</a>
@@ -112,7 +113,8 @@
 	            		</a>
 	        		</div>
 	        		<div class="gallery-date" style="margin-top:2px;">
-	            		<span>${lunchItem.regdate}</span> | <span><i class="bi bi-eye" style="margin-right: 3px;"></i>${lunchItem.hit}</span>
+	            		<span>${lunchItem.regdate}</span> | <span><i class="bi bi-eye" style="margin-right: 3px;"></i>${lunchItem.hit}
+	            		&nbsp;<i class="bi bi-chat-square-dots" style="font-size: 12px"></i>&nbsp;${lunchItem.replyCount}</span>
 	        		</div>
 	        		<div class="gallery-name">
 	            		<span>${lunchItem.memid}</span>

@@ -28,7 +28,7 @@ public class ListQnaController implements CommandHandler {
 		
 		QnaPage qnaPage = null;
 		if(search == null)
-			qnaPage = listService.getQnaPage(pageNo, sort);
+			qnaPage = listService.getQnaPage(pageNo);
 		else
 			qnaPage = listService.getSearchQnaPage(pageNo, search, sort);
 		

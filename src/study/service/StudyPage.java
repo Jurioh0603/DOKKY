@@ -2,17 +2,15 @@ package study.service;
 
 import java.util.List;
 
-import study.model.Study;
-
 public class StudyPage {
 	private int total;
 	private int currentPage;
-	private List<Study> studyList;
+	private List<StudyList> studyList;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
 	
-	public StudyPage(int total, int currentPage, int size, List<Study> studyList) {
+	public StudyPage(int total, int currentPage, int size, List<StudyList> studyList) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.studyList = studyList;
@@ -54,7 +52,7 @@ public class StudyPage {
 		return totalPages;
 	}
 	
-	public List<Study> getStudyList() {
+	public List<StudyList> getStudyList() {
 		return studyList;
 	}
 	

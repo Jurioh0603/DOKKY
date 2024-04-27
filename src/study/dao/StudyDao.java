@@ -10,6 +10,7 @@ import java.util.List;
 
 import jdbc.JdbcUtil;
 import study.model.Study;
+import study.service.StudyList;
 
 public class StudyDao {
 	
@@ -131,20 +132,21 @@ public class StudyDao {
 		}
 	}
     
-	public List<Study> select(Connection conn, String sort, int startRow, int endRow) throws SQLException {
+	public List<StudyList> select(Connection conn, int startRow, int endRow) throws SQLException {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
-				String sql = "select * from (select A.*, Rownum Rnum from (select * from study  order by ? desc, bno desc) A ) " 
-						   + "where Rnum >= ? and Rnum <= ?";
+				String sql = "select * from (select C.*, Rownum Rnum from (SELECT A.bno, A.title, A.regdate, A.hit, A.memid, NVL(B.cnt, 0) as replyCount "
+						+ "FROM study A LEFT OUTER JOIN (SELECT bno, COUNT(rno) AS cnt FROM sreply GROUP BY bno) B "
+						+ "ON A.bno = B.bno GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt order by bno desc) C) "
+						+ "where Rnum >= ? and Rnum <= ?";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, sort);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
 				rs = pstmt.executeQuery();
-				List<Study> result = new ArrayList<>();
+				List<StudyList> result = new ArrayList<>();
 				while(rs.next()) {
-					result.add(convertStudy(rs));
+					result.add(convertStudyList(rs));
 				}
 				return result;
 			} finally {
@@ -173,32 +175,7 @@ public class StudyDao {
 	    }
 	}
 	
-	
-	public List<Study> selectSearch(Connection conn, String search, String sort, int startRow, int endRow) throws SQLException {
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    try {
-	        String sql = "SELECT * FROM (SELECT S.*, Rownum Rnum FROM (SELECT * FROM study A JOIN scontent B "
-	        		+ "ON A.bno = B.bno and (title LIKE '%' || ? || '%' OR content LIKE '%' || ? || '%') ORDER BY A." + sort +" desc, a.bno DESC) S) "
-	        		+ "WHERE Rnum >= ? AND Rnum <= ? ";
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, search);
-	        pstmt.setString(2, search);
-	        pstmt.setInt(3, startRow);
-	        pstmt.setInt(4, endRow);
-	        rs = pstmt.executeQuery();
-	        List<Study> result = new ArrayList<>();
-	        while (rs.next()) {
-	            result.add(convertStudy(rs));
-	        }
-	        return result;
-	    } finally {
-	        JdbcUtil.close(rs);
-	        JdbcUtil.close(pstmt);
-	    }
-	}
-	
-	public List<Study> selectSearchReplyCount(Connection conn, String search, int startRow, int endRow) throws SQLException{
+	public List<StudyList> selectSearch(Connection conn, String search, String sort, int startRow, int endRow) throws SQLException{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -208,7 +185,7 @@ public class StudyDao {
 						+ "ON A.bno = B.bno JOIN scontent C ON A.bno = C.bno and "
 						+ "(A.title like '%' || ? || '%' or C.content like '%' || ? || '%') "
 						+ "GROUP BY A.bno, A.title, A.regdate, A.hit, A.memid, B.cnt, C.content "
-						+ "order by replyCount desc, A.bno desc) D) "
+						+ "order by " + sort + " desc, A.bno desc) D) "
 						+ "where Rnum >= ? and Rnum <= ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, search);
@@ -216,9 +193,9 @@ public class StudyDao {
 				pstmt.setInt(3, startRow);
 				pstmt.setInt(4, endRow);
 				rs = pstmt.executeQuery();
-				List<Study> result = new ArrayList<>();
+				List<StudyList> result = new ArrayList<>();
 				while(rs.next()) {
-						result.add(convertStudy(rs));
+						result.add(convertStudyList(rs));
 				}
 				return result;
 		}finally {
@@ -227,7 +204,14 @@ public class StudyDao {
 		}
 	}
 
-
+    private StudyList convertStudyList(ResultSet rs) throws SQLException {
+	    return new StudyList(rs.getInt("bno"),
+			   			 rs.getString("memId"),
+			   			 rs.getString("title"),
+			   			 rs.getDate("regDate"),
+			   			 rs.getInt("hit"),
+			   			 rs.getInt("replyCount"));
+    }
    
   
 }
