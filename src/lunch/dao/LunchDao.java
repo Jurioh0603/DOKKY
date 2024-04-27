@@ -55,12 +55,13 @@ public class LunchDao {
 	
 	   //게시글 조회수 증가
 	   public void increaseHit(Connection conn, int no)throws SQLException{
-		   try(PreparedStatement pstmt =
-				   conn.prepareStatement(
-						   "UPDATE lunch SET hit = hit+1" +
-						   "WHERE bno = ?")){
+		   PreparedStatement pstmt = null;
+		   try {
+			   pstmt = conn.prepareStatement("UPDATE lunch SET hit = hit+1 WHERE bno = ?");
 			   pstmt.setInt(1, no);
 			   pstmt.executeUpdate();
+		   } finally {
+			   JdbcUtil.close(pstmt);
 		   }
 	   }
 	   
@@ -93,13 +94,8 @@ public class LunchDao {
 	            e.printStackTrace();
 	            throw e; 
 	        } finally {
-	            if (rs != null) {
-	                rs.close();
-	            }
-	            if (pstmt != null) {
-	                pstmt.close();
-	            }
-	            
+	        	JdbcUtil.close(rs);
+	        	JdbcUtil.close(pstmt);
 	        }
 	        
 	        return null; 

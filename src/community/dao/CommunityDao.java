@@ -45,12 +45,13 @@ public class CommunityDao {
    
 	   //게시글 조회수 증가
 	   public void increaseHit(Connection conn, int no) throws SQLException{
-		   try(PreparedStatement pstmt =
-				   conn.prepareStatement(
-						   "UPDATE community SET hit = hit+1" +
-						   "WHERE bno = ?")){
+		   PreparedStatement pstmt = null;
+		   try {
+			   pstmt = conn.prepareStatement("UPDATE community SET hit = hit+1 WHERE bno = ?");
 			   pstmt.setInt(1, no);
 			   pstmt.executeUpdate();
+		   } finally {
+			   JdbcUtil.close(pstmt);
 		   }
 	   }
 	   

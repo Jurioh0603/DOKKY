@@ -198,10 +198,6 @@ public class MemberDao {
 		}
 	}
 	
-	private Date toDate(Timestamp date) {
-		return date == null ? null : new Date(date.getTime());
-	}
-	
     public void joinMember(Connection conn, Member mem) throws SQLException {
     	PreparedStatement pstmt = null;
     	try{

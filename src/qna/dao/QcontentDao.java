@@ -4,13 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.Date;
 
 import qna.model.Qcontent;
 import jdbc.JdbcUtil;
-import oracle.sql.DATE;
 
 public class QcontentDao {
     
