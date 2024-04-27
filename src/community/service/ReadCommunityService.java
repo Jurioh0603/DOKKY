@@ -28,7 +28,7 @@ public class ReadCommunityService {
 			
 			replyDao = new CreplyDao();
 			
-			List<Creply> replyList = replyDao.getRepliesByBno(bno);
+			List<Creply> replyList = replyDao.getRepliesByBno(conn, bno);
 			
 			if(ccontent == null) {
 				throw new CcontentNotFoundException();

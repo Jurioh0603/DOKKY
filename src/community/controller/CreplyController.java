@@ -6,15 +6,10 @@ import community.service.CreplyService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import auth.service.User;
-import java.util.List;
 
 public class CreplyController implements CommandHandler {
 
-    private CreplyService replyService;
-
-    public CreplyController() {
-        replyService = new CreplyService();
-    }
+    private CreplyService replyService = new CreplyService();;
 
     @Override
     public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -22,8 +17,6 @@ public class CreplyController implements CommandHandler {
 
         if ("addReply".equals(command)) {
             return addReply(req, res);
-        } else if ("getReplies".equals(command)) {
-            return getReplies(req, res);
         } else if ("removeReply".equals(command)) {
             return removeReply(req, res);
         } else if ("updateReply".equals(command)) {
@@ -51,9 +44,6 @@ public class CreplyController implements CommandHandler {
 
             replyService.addReply(reply);
             
-            List<Creply> replies = replyService.getRepliesByBno(bno);
-            req.setAttribute("replies", replies);
-            
             res.sendRedirect("/community/read.do?no=" + bno);
             return null;
             } catch (Exception e) {
@@ -62,23 +52,7 @@ public class CreplyController implements CommandHandler {
         }
     }
 
-    private String getReplies(HttpServletRequest req, HttpServletResponse res) {
-        try {
-            int bno = Integer.parseInt(req.getParameter("no"));
-
-            List<Creply> replies = replyService.getRepliesByBno(bno);
-
-            req.setAttribute("replies", replies);
-
-            res.sendRedirect("/community/read.do?no=" + bno);
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "/view/board/errorPage/notFoundPage.jsp";
-        }
-    }
-
-    private String removeReply(HttpServletRequest req, HttpServletResponse res) {
+     private String removeReply(HttpServletRequest req, HttpServletResponse res) {
         try {
         	User user = (User)req.getSession().getAttribute("authUser");
             String memid = null;

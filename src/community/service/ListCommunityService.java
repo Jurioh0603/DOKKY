@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import community.dao.CommunityDao;
-import community.model.Community;
 import jdbc.connection.ConnectionProvider;
 
 public class ListCommunityService {

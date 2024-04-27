@@ -13,7 +13,7 @@ public class DeleteCommunityService {
     
     private CommunityDao communityDao = new CommunityDao();
     private CcontentDao ccontentDao = new CcontentDao();
-    private CreplyDao replyDao;
+    private CreplyDao replyDao = new CreplyDao();
     
     public void delete(DeleteRequest deleteReq) {
         Connection conn = null;
@@ -21,8 +21,7 @@ public class DeleteCommunityService {
             conn = ConnectionProvider.getConnection();
             conn.setAutoCommit(false);
             
-            replyDao = new CreplyDao();
-            replyDao.delete(deleteReq.getCommunityNumber()); // DeleteRequest로부터 게시글 번호 가져오기
+            replyDao.delete(conn, deleteReq.getCommunityNumber()); // Creply 삭제
             communityDao.delete(conn, deleteReq.getCommunityNumber()); // Community 삭제
             ccontentDao.delete(conn, deleteReq.getCommunityNumber()); // Ccontent 삭제
             
