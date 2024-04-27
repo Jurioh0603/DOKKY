@@ -121,10 +121,10 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th scope="col">번호</th>
+							<th scope="col" style="white-space: nowrap;">번호</th>
 							<th scope="col">제목</th>
 							<th scope="col">작성일</th>
-							<th scope="col">선택&nbsp;&nbsp;<input id="selectAll" type="checkbox" style="transform: scale(1.3);"></th>
+							<th scope="col" style="white-space: nowrap;">선택&nbsp;&nbsp;<input id="selectAll" type="checkbox" style="transform: scale(1.3);"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -136,9 +136,9 @@
 						<c:set var="number" value="${(currentPage-1)*10+1 }"/>
 						<c:forEach var="boardItem" items="${postPage.postList}">
 							<tr>
-								<td>${number}</td>
+								<td style="white-space: nowrap;">${number}</td>
 								<td><a href="/${board}/read.do?no=${boardItem.bno}">${boardItem.title }</a></td>
-								<td>${boardItem.formattedRegDate }</td>
+								<td style="white-space: nowrap;">${boardItem.formattedRegDate }</td>
 								<td><input type="checkbox" style="transform: scale(1.3);"></td>
 								<input type="hidden" class="boardItemBno" value="${boardItem.bno}">
 							</tr>
