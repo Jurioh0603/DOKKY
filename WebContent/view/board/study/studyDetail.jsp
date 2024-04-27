@@ -80,8 +80,8 @@
 	</script>
 	
 	<main class="main">
-		<div class="post" >
-			<p class="post-content" style="white-space:pre;">${studyData.content}</p>
+		<div class="post"  style="white-space:pre;">
+			<p class="post-content" >${studyData.content}</p>
 		</div>
 		<br>
 		<br>

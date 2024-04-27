@@ -78,8 +78,8 @@
 	regDateElement.textContent = displayText;
 	</script>
 	<main class="main">
-		<div class="post">
-			<p class="post-content" style="white-space:pre;">${qnaData.content}</p>
+		<div class="post" style="white-space:pre;">
+			<p class="post-content" >${qnaData.content}</p>
 		</div>
 		<br>
 		<br>
