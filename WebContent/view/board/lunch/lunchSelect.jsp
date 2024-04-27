@@ -85,7 +85,7 @@
 			<form class="search-box" style="width: 250px; height: 40px;" action="/lunch/list.do" method="get" >
 			    <input class="search-txt" style="width:200px; font-size: 14px; margin-left:2px;" type="text" name="search" value="${search}" placeholder="검색어를 입력하세요."/>
 				<input type="hidden" name="sort" value="${sort}"/>
-				<button class="search-btn" style="background-color: transparent; margin-top:22px;" type="submit" title="검색">
+				<button class="search-btn" style="background-color: transparent; margin-top:22px; margin-bottom:22px;" type="submit" title="검색">
 			    <img src="<%=request.getContextPath() %>/imgs/search-icon.png" alt="검색" style="width: 20px;" />
 			    </button>
 			</form>
