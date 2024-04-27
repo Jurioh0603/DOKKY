@@ -23,7 +23,7 @@
 <br>
 
 <!-- 페이지소개 -->
-<div class="container" style="margin-left:360px;">
+<div class="container">
 	<div class="content">
 		<h1 class="title">궁금증 해결하기</h1>
 		<h2 class="user">DOKKY에서 당신의 궁금증을 해결해보세요.</h2>     

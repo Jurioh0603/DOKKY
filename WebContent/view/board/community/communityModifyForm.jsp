@@ -23,7 +23,7 @@
 <br>
 
 <!-- 페이지소개 -->
-<div class="container" style="margin-left:360px;">
+<div class="container">
 	<div class="content">
 		<h1 class="title">자유게시판</h1>
 		<h2 class="user">다양한 주제로 함께하는 소통의 공간, 커뮤니티 게시판입니다.</h2>     

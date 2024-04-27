@@ -180,9 +180,7 @@
 		                    	<span class="comment-author" style="font-size: 13px;">${replyItem.memid}</span>
 		                    	<span class="comment-date" style="font-size: 13px;">${replyItem.formattedRegDate}</span>
 		                	</div>
-		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px;">
-		                    	${replyItem.rcontent}
-		                	</div>
+		                	<div class="comment-content"  style="font-size: 18px; margin-top:10px; margin-bottom:5px; white-space: pre-wrap; overflow-wrap: break-word;">${replyItem.rcontent}</div>
 	                	</div>
 	                	<div class="comment-buttons">
 							<c:if test="${authUser != null && (authUser.grade == 9999 || authUser.id == replyItem.memid)}">
@@ -236,8 +234,11 @@ document.addEventListener('click', function(event) {
         // 게시물 번호
         var boardNo = event.target.dataset.bno;
         
+        //원래 댓글 내용 가져오기
+        var originalContent = event.target.closest('.comment-item').querySelector('.comment-content').textContent.trim();
+        
         // 수정할 내용 입력 받기 (예시로 간단하게 prompt 사용)
-        var newContent = prompt('댓글을 수정하세요:');
+        var newContent = prompt('댓글을 수정하세요:', originalContent);
         
         // 사용자가 입력한 내용이 있는 경우에만 수정 요청 보냄
         if (newContent !== null) {
