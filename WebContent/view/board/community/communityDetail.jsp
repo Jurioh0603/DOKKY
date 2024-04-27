@@ -147,7 +147,7 @@
 		        <label for="rcontent" class="col-sm-2 col-form-label"><strong>댓글 내용</strong></label>
 		        <div class="col-sm-10">
 		        <c:if test="${authUser != null}">
-		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;">${param.content}</textarea>
+		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;"></textarea>
 		        </c:if>
 		        <c:if test="${authUser == null}">
 		            <textarea name="rcontent" class="form-text1" id="rcontent" style="width: 120%;" readonly="readonly">작성하려면 로그인이 필요합니다.</textarea>
