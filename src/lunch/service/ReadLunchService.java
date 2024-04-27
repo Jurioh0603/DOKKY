@@ -15,7 +15,7 @@ public class ReadLunchService {
 	
 	private LunchDao lunchDao = new LunchDao();
 	private LcontentDao LcontentDao = new LcontentDao();
-	private LreplyDao replyDao = null;
+	private LreplyDao replyDao = new LreplyDao();
 	
 	public LunchData getLunch(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()){
@@ -25,9 +25,7 @@ public class ReadLunchService {
 			}
 			Lcontent lcontent = LcontentDao.selectById(conn, bno);
 			
-			replyDao = new LreplyDao();
-			
-			List<Lreply> replyList = replyDao.getRepliesByBno(bno);
+			List<Lreply> replyList = replyDao.getRepliesByBno(conn, bno);
 			
 			if(lcontent == null) {
 				throw new LcontentNotFoundException();

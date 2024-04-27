@@ -15,7 +15,7 @@ public class DeleteLunchService {
     private LunchDao lunchDao = new LunchDao();
     private LcontentDao lcontentDao = new LcontentDao();
     private ImageDao imageDao = new ImageDao();
-    private LreplyDao replyDao;
+    private LreplyDao replyDao = new LreplyDao();
     
     public void delete(DeleteRequest deleteReq) {
         Connection conn = null;
@@ -25,8 +25,7 @@ public class DeleteLunchService {
             
             int bno = deleteReq.getLunchNumber();
             
-            replyDao = new LreplyDao();
-            replyDao.delete(deleteReq.getLunchNumber()); // DeleteRequest로부터 게시글 번호 가져오기
+            replyDao.delete(conn, bno);
             imageDao.delete(conn, bno);
             lunchDao.delete(conn, bno);
             lcontentDao.delete(conn, bno);

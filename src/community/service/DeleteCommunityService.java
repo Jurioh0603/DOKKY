@@ -21,9 +21,11 @@ public class DeleteCommunityService {
             conn = ConnectionProvider.getConnection();
             conn.setAutoCommit(false);
             
-            replyDao.delete(conn, deleteReq.getCommunityNumber()); // Creply 삭제
-            communityDao.delete(conn, deleteReq.getCommunityNumber()); // Community 삭제
-            ccontentDao.delete(conn, deleteReq.getCommunityNumber()); // Ccontent 삭제
+            int bno = deleteReq.getCommunityNumber();
+            
+            replyDao.delete(conn, bno); // Creply 삭제
+            communityDao.delete(conn, bno); // Community 삭제
+            ccontentDao.delete(conn, bno); // Ccontent 삭제
             
             conn.commit();
         } catch (SQLException e) {
