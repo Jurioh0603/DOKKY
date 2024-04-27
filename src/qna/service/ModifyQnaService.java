@@ -28,7 +28,7 @@ public class ModifyQnaService {
 				throw new PermissionDeniedException();
 			}
 			qnaDao.update(conn, modReq.getQnaNumber(), modReq.getTitle());
-			qnaDao.update(conn, modReq.getQnaNumber(), modReq.getContent());
+			qcontentDao.update(conn, modReq.getQnaNumber(), modReq.getContent());
 			conn.commit();
 		}catch (SQLException e) {
 			JdbcUtil.rollback(conn);
