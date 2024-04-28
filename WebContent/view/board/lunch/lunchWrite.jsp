@@ -51,7 +51,7 @@
             <label class="col-sm-2"></label>
             <div class="col-sm-10">
                 <div class="button-container">
-                    <button type="submit" onclick="submitForm()" class="custom-button">등록</button>
+                    <button type="button" onclick="submitForm()" class="custom-button">등록</button>
                     <button type="button" onclick="cancel()" class="custom-button" style="margin-left:3px;">취소</button>
                 </div>
             </div>
@@ -79,6 +79,11 @@ function submitForm() {
         return false; // 제출을 막음
     }
 
+ 	// 이미지 선택 여부 및 확장자 유효성 검사
+    if (!validateForm()) {
+        return false; // 제출을 막음
+    }
+ 
     // 폼을 직접 제출
     document.getElementById('writeForm').submit();
 }
