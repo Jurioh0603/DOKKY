@@ -40,7 +40,7 @@
 
 			<div class="mb-3 text-start">
 				<label class="form-label">아이디</label>
-			    <input type="text" name="id" value="${param.id}" maxlength="15" placeholder="공백없이 15자 이내로 입력해주세요." class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
+			    <input type="text" name="id" value="${param.id}" maxlength="15" placeholder="영문, 숫자 15자 이내로 입력해주세요." class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 			</div>
 			
 		    <div class="mb-3 text-start">
@@ -55,12 +55,12 @@
 		    
 		    <div class="mb-3 text-start">
 		      	<label class="form-label">이름</label>
-		      	<input type="text" name="name" value="${param.name}" placeholder="최원준" class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
+		      	<input type="text" name="name" value="${param.name}" placeholder="최원준" onKeyUp="javascript:fnChkByte(this,'20')" class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 		    </div>
     
 		    <div class="mb-3 text-start">
 		      	<label class="form-label">이메일</label>
-		      	<input type="email" name="email" value="${param.email}" placeholder="wonjoon@dokky.kr" class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
+		      	<input type="email" name="email" value="${param.email}" placeholder="wonjoon@dokky.kr" maxlength="25" class="form-control block w-full appearance-none rounded-md border border-gray-500/30 px-3 py-2 text-sm placeholder-gray-500/80 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-0 sm:text-base dark:bg-gray-500/20">
 		    </div>
 
 			<div class="button-wrapper d-flex justify-content-center">
@@ -78,6 +78,9 @@
 	           <c:when test="${errors.password}">
 	               <p class="errors-msg"><b>비밀번호</b>를 입력해 주세요.</p>
 	           </c:when>
+	           <c:when test="${errors.verifyPassword}">
+	               <p class="errors-msg"><b>비밀번호 확인</b>을 입력해 주세요.</p>
+	           </c:when>
 	           <c:when test="${errors.name}">
 	               <p class="errors-msg"><b>이름</b>을 입력해 주세요.</p>
 	           </c:when>
@@ -87,6 +90,12 @@
 	           <c:when test="${errors.notMatch}">
 	               <p class="errors-msg">비밀번호와 비밀번호 확인이 일치하지 않습니다.</p>
 	           </c:when>
+	           <c:when test="${errors.passwordBlank}">
+	               <p class="errors-msg">비밀번호 형식이 올바르지 않습니다.</p>
+	           </c:when>
+	           <c:when test="${errors.invalidId}">
+	               <p class="errors-msg">아이디 형식이 올바르지 않습니다.</p>
+	           </c:when>
 	           <c:when test="${errors.invalidEmail}">
 	               <p class="errors-msg">이메일 형식이 올바르지 않습니다.</p>
 	           </c:when>
@@ -95,6 +104,43 @@
 		       </c:otherwise>
 	       </c:choose>
 	</main>
-
+<script>
+	function fnChkByte(obj, maxByte)
+	{
+	    var str = obj.value;
+	    var str_len = str.length;
+	
+	
+	    var rbyte = 0;
+	    var rlen = 0;
+	    var one_char = "";
+	    var str2 = "";
+	
+	
+	    for(var i=0; i<str_len; i++)
+	    {
+	        one_char = str.charAt(i);
+	        if(escape(one_char).length > 4) {
+	            rbyte += 3;                                     
+	        }else{
+	            rbyte++;                                       
+	        }
+	        if(rbyte <= maxByte){
+	            rlen = i+1;                                        
+	        }
+	     }
+	     if(rbyte > maxByte)
+	     {
+	        alert("최대 " + maxByte + "byte를 초과할 수 없습니다.")
+	        str2 = str.substr(0,rlen);                               
+	        obj.value = str2;
+	        fnChkByte(obj, maxByte);
+	     }
+	     else
+	     {
+	        document.getElementById('byteInfo').innerText = rbyte;
+	     }
+	}
+</script>
 </body>
 </html>
