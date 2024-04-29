@@ -39,44 +39,7 @@
 	<span id="hit"><i class="bi bi-eye" style="margin-right: 3px;"></i>${qnaData.qna.hit}</span></p>
 	<br>
 	<h2 class="logo" style="white-space: pre-wrap; overflow-wrap: break-word;">${qnaData.qna.title}</h2>
-	
-	<!--  JS 코드(글 작성 시간 ~시간 전 표시) -->
-	<script>
-	//작성된 시간을 표시할 요소 선택
-	var regDateElement = document.getElementById('regDate');
-	
-	//작성된 시간 가져오기
-	var regDate = regDateElement.textContent.trim();
-	
-	//현재 시간
-	var currentDate = new Date();
-	
-	//작성된 시간을 Date 객체로 변환
-	 var regDateWithoutTZ = regDate.replace('KST', '');
-	var postDate = new Date(regDateWithoutTZ);
-	
-	//현재 시간과 작성된 시간의 차이 계산(밀리초 단위)
-	var timeDiff = currentDate - postDate;
-	
-	//밀리초를 시간으로 변환
-	var seconds = Math.floor(timeDiff / 1000);
-	var minutes = Math.floor(seconds / 60);
-	var hours = Math.floor(minutes / 60);
-	var days = Math.floor(hours / 24);
-	
-	//시간 전에 대한 표시를 작성된 시간 요소에 추가
-	var displayText = '';
-	if(days > 0) {
-		displayText = days + '일 전';
-	}else if (hours > 0) {
-		displayText = hours + '시간 전';
-	}else if (minutes > 0) {
-		displayText = minutes + '분 전';
-	}else {
-		dispalyText = seconds + '초 전';
-	}
-	regDateElement.textContent = displayText;
-	</script>
+
 	<main class="main">
 		<div class="post">
 			<p class="post-content" style="white-space: pre-wrap; overflow-wrap: break-word;">${qnaData.content}</p>
@@ -200,6 +163,43 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
+	// 작성된 시간을 표시할 요소 선택
+	var regDateElement = document.getElementById('regDate');
+
+	// 작성된 시간 가져오기
+	var regDate = regDateElement.textContent.trim();
+
+	// 현재 시간
+	var currentDate = new Date();
+
+	// 작성된 시간을 Date 객체로 변환
+	var regDateWithoutTZ = regDate.replace('KST', '');
+	var postDate = new Date(regDateWithoutTZ);
+
+	// 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
+	var timeDiff = currentDate - postDate;
+
+	// 밀리초를 시간으로 변환
+	var seconds = Math.floor(timeDiff / 1000);
+	var minutes = Math.floor(seconds / 60);
+	var hours = Math.floor(minutes / 60);
+	var days = Math.floor(hours / 24);
+
+	// 시간 전에 대한 표시를 작성된 시간 요소에 추가
+	var displayText = '';
+	if (days > 0) {
+		displayText = days + '일 전';
+	} else if (hours > 0) {
+		displayText = hours + '시간 전';
+	} else if (minutes > 0) {
+		displayText = minutes + '분 전';
+	} else if (seconds > 0) {
+		displayText = seconds + '초 전';
+	} else {
+		displayText = '방금 전';
+	}
+	regDateElement.textContent = displayText;
+	
 	document.getElementById("addReplyButton").addEventListener("click", function() {
 	    // 댓글 등록 폼 가져오기
 	    var addReplyForm = document.getElementById("addReplyForm");

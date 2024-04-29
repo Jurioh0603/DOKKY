@@ -38,45 +38,6 @@
 	<br>
 	<h2 class="logo" style="white-space: pre-wrap; overflow-wrap: break-word;">${lunchData.lunch.title}</h2>
 	
-	<!-- JavaScript 코드(글작성 시간 ~시간전 표시) -->
-	<script>
-	  // 작성된 시간을 표시할 요소 선택
-	  var regDateElement = document.getElementById('regDate');
-	  
-	  // 작성된 시간 가져오기
-	  var regDate = regDateElement.textContent.trim();
-	 
-	  // 현재 시간
-	  var currentDate = new Date();
-	  
-	  // 작성된 시간을 Date 객체로 변환
-	  var regDateWithoutTZ = regDate.replace('KST', '');
-	  var postDate = new Date(regDateWithoutTZ);
-	  
-	  // 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
-	  var timeDiff = currentDate - postDate;
-	  
-	  // 밀리초를 시간으로 변환
-	  var seconds = Math.floor(timeDiff / 1000);
-	  var minutes = Math.floor(seconds / 60);
-	  var hours = Math.floor(minutes / 60);
-	  var days = Math.floor(hours / 24);
-	  
-	  // 시간 전에 대한 표시를 작성된 시간 요소에 추가
-	  var displayText = '';
-	  if (days > 0) {
-	    displayText = days + '일 전';
-	  } else if (hours > 0) {
-	    displayText = hours + '시간 전';
-	  } else if (minutes > 0) {
-	    displayText = minutes + '분 전';
-	  } else {
-	    displayText = seconds + '초 전';
-	  }
-	  regDateElement.textContent = displayText;
-	  
-	</script>
-	
 	<main class="main">
 		<div style="text-align: center; padding: 30px;">
 		<img src="${pageContext.request.contextPath}/upload/${lunchData.filerealname}" alt="${lunchData.filerealname}" width="70%" height="70%" >
@@ -206,6 +167,43 @@
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
 	<script>
+	// 작성된 시간을 표시할 요소 선택
+	var regDateElement = document.getElementById('regDate');
+
+	// 작성된 시간 가져오기
+	var regDate = regDateElement.textContent.trim();
+
+	// 현재 시간
+	var currentDate = new Date();
+
+	// 작성된 시간을 Date 객체로 변환
+	var regDateWithoutTZ = regDate.replace('KST', '');
+	var postDate = new Date(regDateWithoutTZ);
+
+	// 현재 시간과 작성된 시간의 차이 계산 (밀리초 단위)
+	var timeDiff = currentDate - postDate;
+
+	// 밀리초를 시간으로 변환
+	var seconds = Math.floor(timeDiff / 1000);
+	var minutes = Math.floor(seconds / 60);
+	var hours = Math.floor(minutes / 60);
+	var days = Math.floor(hours / 24);
+
+	// 시간 전에 대한 표시를 작성된 시간 요소에 추가
+	var displayText = '';
+	if (days > 0) {
+		displayText = days + '일 전';
+	} else if (hours > 0) {
+		displayText = hours + '시간 전';
+	} else if (minutes > 0) {
+		displayText = minutes + '분 전';
+	} else if (seconds > 0) {
+		displayText = seconds + '초 전';
+	} else {
+		displayText = '방금 전';
+	}
+	regDateElement.textContent = displayText;
+	
 	document.getElementById("addReplyButton").addEventListener("click", function() {
 	    // 댓글 등록 폼 가져오기
 	    var addReplyForm = document.getElementById("addReplyForm");
