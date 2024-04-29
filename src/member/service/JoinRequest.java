@@ -47,14 +47,21 @@ public class JoinRequest {
 	
 	public void validate(Map<String, Boolean> errors) {
 		checkEmpty(errors, memid, "id");
+		if(!isValidId(memid)) {
+			errors.put("invalidId", Boolean.TRUE);
+		}
+		
 		checkEmpty(errors, mempw, "password");
 		checkEmpty(errors, verifyMemPw, "verifyPassword");
+		checkBlank(errors, mempw, "password");
 		if(!errors.containsKey("verifyPassword")) {
 			if(!equalPassword()) {
 				errors.put("notMatch", Boolean.TRUE);
 			}
 		}
+		
 		checkEmpty(errors, name, "name");
+		
 		checkEmptyEmail(errors, email, "email");
 		if (!isValidEmail(email)) {
             errors.put("invalidEmail", Boolean.TRUE);
@@ -66,12 +73,22 @@ public class JoinRequest {
     }
 	
 	private void checkEmpty(Map<String, Boolean> errors, String value, String fieldName) {
-		if(value == null || value.trim().isEmpty() || value.contains(" ") || value.length() > 20) 
+		if(value == null || value.trim().isEmpty()) 
 			errors.put(fieldName, Boolean.TRUE);
 	}
 	
 	private void checkEmptyEmail(Map<String, Boolean> errors, String value, String fieldName) {
 		if(value == null || value.isEmpty() || value.contains(" ") || value.length() > 30)
 			errors.put(fieldName, Boolean.TRUE);
+	}
+	
+	private void checkBlank(Map<String, Boolean> errors, String value, String fieldName) {
+		if(value.contains(" "))
+			errors.put(fieldName + "Blank", Boolean.TRUE);
+	}
+	
+	private boolean isValidId(String id) {
+		String ID_REGEX = "^[a-zA-Z0-9]*$";
+		return id.matches(ID_REGEX);
 	}
 }
