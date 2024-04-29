@@ -58,7 +58,7 @@ public class LoginController implements CommandHandler {
 			
 			String prevPage = (String)req.getSession().getAttribute("prevPage");
 			req.getSession().removeAttribute("prevPage");
-			if(prevPage.contains("findId") || prevPage.contains("changePwd") || prevPage.contains("join")) {
+			if(prevPage == null || prevPage.contains("findId") || prevPage.contains("changePwd") || prevPage.contains("join")) {
 				res.sendRedirect("/main.do");
 			} else {
 				res.sendRedirect(prevPage);
