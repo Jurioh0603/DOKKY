@@ -32,35 +32,35 @@
 		<br>
 	</div>
 	
-	<form action="/lunch/modify.do" method="POST" enctype="multipart/form-data">
-	<input type="hidden" name="no" value="${modReq.lunchNumber}">
-	<!-- 글쓰기 -->
-	<div class="form-group row">
-		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-		<div class="col-sm-10">
-			<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}" onKeyUp="javascript:fnChkByte(this,'250')"/>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-		<div class="col-sm-10">
-			<textarea type="text" name="content" class="form-text1" id="inputContent" onKeyUp="javascript:fnChkByte(this,'3500')">${modReq.content}</textarea>
-		</div>
-	</div>
-
-	<!-- 글 등록과 취소 -->
-	<div class="form-group row">
-		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
-		<div class="col-sm-10">
-			<div class="button-container">
-				<button type="submit" class="custom-button" >수정</button>
-				<button type="button" class="custom-button" style="margin-left:3px;" onclick="history.back()">취소</button>
+	<form id="modifyForm" action="/lunch/modify.do" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="no" value="${modReq.lunchNumber}">
+		<!-- 글쓰기 -->
+		<div class="form-group row">
+			<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+			<div class="col-sm-10">
+				<input type="text" name="title" class="form-text" id="inputTitle" value="${modReq.title}" onKeyUp="javascript:fnChkByte(this,'250')"/>
 			</div>
 		</div>
-	</div>
+		<div class="form-group row">
+			<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+			<div class="col-sm-10">
+				<textarea type="text" name="content" class="form-text1" id="inputContent" onKeyUp="javascript:fnChkByte(this,'3500')">${modReq.content}</textarea>
+			</div>
+		</div>
 	
-	<!-- 첨부파일 -->
-	<input type="file" name="file" />
+		<!-- 글 등록과 취소 -->
+		<div class="form-group row">
+			<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
+			<div class="col-sm-10">
+				<div class="button-container">
+					<button type="button" onclick="submitForm()" class="custom-button" >수정</button>
+					<button type="button" onclick="cancel()" class="custom-button" style="margin-left:3px;">취소</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 첨부파일 -->
+		<input type="file" name="file" />
 	</form>
 </div>
 <br>
@@ -72,9 +72,28 @@
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
 <script>
-    function submitForm() {
-        document.getElementById('writeForm').submit();
+function submitForm() {
+    var title = document.getElementById('inputTitle').value;
+    var content = document.getElementById('inputContent').value;
+
+    // 제목 또는 내용 중 하나라도 입력되지 않은 경우
+    if (title.trim() === '' || content.trim() === '') {
+        alert('제목 또는 내용을 입력하세요.');
+        return false; // 제출을 막음
     }
+
+ 	// 이미지 선택 여부 및 확장자 유효성 검사
+    if (!validateForm()) {
+        return false; // 제출을 막음
+    }
+ 
+    // 폼을 직접 제출
+    document.getElementById('modifyForm').submit();
+}
+
+function cancel() {
+    window.location.href = '/lunch/list.do'; // 목록 페이지의 URL로 리디렉션
+}
 
     function validateForm() {
         var fileInput = document.querySelector('input[type="file"]');
@@ -95,42 +114,42 @@
         return true;
     }
     
-	function fnChkByte(obj, maxByte)
-	{
-	    var str = obj.value;
-	    var str_len = str.length;
-	
-	
-	    var rbyte = 0;
-	    var rlen = 0;
-	    var one_char = "";
-	    var str2 = "";
-	
-	
-	    for(var i=0; i<str_len; i++)
-	    {
-	        one_char = str.charAt(i);
-	        if(escape(one_char).length > 4) {
-	            rbyte += 3;                                     
-	        }else{
-	            rbyte++;                                       
-	        }
-	        if(rbyte <= maxByte){
-	            rlen = i+1;                                        
-	        }
-	     }
-	     if(rbyte > maxByte)
-	     {
-	        alert("최대 " + maxByte + "byte를 초과할 수 없습니다.")
-	        str2 = str.substr(0,rlen);                               
-	        obj.value = str2;
-	        fnChkByte(obj, maxByte);
-	     }
-	     else
-	     {
-	        document.getElementById('byteInfo').innerText = rbyte;
-	     }
-	}
+    function fnChkByte(obj, maxByte)
+    {
+        var str = obj.value;
+        var str_len = str.length;
+
+
+        var rbyte = 0;
+        var rlen = 0;
+        var one_char = "";
+        var str2 = "";
+
+
+        for(var i=0; i<str_len; i++)
+        {
+            one_char = str.charAt(i);
+            if(escape(one_char).length > 4) {
+                rbyte += 3;                                     
+            }else{
+                rbyte++;                                       
+            }
+            if(rbyte <= maxByte){
+                rlen = i+1;                                        
+            }
+         }
+         if(rbyte > maxByte)
+         {
+            alert("최대 " + maxByte + "byte를 초과할 수 없습니다.")
+            str2 = str.substr(0,rlen);                               
+            obj.value = str2;
+            fnChkByte(obj, maxByte);
+         }
+         else
+         {
+            document.getElementById('byteInfo').innerText = rbyte;
+         }
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
