@@ -58,7 +58,7 @@
         </div>
 		
 	<!-- 첨부파일 -->
-		<input type="file" name="file" />
+		<input type="file" name="file"/>
 	</form>
 </div>
 <br>

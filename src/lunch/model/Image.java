@@ -1,3 +1,4 @@
+
 package lunch.model;
 
 public class Image {
