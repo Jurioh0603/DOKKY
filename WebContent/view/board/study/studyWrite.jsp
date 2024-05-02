@@ -12,7 +12,7 @@
 
 <!-- 파비콘(주소창 아이콘 표시) -->
 <link href="<%=request.getContextPath() %>/imgs/fav.ico" rel="shortcut icon" type="image/x-icon">
-<title>DOKKY - 스터디 글작성</title>
+<title>DOKKY - Study 글작성</title>
 </head>
 <body>
 <!-- 헤더 -->
@@ -22,45 +22,41 @@
 <br>
 
 <!-- 페이지소개 -->
-<div class="container" style="margin-left:360px;">
+<div class="container" >
 	<div class="content">
-		<h1 class="title">궁금증 해결하기</h1>
-		<h2 class="user">DOKKY에서 당신의 궁금증을 해결해보세요.</h2>     
+		<h1 class="title">스터디 모집하기</h1>
+		<h2 class="user">DOKKY에서 당신의 스터디원을 구해보세요.</h2>     
 		<br>
 		<br>
 		<br>
 	</div>
 
-	<!-- 글쓰기 -->
-	<div class="form-group row">
-		<label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
-		<div class="col-sm-10">
-			<input type="text" name="title" class="form-text" id="inputTitle" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
-		<div class="col-sm-10">
-			<input type="text" name="author" class="form-text" id="inputAuthor" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
-		<div class="col-sm-10">
-			<textarea type="text" name="content" class="form-text1" id="inputContent"></textarea>
-		</div>
-	</div>
+<!-- 글쓰기 -->
+<form id="writeForm" action="/study/write.do" method="post">
+        <div class="form-group row">
+            <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+            <div class="col-sm-10">
+                <input type="text" name="title" class="form-text" id="inputTitle" onKeyUp="javascript:fnChkByte(this,'250')"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+            <div class="col-sm-10" style="white-space:pre;">
+                <textarea name="content" class="form-text1" id="inputContent" onKeyUp="javascript:fnChkByte(this,'3500')"></textarea>
+            </div>
+        </div>
 
-	<!-- 글 등록과 취소 -->
-	<div class="form-group row">
-		<label class="col-sm-2"></label> <!-- col-sm-2를 사용하여 제목과 내용의 컬럼을 맞춰줍니다. -->
-		<div class="col-sm-10">
-			<div class="button-container">
-				<button type="button" class="custom-button" style="margin-right:10px;">취소</button>
-				<button type="button" class="custom-button">등록</button>
-			</div>
-		</div>
-	</div>
+       <!-- 글 등록과 취소 -->
+        <div class="form-group row">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <div class="button-container">
+                    <button type="submit" onclick="submitForm()" class="custom-button">등록</button>
+                    <button type="button" onclick="cancel()" class="custom-button" style="margin-left:3px;">취소</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <br>
 <br>
@@ -69,6 +65,63 @@
 
 <!-- 푸터 -->
 <%@ include file="../../headerFooter/footer.jsp" %>
+<script>
+    function submitForm() {
+        var title = document.getElementById('inputTitle').value;
+        var content = document.getElementById('inputContent').value;
+
+        // 제목 또는 내용 중 하나라도 입력되지 않은 경우
+        if (title.trim() === '' || content.trim() === '') {
+            alert('제목 또는 내용을 입력하세요.');
+            return false; // 제출을 막음
+        }
+
+        // 폼을 직접 제출
+        document.getElementById('writeForm').submit();
+    }
+    
+    function cancel() {
+        window.location.href = '/study/list.do'; // 목록 페이지의 URL로 리디렉션
+    }
+    
+    function fnChkByte(obj, maxByte)
+    {
+        var str = obj.value;
+        var str_len = str.length;
+
+
+        var rbyte = 0;
+        var rlen = 0;
+        var one_char = "";
+        var str2 = "";
+
+
+        for(var i=0; i<str_len; i++)
+        {
+            one_char = str.charAt(i);
+            if(escape(one_char).length > 4) {
+                rbyte += 3;                                     
+            }else{
+                rbyte++;                                       
+            }
+            if(rbyte <= maxByte){
+                rlen = i+1;                                        
+            }
+         }
+         if(rbyte > maxByte)
+         {
+            alert("최대 " + maxByte + "byte를 초과할 수 없습니다.")
+            str2 = str.substr(0,rlen);                               
+            obj.value = str2;
+            fnChkByte(obj, maxByte);
+         }
+         else
+         {
+            document.getElementById('byteInfo').innerText = rbyte;
+         }
+    }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>

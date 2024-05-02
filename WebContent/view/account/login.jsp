@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,8 @@
 <body class="text-center">
 
 	<main class="form-container">
-		<form>
-	    	<a href="#"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
+		<form action="/login.do" method="post">
+	    	<a href="/main.do"><img class="mb-4" src="../../imgs/dokkyLogo.png" alt="DOKKY" width="200"></a>
 	    	<h1 class="h3 mb-3 fw-bold">DOKKY에 오신것을 환영합니다.</h1>
 	    	<p>DOKKY는 중앙정보처리학원 수강생들을 위한 커뮤니티 사이트입니다.</p>
 	    
@@ -34,23 +35,37 @@
 	   		</div>
 	
 	    	<div class="form-floating custom-form">
-	      		<input type="text" class="form-control" id="floatingId" placeholder="아이디">
+	      		<input type="text" class="form-control" id="floatingId" name="id" value="${param.id}" placeholder="아이디">
 	      		<label for="floatingId">아이디</label>
 	    	</div>
 	    
 		    <div class="form-floating custom-form">
-		      	<input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+		      	<input type="password" class="form-control" id="floatingPassword" name="password" placeholder="비밀번호">
 		      	<label for="floatingPassword">비밀번호</label>
 		    </div>
 	
 	    	<button class="w-100 btn btn-lg btn-primary custom-button login-button" type="submit" style="background-color: #0090F9; border-color: #0090F9;">로그인</button>  
 	
 		    <div class="link-container">
-			    <a href="findId.jsp">아이디찾기</a>
-			    <a href="findPwd.jsp">비밀번호찾기</a>
-			    <a href="join.jsp">회원가입</a>
+			    <a href="/findId.do">아이디찾기</a>
+			    <a href="/findPwd.do">비밀번호찾기</a>
+			    <a href="/join.do">회원가입</a>
 			</div>
   		</form>
+  		<c:choose>
+  			<c:when test="${errors.id}">
+  				<p class="errors-msg"><b>아이디</b>를 입력해 주세요.</p>
+  			</c:when>
+  			<c:when test="${errors.password}">
+  				<p class="errors-msg"><b>비밀번호</b>를 입력해 주세요.</p>
+  			</c:when>
+  			<c:when test="${errors.idOrPwNotMatch}">
+  				<p class="errors-msg">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
+  			</c:when>
+  			<c:otherwise>
+  				<p class="errors-msg">&nbsp;</p>
+  			</c:otherwise>
+  		</c:choose>
 	</main>
 
 </body>
