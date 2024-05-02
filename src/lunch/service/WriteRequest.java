@@ -3,8 +3,6 @@ package lunch.service;
 
 import java.util.Map;
 
-import member.model.Member;
-
 public class WriteRequest {
 	
 	private String memid;
