@@ -22,15 +22,14 @@
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        function goBackToPreviousPage() {
-            var previousPageUrl = document.referrer;
-            
-        	window.location.href = "/findPwd.do";
-        }
-
-        document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
-    });
+	document.addEventListener("DOMContentLoaded", function() {
+		function goBackToPreviousPage() {
+			//비밀번호 찾기 페이지로 이동
+			window.location.href = "/findPwd.do";
+		}
+		//비밀번호 변경 폼의 '취소' 버튼 클릭시 함수 실행
+		document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
+	});
 </script>
 </head>
 <body class="text-center">
@@ -81,6 +80,7 @@
 			</c:when>
 			<c:when test="${update}">
 				<p class="errors-msg">&nbsp;</p>
+				<!-- 비밀번호 변경에 성공했다면 모달창을 보여줌 -->
 				<script>
 					$(document).ready(function() {
 	                	$('#changePwdModal').modal('show');

@@ -4,6 +4,7 @@ import java.util.List;
 
 import board.model.Board;
 
+//페이지 정보와 페이지에 보여질 게시글 목록을 담는 BoardPage
 public class BoardPage {
 	
 	private int total;

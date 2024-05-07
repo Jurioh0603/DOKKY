@@ -23,13 +23,14 @@
 
 <script>
 	function showModal(memid, name, email, grade, currentPage) {
+		//모달창에 전달받은 매개변수 값들(회원 정보)을 출력
 	    $('#changeMemberInfoModal').modal('show');
 	    document.getElementById('id').value = memid;
 	    document.getElementById('name').value = name;
 	    document.getElementById('email').value = email;
 	    document.getElementById('currentPage').value = currentPage;
 	    
-	    // grade에 따라 해당하는 옵션을 선택
+	    //선택한 grade에 따라 option의 selected 요소가 달라짐
 	    var gradeSelect = document.getElementById('grade');
 	    for (var i = 0; i < gradeSelect.options.length; i++) {
 	        if (gradeSelect.options[i].value === grade) {

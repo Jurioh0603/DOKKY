@@ -6,6 +6,7 @@ import community.model.Ccontent;
 import community.model.Community;
 import community.model.Creply;
 
+//게시글 정보, 내용, 댓글의 내용을 한번에 저장하기 위한 CommunityData
 public class CommunityData {
 	
 	private Community community;

@@ -12,6 +12,7 @@ public class ListCommunityService {
 	private CommunityDao communityDao = new CommunityDao();
 	private int size = 10;
 	
+	//전체 글 목록
 	public CommunityPage getCommunityPage(int pageNum) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			int total = communityDao.selectCount(conn);
@@ -22,6 +23,7 @@ public class ListCommunityService {
 		}
 	}
 	
+	//검색과 정렬을 한 글 목록
 	public CommunityPage getSearchCommunityPage(int pageNum, String search, String sort) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			int total = communityDao.selectSearchCount(conn, search);

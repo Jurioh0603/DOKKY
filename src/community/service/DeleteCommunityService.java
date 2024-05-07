@@ -23,9 +23,9 @@ public class DeleteCommunityService {
             
             int bno = deleteReq.getCommunityNumber();
             
-            replyDao.delete(conn, bno); // Creply 삭제
-            communityDao.delete(conn, bno); // Community 삭제
-            ccontentDao.delete(conn, bno); // Ccontent 삭제
+            replyDao.delete(conn, bno); // Creply(댓글) 삭제
+            communityDao.delete(conn, bno); // Community(글 정보) 삭제
+            ccontentDao.delete(conn, bno); // Ccontent(글 내용) 삭제
             
             conn.commit();
         } catch (SQLException e) {

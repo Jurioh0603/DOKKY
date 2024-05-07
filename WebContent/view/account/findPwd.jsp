@@ -21,19 +21,21 @@
 <link href="../../css/dokkyCss/accountStyle.css" rel="stylesheet">
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        function goBackToPreviousPage() {
-            var previousPageUrl = document.referrer;
+	document.addEventListener("DOMContentLoaded", function() {
+		function goBackToPreviousPage() {
+			//이전 페이지 URL 저장
+			var previousPageUrl = document.referrer;
 
-            if (previousPageUrl.includes("login.do")) {
-                window.location.href = "/login.do";
-            } else {
-                window.location.href = "/main.do";
-            }
-        }
-
-        document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
-    });
+			//이전 페이지가 로그인 페이지라면 로그인 페이지, 그 외 페이지라면 메인 페이지로 이동
+			if (previousPageUrl.includes("login.do")) {
+				window.location.href = "/login.do";
+			} else {
+				window.location.href = "/main.do";
+			}
+		}
+		//비밀번호 찾기 폼의 '취소' 버튼 클릭시 함수 실행
+		document.querySelector(".back").addEventListener("click", goBackToPreviousPage);
+	});
 </script>
 </head>
 <body class="text-center">

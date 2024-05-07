@@ -28,9 +28,11 @@ public class BoardListController implements CommandHandler {
 		}
 	}
 	
+	//get 방식 요청 -> 게시글 목록
 	private String processList(HttpServletRequest req, HttpServletResponse res) {
 		getInfo(req, res);
 		if(searchId == null || searchId == "") {
+			//전체 게시글 목록 조회
 			BoardPage boardPage = boardListService.getBoardPage(pageNo, board);
 			
 			req.setAttribute("boardPage", boardPage);
@@ -38,6 +40,7 @@ public class BoardListController implements CommandHandler {
 			req.setAttribute("searchItem", searchItem);
 			return "/view/admin/boardList.jsp";
 		} else {
+			//검색한 게시글 목록 조회
 			BoardPage boardPage = boardListService.searchBoardPage(pageNo, board, searchId, searchItem);
 			
 			req.setAttribute("searchId", searchId);			
@@ -48,6 +51,7 @@ public class BoardListController implements CommandHandler {
 		}
 	}
 	
+	//post 방식 요청 -> 게시글 삭제
 	private String processDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String deleteList = req.getParameter("deleteList");
 		getInfo(req, res);
@@ -58,6 +62,7 @@ public class BoardListController implements CommandHandler {
 		return null;
 	}
 	
+	//전달받은 파라미터 값으로 필드 초기화
 	private void getInfo(HttpServletRequest req, HttpServletResponse res) {
 		board = req.getParameter("board");
 		pageNoVal = req.getParameter("pageNo");

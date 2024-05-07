@@ -22,11 +22,14 @@ public class WriteCommunityService {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
 			
+			//DB에 저장하기 위한 Community 객체로 변환
 			Community community = toCommunity(req);
+			//글 정보 삽입
 			Community savedCommunity = communityDao.insert(conn, community);
 			if(savedCommunity == null) {
 				throw new RuntimeException("fail to insert community");
 			}
+			//글 내용 삽입
 			Ccontent ccontent = new Ccontent(savedCommunity.getBno(),
 					req.getContent());
 			Ccontent savedContent = ccontentDao.insert(conn, ccontent);
@@ -48,6 +51,7 @@ public class WriteCommunityService {
 		}
 	}
 	
+	//DB에 저장하기 위한 Community 객체로 변환
 	private Community toCommunity(WriteRequest req) {
 		Date now = new Date();
 		return new Community(0, req.getMemId(), req.getTitle(), now, 0);

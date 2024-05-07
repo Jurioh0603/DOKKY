@@ -20,17 +20,21 @@ public class ReadCommunityService {
 	
 	public CommunityData getCommunity(int bno, boolean increaseHit) {
 		try(Connection conn = ConnectionProvider.getConnection()){
+			//게시글 정보 조회
 			Community community = communityDao.selectById(conn, bno);
 			if(community == null) {
 				throw new CommunityNotFoundException();
 			}
+			//게시글 내용 조회
 			Ccontent ccontent = ccontentDao.selectById(conn, bno);
 			
+			//게시글에 작성된 댓글 조회
 			List<Creply> replyList = replyDao.getRepliesByBno(conn, bno);
 			
 			if(ccontent == null) {
 				throw new CcontentNotFoundException();
 			}
+			//게시글 조회수 증가
 			if(increaseHit) {
 				communityDao.increaseHit(conn, bno);
 			}
