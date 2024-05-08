@@ -2,6 +2,7 @@ package community.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//글 정보와 글에 작성된 댓글 수를 저장하기 위한 CommunityList
 public class CommunityList {
    
    private int bno;

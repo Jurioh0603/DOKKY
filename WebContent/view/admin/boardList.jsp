@@ -23,64 +23,75 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-	  const board = "${board}";
-	  
-	  if (board === "qna") {
-		document.getElementById("qna-link").classList.add("active");
-	  } else if (board === "community") {
-		document.getElementById("community-link").classList.add("active");
-	  } else if (board === "study") {
-		document.getElementById("study-link").classList.add("active");
-	  } else if (board === "lunch") {
-		document.getElementById("lunch-link").classList.add("active");
-	  }
-	
-    $(function() {
-    	
-    	$('#selectAll').on('click', function() {
-    		
-    		var checked = $(this).is(':checked');
-    		
-    		$('tbody input[type=checkbox]').prop('checked', checked);
-    	});
-        
-        $('#deleteButton').on('click', function(){
-            var $checked = $('table input[type=checkbox]:checked').not('#selectAll');
-            if($checked.length < 1) {
-            	alert('삭제할 게시글을 선택해주세요.');
-            	return false;
-            } else {
-            	var confirmation = confirm('선택한 게시글을 삭제하시겠습니까?');
-            	
-            	if(confirmation) {
-                    var deleteList = [];
-                    
-                    $checked.each(function() {
-                        deleteList.push($(this).closest('tr').find('td:first').text());
-                    });
-                    
-                    $('input[name="deleteList"]').val(deleteList.join(','));
-                    
-                    $('form[name="deleteForm"]').submit();
-            	}
-            }
-        });
-	}); 
-	 // searchItem의 값이 title이면 value가 title인 option을 선택
-	 // writer이면 value가 writer인 option을 선택
-	
-	 var searchItem = "${searchItem}"; // 여기에 searchItem의 값이 들어가야 합니다.
-	
-	 var selectElement = document.getElementById('searchItem');
-	
-	 for (var i = 0; i < selectElement.options.length; i++) {
-	     if (selectElement.options[i].value === searchItem) {
-	         selectElement.selectedIndex = i;
-	         break;
-	     }
-	 }
+		const board = "${board}";
+		
+		//board 값에 따라 게시판 이름을 나타내는 드롭 다운 요소의 active 아이템을 다르게 함 
+		if (board === "qna") {
+			document.getElementById("qna-link").classList.add("active");
+		} else if (board === "community") {
+			document.getElementById("community-link").classList.add("active");
+		} else if (board === "study") {
+			document.getElementById("study-link").classList.add("active");
+		} else if (board === "lunch") {
+			document.getElementById("lunch-link").classList.add("active");
+		}
 
-    });
+		$(function() {
+			//체크박스 전체 선택/해제
+			$('#selectAll').on('click', function() {
+				//전체 선택 체크박스의 체크 여부 확인
+				var checked = $(this).is(':checked');
+				//모든 체크박스의 체크 여부를 전체 선택 체크박스와 동일하게 설정
+				$('tbody input[type=checkbox]').prop('checked', checked);
+			});
+
+			$('#deleteButton').on(
+					'click',
+					function() {
+						//전체 선택 체크박스를 제외한 체크된 체크박스 선택
+						var $checked = $('table input[type=checkbox]:checked')
+								.not('#selectAll');
+						//체크된 체크박스가 없을 때
+						if ($checked.length < 1) {
+							alert('삭제할 게시글을 선택해주세요.');
+							return false;
+						} else {
+							//삭제 여부 확인
+							var confirmation = confirm('선택한 게시글을 삭제하시겠습니까?');
+
+							if (confirmation) {
+								var deleteList = [];
+								
+								//체크된 체크박스의 가장 가까운 tr 요소를 찾고, 첫 번째 요소의 텍스트를 가져와서 deleteList에 추가
+								$checked.each(function() {
+									deleteList.push($(this).closest('tr').find(
+											'td:first').text());
+								});
+								
+								//삭제할 게시글 목록을 구분자(,)로 연결
+								$('input[name="deleteList"]').val(
+										deleteList.join(','));
+								
+								//삭제 폼 제출
+								$('form[name="deleteForm"]').submit();
+							}
+						}
+					});
+		});
+		
+		//searchItem에 따라 option의 selected 요소가 달라짐
+		var searchItem = "${searchItem}";
+
+		var selectElement = document.getElementById('searchItem');
+
+		for (var i = 0; i < selectElement.options.length; i++) {
+			if (selectElement.options[i].value === searchItem) {
+				selectElement.selectedIndex = i;
+				break;
+			}
+		}
+
+	});
 </script>
 </head>
 <body>

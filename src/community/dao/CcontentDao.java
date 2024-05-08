@@ -10,7 +10,7 @@ import community.model.Ccontent;
 
 public class CcontentDao {
 	
-	//p.656 조회관련메서드 selectById()
+	//게시글 내용 조회
 	public Ccontent selectById(Connection conn, int no)throws SQLException{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -31,6 +31,7 @@ public class CcontentDao {
 		}
 	}
 	
+	//글 작성(삽입)
 	public Ccontent insert(Connection conn, Ccontent ccontent) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -56,7 +57,7 @@ public class CcontentDao {
     	}
 	}
 	
-	//update메서드 p.665
+	//글 수정
 	public int update(Connection conn, int no, String content) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
@@ -69,7 +70,7 @@ public class CcontentDao {
 		}
 	}
 	
-	//delete메서드 구현시도
+	//글 삭제
 	public int delete(Connection conn, int ccontentNo) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {

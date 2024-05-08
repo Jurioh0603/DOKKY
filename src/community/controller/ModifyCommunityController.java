@@ -35,17 +35,20 @@ public class ModifyCommunityController implements CommandHandler{
 		}
 	}
 	
+	//get 방식 요청 -> 글 수정 폼
 	private String processForm(HttpServletRequest req, HttpServletResponse res)
 			throws IOException{
 		try {
 			String noVal = req.getParameter("no");
 			int no = Integer.parseInt(noVal);
+			//수정하고자 하는 글의 data를 읽어옴(조회수 증가X)
 			CommunityData communityData = readService.getCommunity(no, false);
 			User authUser = (User)req.getSession().getAttribute("authUser");
 			if(!canModify(authUser, communityData)) {
 				res.sendError(HttpServletResponse.SC_FORBIDDEN);
 				return null;
 			}
+			//글 수정 폼에서 글 제목과 내용을 보여주기 위한 modReq
 			ModifyRequest modReq = new ModifyRequest(authUser.getId(),no,
 					communityData.getCommunity().getTitle(),
 					communityData.getContent());
@@ -58,27 +61,32 @@ public class ModifyCommunityController implements CommandHandler{
 		}
 	}
 	
+	//글 작성자만 글을 수정할 수 있음
 	private boolean canModify(User authUser, CommunityData communityData) {
 		String writerId = communityData.getCommunity().getMemId();
 		return authUser.getId().equals(writerId);
 	}
 	
+	//post 방식 요청 -> 글 수정 로직 처리
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res)
 		  throws Exception {
 		User authUser = (User)req.getSession().getAttribute("authUser");
 		String noVal = req.getParameter("no");
 		int no = Integer.parseInt(noVal);
 		
+		//글을 수정한 내용을 저장하기 위한 modReq
 		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, 
 				req.getParameter("title"), 
 				req.getParameter("content"));
 		req.setAttribute("modReq", modReq);
+		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		modReq.validate(errors);
 		if(!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
+		
 		try {
 			modifyService.modify(modReq);
 			return "/community/read.do?no="+noVal;

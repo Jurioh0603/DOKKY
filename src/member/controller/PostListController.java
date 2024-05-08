@@ -29,15 +29,18 @@ public class PostListController implements CommandHandler {
 		}
 	}
 	
+	//get 방식 요청 -> 게시글 목록
 	private String processList(HttpServletRequest req, HttpServletResponse res) {
 		getInfo(req, res);
 		if(search == null || search == "") {
+			//전체 게시글 목록 조회
 			PostPage postPage = postListService.getBoardPage(pageNo, board, userId);
 			
 			req.setAttribute("postPage", postPage);
 			req.setAttribute("board", board);
 			return "/view/member/myPostList.jsp";
 		} else {
+			//검색한 게시글 목록 조회
 			PostPage postPage = postListService.searchBoardPage(pageNo, board, search, userId);
 			
 			req.setAttribute("search", search);			
@@ -47,6 +50,7 @@ public class PostListController implements CommandHandler {
 		}
 	}
 	
+	//post 방식 요청 -> 게시글 삭제
 	private String processDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String deleteList = req.getParameter("deleteList");
 		getInfo(req, res);
@@ -57,6 +61,7 @@ public class PostListController implements CommandHandler {
 		return null;
 	}
 	
+	//전달받은 파라미터 값으로 필드 초기화
 	private void getInfo(HttpServletRequest req, HttpServletResponse res) {
 		board = req.getParameter("board");
 		pageNoVal = req.getParameter("pageNo");

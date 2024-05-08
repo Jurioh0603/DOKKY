@@ -4,6 +4,7 @@ import java.util.List;
 
 import member.model.Member;
 
+//페이지 정보와 페이지에 보여질 회원 목록을 담는 MemberPage
 public class MemberPage {
 	
 	private int total;

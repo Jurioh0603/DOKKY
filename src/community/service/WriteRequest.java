@@ -2,8 +2,7 @@ package community.service;
 
 import java.util.Map;
 
-import member.model.Member;
-
+//작성자와 입력 받은 글 제목, 글 내용을 저장하는 WriteRequest
 public class WriteRequest {
 	
 	private String memid;

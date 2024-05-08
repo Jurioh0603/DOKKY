@@ -28,11 +28,12 @@ public class WriteCommunityController implements CommandHandler {
 		}
 	}
 	
+	//get 방식 요청 -> 글 작성 폼
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
 		return FORM_VIEW;
 	}
 	
-	
+	//post 방식 요청 -> 글 작성 로직 처리
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
@@ -49,8 +50,9 @@ public class WriteCommunityController implements CommandHandler {
 		return null;
 	}
 
+	//작성자와 입력 받은 글 제목, 글 내용을 하나의 WriteRequest에 저장 
 	private WriteRequest createWriteRequest(User user, HttpServletRequest req) {
-	    String memberId = user.getId(); // 회원 ID 가져오기
+	    String memberId = user.getId();
 	    String title = req.getParameter("title");
 	    String content = req.getParameter("content");
 	    return new WriteRequest(memberId, title, content);

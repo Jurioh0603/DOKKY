@@ -19,7 +19,7 @@ public class ModifyCommunityService {
 		try {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
-			
+			//글을 수정할 수 있는지 체크
 			Community community = communityDao.selectById(conn,
 					modReq.getCommunityNumber());
 			if (community == null) {
@@ -28,8 +28,10 @@ public class ModifyCommunityService {
 			if(!canModify(modReq.getMemId(),community)) {
 				throw new PermissionDeniedException();
 			}
+			//글 정보 수정
 			communityDao.update(conn, 
 					modReq.getCommunityNumber(), modReq.getTitle());
+			//글 내용 수정
 			contentDao.update(conn,
 					modReq.getCommunityNumber(), modReq.getContent());
 			conn.commit();
